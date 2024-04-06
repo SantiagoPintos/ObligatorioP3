@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.Web", "Tienda.Web\Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.AccesoDatos", "Tienda.AccesoDatos\Tienda.AccesoDatos.csproj", "{EDEC35EE-CB2F-4C6F-8B2D-FD2C259E3358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.LogicaNegocio", "Tienda.LogcaNegocio\Tienda.LogicaNegocio.csproj", "{7EF8A041-49EF-4F76-917D-5E88B8D97392}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.LogicaNegocio", "Tienda.LogicaNegocio\Tienda.LogicaNegocio.csproj", "{7EF8A041-49EF-4F76-917D-5E88B8D97392}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.LogicaAplicacion", "Tienda.LogicaAplicacion\Tienda.LogicaAplicacion.csproj", "{937C0EB3-43B8-47C2-912C-23454852E3CA}"
 EndProject
