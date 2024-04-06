@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Excepciones\" />
+    <Folder Include="Excepciones\Cliente\" />
+    <Folder Include="Excepciones\Linea\" />
+    <Folder Include="Excepciones\Usuario\" />
+    <Folder Include="Excepciones\Pedido\" />
   </ItemGroup>
 
 </Project>
