@@ -15,5 +15,30 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             this._context = new TiendaContext();
         }
+
+        public bool Add(Articulo aAgregar)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Articulo> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Articulo FindByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Articulo aModificar)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
