@@ -18,7 +18,17 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public bool Add(Articulo aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();
+                this._context.Articulos.Add(aAgregar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<Articulo> FindAll()
