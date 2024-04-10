@@ -33,7 +33,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public IEnumerable<Articulo> FindAll()
         {
-            throw new NotImplementedException();
+            return this._context.Articulos;
         }
 
         public Articulo FindByID(int id)
