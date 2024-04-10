@@ -38,7 +38,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public Articulo FindByID(int id)
         {
-            return this._context.Articulos.Where(autor => autor.Id == id).FirstOrDefault();
+            return this._context.Articulos.Where(articulo => articulo.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
