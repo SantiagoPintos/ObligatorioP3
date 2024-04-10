@@ -17,7 +17,7 @@ namespace Tienda.LogicaAplicacion.Mappers
 
         public static Articulo FromDto(ArticuloDTO articuloDTO)
         {
-            return new Articulo(articuloDTO.Id, articuloDTO.Nombre, articuloDTO.Codigo, articuloDTO.Descripcion, articuloDTO.stock, articuloDTO.PrecioUnitario);
+            return new Articulo(articuloDTO.Nombre, articuloDTO.Codigo, articuloDTO.Descripcion, articuloDTO.stock, articuloDTO.PrecioUnitario, articuloDTO.Id);
         }
     }
 }
