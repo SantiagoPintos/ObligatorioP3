@@ -21,7 +21,6 @@ namespace Tienda.LogicaAplicacion.CasosDeUso
         {
             try
             {
-                articulo.EsValido();
                 _repositorioArticulo.Add(articulo);
             }
             catch (Exception ex)
