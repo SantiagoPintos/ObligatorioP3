@@ -45,7 +45,7 @@ namespace Tienda.LogicaNegocio.Entidades
             {
                 EsValido(this);
             }
-            catch (UsuarioNuloException e)
+            catch (UsuarioNoValidoException e)
             {
                 throw e;
             }
