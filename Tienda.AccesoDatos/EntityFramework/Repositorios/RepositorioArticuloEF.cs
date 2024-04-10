@@ -38,7 +38,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public Articulo FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Articulos.Where(autor => autor.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
