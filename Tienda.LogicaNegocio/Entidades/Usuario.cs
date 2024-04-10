@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.LogicaNegocio.Excepciones.Usuario;
 using Tienda.LogicaNegocio.InterfacesEntidades;
 
 namespace Tienda.LogicaNegocio.Entidades
