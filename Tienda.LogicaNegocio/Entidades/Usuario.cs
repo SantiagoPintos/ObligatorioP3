@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Excepciones.Usuario;
 using Tienda.LogicaNegocio.InterfacesEntidades;
+using Tienda.LogicaNegocio.ValueObjects;
 
 namespace Tienda.LogicaNegocio.Entidades
 {
     public class Usuario:IValidable<Usuario>
     {
         public int Id { get; set; }
+        public NombreCompleto NombreCompleto { get; set; }
         public string Email { get; set; }
         public string Clave { get; set; }
         //letra dice que se debe guardar una copia de la contraseña sin encriptar
@@ -20,15 +22,17 @@ namespace Tienda.LogicaNegocio.Entidades
         public Usuario() { }
 
         //constructor sin id
-        public Usuario(string email, string clave, string claveSinEncriptar) {
+        public Usuario(string nombre, string apellido, string email, string clave, string claveSinEncriptar) {
+            this.NombreCompleto = new NombreCompleto(nombre, apellido);
             this.Email = email;
             this.Clave = clave;
             this.ClaveSinEncriptar = claveSinEncriptar;
             EsValido();
         }
 
-        public Usuario(int id, string email, string clave, string claveSinEncriptar) { 
+        public Usuario(int id, string nombre, string apellido, string email, string clave, string claveSinEncriptar) { 
             this.Id = id;
+            this.NombreCompleto = new NombreCompleto(nombre, apellido);
             this.Email = email;
             this.Clave = clave;
             this.ClaveSinEncriptar = claveSinEncriptar;
@@ -50,6 +54,8 @@ namespace Tienda.LogicaNegocio.Entidades
         public void EsValido(Usuario usuario)
         {
             if(usuario == null) throw new UsuarioNuloException("El usuario no puede ser nulo");
+
+            NombreCompleto.EsValido();
 
             if (string.IsNullOrEmpty(Email))
             {
