@@ -42,7 +42,8 @@ namespace Tienda.LogicaNegocio.ValueObjects
 
         public void EsValido()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(Nombre)) throw new UsuarioNoValidoException("El nombre no puede estar vacíos");
+            if (string.IsNullOrEmpty(Apellido)) throw new UsuarioNoValidoException("El apellido no puede estar vacíos");
         }
     }
 }
