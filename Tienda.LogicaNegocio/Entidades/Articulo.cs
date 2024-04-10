@@ -31,6 +31,17 @@ namespace Tienda.LogicaNegocio.Entidades
             EsValido(this);
         }
 
+        public Articulo(string Nombre, int Codigo, string Descripcion, int stock, decimal PrecioUnitario, int id)
+        {
+            this.Nombre = Nombre;
+            this.Codigo = Codigo;
+            this.Descripcion = Descripcion;
+            this.stock = stock;
+            this.PrecioUnitario = PrecioUnitario;
+            this.Id = id;
+            EsValido(this);
+        }
+
         public void EsValido(Articulo articulo)
         {
             if(articulo==null) throw new ArticuloNuloException("El articulo no puede ser nulo");
