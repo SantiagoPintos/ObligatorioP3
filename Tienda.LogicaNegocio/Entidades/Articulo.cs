@@ -8,7 +8,7 @@ using Tienda.LogicaNegocio.InterfacesEntidades;
 
 namespace Tienda.LogicaNegocio.Entidades
 {
-    public class Articulo:IValidable<Articulo>
+    public class Articulo : IValidable<Articulo>, IEquatable<Articulo>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -17,8 +17,24 @@ namespace Tienda.LogicaNegocio.Entidades
         public int stock { get; set; }
         public decimal PrecioUnitario { get; set; }
 
-        public void EsValido()
+
+        //constructor vacío para MVC y EF
+        public Articulo() { }
+
+        public Articulo(string Nombre, int Codigo, string Descripcion, int stock, decimal PrecioUnitario)
         {
+            this.Nombre = Nombre;
+            this.Codigo = Codigo;
+            this.Descripcion = Descripcion;
+            this.stock = stock;
+            this.PrecioUnitario = PrecioUnitario;
+            EsValido(this);
+        }
+
+        public void EsValido(Articulo articulo)
+        {
+            if(articulo==null) throw new ArticuloNuloException("El articulo no puede ser nulo");
+
             if (string.IsNullOrEmpty(Nombre))
             {
                 throw new NombreNoValidoException("El nombre no puede ser vacío");
@@ -45,6 +61,30 @@ namespace Tienda.LogicaNegocio.Entidades
                 throw new CodigoNoValidoException("El código no es válido");
             }
 
+        }
+
+        public void EsValido()
+        {
+            try
+            {
+                EsValido(this);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool Equals(Articulo? other)
+        {
+            if(other == null) throw new ArticuloNuloException("El articulo no puede ser nulo");
+
+            return this.Id == other.Id;
+        }
+
+        public override string ToString()
+        {
+            return $"Nombre del artículo: {Nombre}, descripción: {Descripcion}";
         }
     }
 }
