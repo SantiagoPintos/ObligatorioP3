@@ -18,27 +18,57 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public bool Add(Usuario aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();
+                this._context.Usuarios.Add(aAgregar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<Usuario> FindAll()
         {
-            throw new NotImplementedException();
+            return this._context.Usuarios;
         }
 
         public Usuario FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Usuarios.Where(usuario => usuario.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Usuario aBorrar = new Usuario { Id = id };
+                this._context.Usuarios.Remove(aBorrar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool Update(Usuario aModificar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aModificar.EsValido();
+                this._context.Usuarios.Update(aModificar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
