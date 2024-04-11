@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tienda.AccesoDatos\Tienda.AccesoDatos.csproj" />
+    <ProjectReference Include="..\Tienda.LogicaAplicacion\Tienda.LogicaAplicacion.csproj" />
     <ProjectReference Include="..\Tienda.LogicaNegocio\Tienda.LogicaNegocio.csproj" />
   </ItemGroup>
 

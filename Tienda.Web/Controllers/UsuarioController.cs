@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tienda.LogicaAplicacion.DTOs;
 
 namespace Tienda.Web.Controllers
 {
@@ -7,6 +8,16 @@ namespace Tienda.Web.Controllers
     {
         // GET: UsuarioController
         public ActionResult Index()
+        {
+            return RedirectToAction("Registro");
+        }
+
+        public ActionResult Registro() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registro(UsuarioDTO usuario)
         {
             return View();
         }
