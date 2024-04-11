@@ -75,6 +75,13 @@ namespace Tienda.LogicaNegocio.Entidades
             {
                 throw new ClaveNoValidaException("La clave no es válida");
             }
+            //comprueba que Los caracteres no alfabéticos no estén ubicados al principio ni al final de la cadena.
+            // https://learn.microsoft.com/es-es/dotnet/api/system.linq.enumerable.first
+            // https://learn.microsoft.com/es-es/dotnet/api/system.linq.enumerable.last
+            if (!char.IsLetterOrDigit(Clave.First()) || !char.IsLetterOrDigit(Clave.Last()))
+            {
+                throw new ClaveNoValidaException("La clave no es válida");
+            }
         }
     }
 }
