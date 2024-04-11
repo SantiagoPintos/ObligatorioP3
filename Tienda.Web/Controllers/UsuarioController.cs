@@ -1,15 +1,28 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.Web.Controllers
 {
     public class UsuarioController : Controller
     {
+        private IRepositorioUsuario _repositorioUsuario;
+        private ICreateUsuario _createUsuarioCU;
+
+        public UsuarioController(ICreateUsuario crearUsuario, IRepositorioUsuario repositorioUsuarios)
+        {
+            this._repositorioUsuario = repositorioUsuarios;
+            this._createUsuarioCU = crearUsuario;
+        }
+
+
+
         // GET: UsuarioController
         public ActionResult Index()
         {
-            return RedirectToAction("Create");
+            return View(this._repositorioUsuario.FindAll());
         }
 
         // GET: UsuarioController/Details/5
@@ -31,6 +44,7 @@ namespace Tienda.Web.Controllers
         {
             try
             {
+                this._createUsuarioCU.CrearUsuario(usuario);
                 return RedirectToAction(nameof(Index));
             }
             catch
