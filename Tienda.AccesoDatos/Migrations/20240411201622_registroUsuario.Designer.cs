@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tienda.AccesoDatos.EntityFramework;
 
@@ -11,9 +12,11 @@ using Tienda.AccesoDatos.EntityFramework;
 namespace Tienda.AccesoDatos.Migrations
 {
     [DbContext(typeof(TiendaContext))]
-    partial class TiendaContextModelSnapshot : ModelSnapshot
+    [Migration("20240411201622_registroUsuario")]
+    partial class registroUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace Tienda.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Articulos", (string)null);
+                    b.ToTable("Articulos");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Cliente", b =>
@@ -70,7 +73,7 @@ namespace Tienda.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Pedido", b =>
@@ -97,7 +100,7 @@ namespace Tienda.AccesoDatos.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("Pedidos", (string)null);
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>
@@ -122,12 +125,12 @@ namespace Tienda.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Cliente", b =>
                 {
-                    b.OwnsOne("Tienda.LogicaNegocio.Entidades.Cliente.Direccion#Tienda.LogicaNegocio.ValueObjects.DireccionCliente", "Direccion", b1 =>
+                    b.OwnsOne("Tienda.LogicaNegocio.ValueObjects.DireccionCliente", "Direccion", b1 =>
                         {
                             b1.Property<int>("ClienteId")
                                 .HasColumnType("int");
@@ -148,7 +151,7 @@ namespace Tienda.AccesoDatos.Migrations
 
                             b1.HasKey("ClienteId");
 
-                            b1.ToTable("Clientes", (string)null);
+                            b1.ToTable("Clientes");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClienteId");
@@ -171,7 +174,7 @@ namespace Tienda.AccesoDatos.Migrations
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>
                 {
-                    b.OwnsOne("Tienda.LogicaNegocio.Entidades.Usuario.NombreCompleto#Tienda.LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
+                    b.OwnsOne("Tienda.LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
                             b1.Property<int>("UsuarioId")
                                 .HasColumnType("int");
@@ -186,7 +189,7 @@ namespace Tienda.AccesoDatos.Migrations
 
                             b1.HasKey("UsuarioId");
 
-                            b1.ToTable("Usuarios", (string)null);
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");
