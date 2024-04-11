@@ -20,6 +20,8 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
+                if (this.ExisteUsuario(aAgregar.Email)) throw new Exception("El usuario ya existe");
+                
                 aAgregar.EsValido();
                 this._context.Usuarios.Add(aAgregar);
                 this._context.SaveChanges();
@@ -69,6 +71,13 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             {
                 throw ex;
             }
+        }
+
+        //.Any() devuelve true si encuentra al menos un elemento que cumpla la condición
+        // https://learn.microsoft.com/es-es/dotnet/api/system.linq.enumerable.any?view=net-8.0#definition
+        public bool ExisteUsuario(string email)
+        {
+            return this._context.Usuarios.Where(usuario => usuario.Email == email).Any();
         }
     }
 }
