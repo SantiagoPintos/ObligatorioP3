@@ -9,17 +9,7 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
-            return RedirectToAction("Registro");
-        }
-
-        public ActionResult Registro() {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Registro(UsuarioDTO usuario)
-        {
-            return View();
+            return RedirectToAction("Create");
         }
 
         // GET: UsuarioController/Details/5
@@ -37,7 +27,7 @@ namespace Tienda.Web.Controllers
         // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UsuarioDTO usuario)
         {
             try
             {
