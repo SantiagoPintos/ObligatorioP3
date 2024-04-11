@@ -45,12 +45,17 @@ namespace Tienda.Web.Controllers
             try
             {
                 this._createUsuarioCU.CrearUsuario(usuario);
+                //si el usuario se registró correctamente, se debe almacenar el inicio sesión antes de redirigir a la pag. principal
+                ViewBag.Message = "Usuario registrado correctamente";
+                HttpContext.Session.SetString("token", usuario.Email);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                //se muestra un mensaje de error en caso de que no se haya podido registrar el usuario
+                ViewBag.Error = "No se pudo registrar el usuario";
             }
+            return View();
         }
 
         // GET: UsuarioController/Edit/5
