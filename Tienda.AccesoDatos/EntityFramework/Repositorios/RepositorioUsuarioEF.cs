@@ -21,7 +21,8 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             try
             {
                 if (this.ExisteUsuario(aAgregar.Email)) throw new Exception("El usuario ya existe");
-                
+                //TEMPORAL HASTA QUE SE IMPLEMENTEN LOS MÉTODOS DE HASHEO
+                aAgregar.ClaveSinEncriptar = aAgregar.Clave;
                 aAgregar.EsValido();
                 this._context.Usuarios.Add(aAgregar);
                 this._context.SaveChanges();
