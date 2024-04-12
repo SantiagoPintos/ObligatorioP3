@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaNegocio.Excepciones.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 {
-    public class RepositorioUsuarioEF:IRepositorioUsuario
+    public class RepositorioUsuarioEF : IRepositorioUsuario
     {
         private TiendaContext _context;
         public RepositorioUsuarioEF()
@@ -79,6 +81,13 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         public bool ExisteUsuario(string email)
         {
             return this._context.Usuarios.Where(usuario => usuario.Email == email).Any();
+        }
+
+        public Usuario EncontrarPorEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email)) throw new EmailNoValidoException("El email no puede ser vacío");
+
+            return this._context.Usuarios.Where(usuario => usuario.Email == email).FirstOrDefault();
         }
     }
 }

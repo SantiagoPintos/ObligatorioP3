@@ -10,5 +10,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
     public interface IRepositorioUsuario:IRepositorio<Usuario>
     {
         public bool ExisteUsuario(string email);
+
+        public Usuario EncontrarPorEmail(string email);
     }
 }
