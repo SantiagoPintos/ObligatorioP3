@@ -10,11 +10,15 @@ namespace Tienda.Web.Controllers
     {
         private IRepositorioUsuario _repositorioUsuario;
         private ICreateUsuario _createUsuarioCU;
+        private ILoginUsuario _loginUsuarioCU;
 
-        public UsuarioController(ICreateUsuario crearUsuario, IRepositorioUsuario repositorioUsuarios)
+        public UsuarioController(ICreateUsuario crearUsuario, 
+            IRepositorioUsuario repositorioUsuarios,
+            ILoginUsuario loginUsuarioCU)
         {
             this._repositorioUsuario = repositorioUsuarios;
             this._createUsuarioCU = crearUsuario;
+            this._loginUsuarioCU = loginUsuarioCU;
         }
 
 
@@ -28,6 +32,34 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
         {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UsuarioDTO usuario)
+        {
+            try
+            {
+                if (this._loginUsuarioCU.Login(usuario))
+                {
+                    HttpContext.Session.SetString("token", usuario.Email);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.Mensaje = "Usuario o contraseña incorrectos";
+                }
+            }
+            catch
+            {
+                ViewBag.Mensaje = "No se pudo iniciar sesión";
+            }
             return View();
         }
 
