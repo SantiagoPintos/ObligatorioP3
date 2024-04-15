@@ -14,6 +14,7 @@ builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarioEF>();
 builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEF>();
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
+builder.Services.AddScoped<ILoginUsuario, LoginUsuarioCU>();
 
 var app = builder.Build();
 
