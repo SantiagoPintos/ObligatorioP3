@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using Tienda.LogicaNegocio.Excepciones.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Usuario
@@ -18,16 +19,20 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Usuario
         }
         public bool Login(UsuarioDTO usuario)
         { 
+            if(usuario == null) throw new UsuarioNoValidoException("Usuario no válido");
+
+            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Clave)) throw new UsuarioNoValidoException("Email o clave no válidas");
+
             if (this._repositorioUsuario.ExisteUsuario(usuario.Email))
             {
                 var usuarioEncontrado = this._repositorioUsuario.EncontrarPorEmail(usuario.Email);
-                //falta implementar el método de hasheo
-                if (usuarioEncontrado.Clave == usuario.Clave)
+                if (this._repositorioUsuario.ClaveCoincide(usuarioEncontrado.Clave, usuario.Clave))
                 {
                     return true;
                 }
             }
             return false;
         }
+
     }
 }

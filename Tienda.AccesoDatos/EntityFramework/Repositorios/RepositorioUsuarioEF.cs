@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.AccesoDatos.CrifradoClave;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.Excepciones.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
@@ -23,9 +24,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             try
             {
                 if (this.ExisteUsuario(aAgregar.Email)) throw new Exception("El usuario ya existe");
-                //TEMPORAL HASTA QUE SE IMPLEMENTEN LOS MÉTODOS DE HASHEO
                 aAgregar.ClaveSinEncriptar = aAgregar.Clave;
                 aAgregar.EsValido();
+                //la clave se encripta después de comprobar su validez
+                aAgregar.Clave = Cifrado.EncriptarClave(aAgregar.Clave);
                 this._context.Usuarios.Add(aAgregar);
                 this._context.SaveChanges();
                 return true;
@@ -88,6 +90,13 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             if (string.IsNullOrEmpty(email)) throw new EmailNoValidoException("El email no puede ser vacío");
 
             return this._context.Usuarios.Where(usuario => usuario.Email == email).FirstOrDefault();
+        }
+
+        public bool ClaveCoincide(string claveCifrada, string claveTextoPlano)
+        {
+            if (string.IsNullOrEmpty(claveCifrada) || string.IsNullOrEmpty(claveTextoPlano)) throw new ClaveNoValidaException("La clave no puede ser vacía");
+
+            return Cifrado.DesencriptarClave(claveCifrada) == claveTextoPlano;
         }
     }
 }

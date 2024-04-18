@@ -12,5 +12,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         public bool ExisteUsuario(string email);
 
         public Usuario EncontrarPorEmail(string email);
+
+        public bool ClaveCoincide(string claveCifrada, string claveTextoPlano);
     }
 }
