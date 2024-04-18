@@ -88,10 +88,10 @@ namespace Tienda.Web.Controllers
                 HttpContext.Session.SetString("token", usuario.Email);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 //se muestra un mensaje de error en caso de que no se haya podido registrar el usuario
-                ViewBag.Error = "No se pudo registrar el usuario";
+                ViewBag.Message = "No se pudo registrar el usuario";
             }
             return View();
         }
