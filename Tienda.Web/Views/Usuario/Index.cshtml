@@ -6,14 +6,18 @@
 
 <h1>Index</h1>
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-12 text-center">
-            <a asp-action="Create" class="btn btn-primary">Registrarse</a>
-            <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
+@if (Context.Session.GetString("token") == null)
+{
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <a asp-action="Create" class="btn btn-primary">Registrarse</a>
+                <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
+            </div>
         </div>
     </div>
-</div>
+}
+
 <table class="table">
     <thead>
         <tr>
