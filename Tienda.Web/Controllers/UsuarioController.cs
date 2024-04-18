@@ -63,6 +63,12 @@ namespace Tienda.Web.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Login));
+        }
+
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
