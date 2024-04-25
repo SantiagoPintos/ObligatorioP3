@@ -14,8 +14,9 @@ namespace Tienda.LogicaAplicacion.DTOs
         public string Rut { get; set; }
         public string RazonSocial { get; set; }
         public string Calle { get; set; }
-        public string Numero { get; set; }
+        public int Numero { get; set; }
         public string Ciudad { get; set; }
+        public decimal distanciaDesdeTienda { get; set; }   
 
         public ClienteDTO() { }
 
@@ -27,8 +28,9 @@ namespace Tienda.LogicaAplicacion.DTOs
             this.Rut = cliente.Rut;
             this.RazonSocial = cliente.RazonSocial;
             this.Calle = cliente.Direccion.Calle;
-            this.Numero = cliente.Direccion.Numero.ToString();
-            this.Ciudad = cliente.Direccion.Ciudad;            
+            this.Numero = cliente.Direccion.Numero;
+            this.Ciudad = cliente.Direccion.Ciudad;     
+            this.distanciaDesdeTienda = cliente.Direccion.DistanciaDesdeTienda;
         }
 
 
