@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.Web.Controllers
@@ -11,6 +13,7 @@ namespace Tienda.Web.Controllers
         private IRepositorioUsuario _repositorioUsuario;
         private ICreateUsuario _createUsuarioCU;
         private ILoginUsuario _loginUsuarioCU;
+        
 
         public UsuarioController(ICreateUsuario crearUsuario, 
             IRepositorioUsuario repositorioUsuarios,
@@ -100,25 +103,8 @@ namespace Tienda.Web.Controllers
         // GET: CreateCliente
         public ActionResult CreateCliente()
         {
-            return View();
-        }
-
-        // POST: CreateCliente
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateCliente(ClienteDTO cliente)
-        {
-            try
-            {
-                this._createClienteCU.CrearCliente(cliente);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+            return RedirectToAction("Create", "Cliente");
+        }        
 
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)
