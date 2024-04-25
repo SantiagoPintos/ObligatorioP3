@@ -1,5 +1,7 @@
 using Tienda.AccesoDatos.EntityFramework.Repositorios;
+using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
@@ -15,6 +17,8 @@ builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEF>();
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuarioCU>();
+builder.Services.AddScoped<ICreateCliente, CrearClienteCU>();   
+builder.Services.AddScoped<IObtenerClientes, ObtenerClientesCU>();
 
 var app = builder.Build();
 
