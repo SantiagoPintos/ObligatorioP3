@@ -39,7 +39,11 @@ namespace Tienda.LogicaNegocio.Entidades
 
         public void EsValido()
         {
-            throw new NotImplementedException();
+            if(Rut == null || Rut.Length!=12) throw new Exception("El rut debe tener 12 digitos");
+                        
+            if(RazonSocial == null) throw new Exception("La razon social no puede ser nula");
+
+            Direccion.EsValido();
         }
     }
 }

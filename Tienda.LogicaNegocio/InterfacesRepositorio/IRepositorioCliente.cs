@@ -9,5 +9,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioCliente:IRepositorio<Cliente>
     {
+        public bool ExisteCliente(string rut);
     }
 }

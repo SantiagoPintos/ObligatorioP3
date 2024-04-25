@@ -36,7 +36,10 @@ namespace Tienda.LogicaNegocio.ValueObjects
         }
         public void EsValido()
         {
-            throw new NotImplementedException();
+            if(Calle == null) throw new Exception("La calle no puede ser nula");
+            if(Numero < 0) throw new Exception("El numero no puede ser negativo");
+            if(Ciudad == null) throw new Exception("La ciudad no puede ser nula");
+            if(DistanciaDesdeTienda < 0) throw new Exception("La distancia no puede ser negativa");
         }
     }
 }
