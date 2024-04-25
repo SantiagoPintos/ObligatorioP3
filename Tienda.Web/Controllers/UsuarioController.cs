@@ -96,6 +96,30 @@ namespace Tienda.Web.Controllers
             return View();
         }
 
+
+        // GET: CreateCliente
+        public ActionResult CreateCliente()
+        {
+            return View();
+        }
+
+        // POST: CreateCliente
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCliente(ClienteDTO cliente)
+        {
+            try
+            {
+                this._createClienteCU.CrearCliente(cliente);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)
         {
