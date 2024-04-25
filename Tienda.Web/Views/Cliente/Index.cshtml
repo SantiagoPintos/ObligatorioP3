@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Tienda.LogicaNegocio.Entidades.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RazonSocial)
+                </th>
+                <th>
+                    Calle
+                </th>
+                <th>
+                    Numero
+                </th>
+                <th>
+                    Ciudad
+                </th>
+                <th>
+                    Distancia desde tienda
+                </th>  
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model!=null){           
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rut)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RazonSocial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion.Calle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion.Numero)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion.Ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion.DistanciaDesdeTienda)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
