@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,31 @@ namespace Tienda.LogicaNegocio.Entidades
 {
     public class Cliente:IValidable<Cliente>
     {
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }        
+        [Required]
         public string Rut { get; set; }
         public string RazonSocial { get; set; }
         public DireccionCliente Direccion { get; set; }
+        // Constructor vacio para EF
+        public Cliente() { }
+
+        public Cliente(int id, string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda)
+        {
+            this.Id = id;
+            this.Rut = rut;
+            this.RazonSocial = razonSocial;
+            this.Direccion = new DireccionCliente(calle, numero, ciudad, distanciaDesdeTienda);
+        }
+
+        // Constructor sin id
+        public Cliente(string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda)
+        {            
+            this.Rut = rut;
+            this.RazonSocial = razonSocial;
+            this.Direccion = new DireccionCliente(calle, numero, ciudad, distanciaDesdeTienda);
+        }
+
 
         public void EsValido()
         {
