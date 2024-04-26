@@ -48,7 +48,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public Cliente FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Clientes.Where(cliente => cliente.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
