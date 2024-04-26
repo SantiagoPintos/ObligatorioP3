@@ -104,7 +104,7 @@ namespace Tienda.Web.Controllers
         public ActionResult CreateCliente()
         {
             return RedirectToAction("Create", "Cliente");
-        }        
+        }
 
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)

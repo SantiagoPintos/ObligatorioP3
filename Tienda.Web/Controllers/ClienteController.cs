@@ -106,5 +106,10 @@ namespace Tienda.Web.Controllers
                 return View();
             }
         }
+
+        public ActionResult ReturnToHome()
+        {
+            return RedirectToAction("Index", "Usuario");
+        }
     }
 }
