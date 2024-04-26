@@ -19,25 +19,45 @@ namespace Tienda.Web.Controllers
         }
 
 
-
-
         // GET: ClienteController
         public ActionResult Index()
         {
-            // TEMPORAL
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else
+            {
+                return View(this._obtenerClientesCU.ObtenerClientes());
+            }
             return View(this._obtenerClientesCU.ObtenerClientes());
         }
 
         // GET: ClienteController/Details/5
         public ActionResult Details(int id)
         {
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else
+            {
+                return View();
+            }
             return View();
         }
 
         // GET: ClienteController/Create
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.Session.GetString("token") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
         }
 
         // POST: ClienteController/Create
@@ -61,14 +81,21 @@ namespace Tienda.Web.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction("Index", "Usuario");
             }
         }
 
         // GET: ClienteController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: ClienteController/Edit/5
@@ -76,20 +103,34 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
+            if(HttpContext.Session.GetString("token") == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Usuario");
             }
-            catch
+            else
             {
-                return View();
+                try
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
         }
 
         // GET: ClienteController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: ClienteController/Delete/5
@@ -97,13 +138,20 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
+            if (HttpContext.Session.GetString("token") == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Usuario");
             }
-            catch
+            else
             {
-                return View();
+                try
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
         }
 
