@@ -29,41 +29,67 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
-            return View(this._repositorioUsuario.FindAll());
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return View(this._repositorioUsuario.FindAll());
+            }
         }
 
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Login()
         {
-            return View();
+            if (HttpContext.Session.GetString("token") != null)
+            {
+                return RedirectToAction(nameof(Index));
+            } else 
+            {
+                return View();
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(UsuarioDTO usuario)
         {
-            try
+            if(HttpContext.Session.GetString("token") != null)
             {
-                if (this._loginUsuarioCU.Login(usuario))
-                {
-                    HttpContext.Session.SetString("token", usuario.Email);
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    ViewBag.Mensaje = "Usuario o contraseña incorrectos";
-                }
-            }
-            catch
+                return RedirectToAction(nameof(Index));
+            } else
             {
-                ViewBag.Mensaje = "No se pudo iniciar sesión";
+                try
+                {
+                    if (this._loginUsuarioCU.Login(usuario))
+                    {
+                        HttpContext.Session.SetString("token", usuario.Email);
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "Usuario o contraseña incorrectos";
+                    }
+                }
+                catch
+                {
+                    ViewBag.Mensaje = "No se pudo iniciar sesión";
+                }
+                return View();
             }
-            return View();
         }
 
         public IActionResult Logout()
@@ -75,7 +101,14 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.Session.GetString("token") != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: UsuarioController/Create
@@ -83,33 +116,54 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioDTO usuario)
         {
-            try
+            if (HttpContext.Session.GetString("token") != null)
             {
-                this._createUsuarioCU.CrearUsuario(usuario);
-                //si el usuario se registró correctamente, se debe almacenar el inicio sesión antes de redirigir a la pag. principal
-                ViewBag.Message = "Usuario registrado correctamente";
-                HttpContext.Session.SetString("token", usuario.Email);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    this._createUsuarioCU.CrearUsuario(usuario);
+                    //si el usuario se registró correctamente, se debe almacenar el inicio sesión antes de redirigir a la pag. principal
+                    ViewBag.Message = "Usuario registrado correctamente";
+                    HttpContext.Session.SetString("token", usuario.Email);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    //se muestra un mensaje de error en caso de que no se haya podido registrar el usuario
+                    ViewBag.Message = "No se pudo registrar el usuario";
+                }
+                return View();
             }
-            catch (Exception ex)
+            else
             {
-                //se muestra un mensaje de error en caso de que no se haya podido registrar el usuario
-                ViewBag.Message = "No se pudo registrar el usuario";
+                return RedirectToAction(nameof(Login));
             }
-            return View();
         }
 
 
         // GET: CreateCliente
         public ActionResult RedirectToCliente()
         {
-            return RedirectToAction("Index", "Cliente");
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return RedirectToAction("Create", "Cliente");
+            }
         }
 
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: UsuarioController/Edit/5
@@ -117,20 +171,34 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
+            if (HttpContext.Session.GetString("token") == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
-            catch
+            else
             {
-                return View();
+                try
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
         }
 
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: UsuarioController/Delete/5
@@ -138,13 +206,20 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
+            if (HttpContext.Session.GetString("token") == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Login));
             }
-            catch
+            else
             {
-                return View();
+                try
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
         }
     }
