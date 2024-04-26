@@ -53,7 +53,17 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Cliente aBorrar = new Cliente { Id = id };
+                this._context.Clientes.Remove(aBorrar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }   
         }
 
         public bool Update(Cliente aModificar)
