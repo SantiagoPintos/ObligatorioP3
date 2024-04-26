@@ -29,14 +29,7 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
-            if (HttpContext.Session.GetString("token") == null)
-            {
-                return RedirectToAction(nameof(Login));
-            }
-            else
-            {
-                return View(this._repositorioUsuario.FindAll());
-            }
+            return View();
         }
 
         // GET: UsuarioController/Details/5
@@ -101,7 +94,7 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            if (HttpContext.Session.GetString("token") != null)
+            if (HttpContext.Session.GetString("token") == null)
             {
                 return RedirectToAction(nameof(Index));
             }
