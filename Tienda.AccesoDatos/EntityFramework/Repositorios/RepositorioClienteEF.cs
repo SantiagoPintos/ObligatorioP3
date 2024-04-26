@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.AccesoDatos.CrifradoClave;
 using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaNegocio.Excepciones.Cliente;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.AccesoDatos.EntityFramework.Repositorios
@@ -21,7 +22,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
-                if (this.ExisteCliente(aAgregar.Rut)) throw new Exception("El cliente ya existe");                
+                if (this.ExisteCliente(aAgregar.Rut)) throw new ClienteNoValidoException("El cliente ya existe");                
                 aAgregar.EsValido();             
                 this._context.Clientes.Add(aAgregar);
                 this._context.SaveChanges();
