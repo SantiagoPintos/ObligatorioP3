@@ -68,7 +68,17 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public bool Update(Cliente aModificar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aModificar.EsValido();
+                this._context.Clientes.Update(aModificar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
