@@ -94,7 +94,7 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            if (HttpContext.Session.GetString("token") == null)
+            if (HttpContext.Session.GetString("token") != null)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -109,7 +109,7 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioDTO usuario)
         {
-            if (HttpContext.Session.GetString("token") != null)
+            if (HttpContext.Session.GetString("token") == null)
             {
                 try
                 {
