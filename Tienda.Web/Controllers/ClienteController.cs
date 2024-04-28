@@ -26,10 +26,6 @@ namespace Tienda.Web.Controllers
             {
                 return RedirectToAction("Index", "Usuario");
             }
-            else
-            {
-                return View(this._obtenerClientesCU.ObtenerClientes());
-            }
             return View(this._obtenerClientesCU.ObtenerClientes());
         }
 
@@ -73,7 +69,7 @@ namespace Tienda.Web.Controllers
                     ViewBag.Message = "Cliente registrado correctamente";
                     return RedirectToAction(nameof(Index));                    
                 }
-                catch
+                catch 
                 {
                     ViewBag.Message = "No se pudo registrar";
                     return View();                    

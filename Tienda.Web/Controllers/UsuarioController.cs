@@ -140,10 +140,7 @@ namespace Tienda.Web.Controllers
             {
                 return RedirectToAction(nameof(Login));
             }
-            else
-            {
-                return RedirectToAction("Create", "Cliente");
-            }
+            return RedirectToAction("Index", "Cliente");
         }
 
         // GET: UsuarioController/Edit/5
