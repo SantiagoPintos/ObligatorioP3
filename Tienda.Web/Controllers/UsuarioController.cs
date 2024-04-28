@@ -13,15 +13,18 @@ namespace Tienda.Web.Controllers
         private IRepositorioUsuario _repositorioUsuario;
         private ICreateUsuario _createUsuarioCU;
         private ILoginUsuario _loginUsuarioCU;
-        
+        private IListarUsuario _listarUsuarioCU;
+
 
         public UsuarioController(ICreateUsuario crearUsuario, 
             IRepositorioUsuario repositorioUsuarios,
-            ILoginUsuario loginUsuarioCU)
+            ILoginUsuario loginUsuarioCU,
+            IListarUsuario listarUsuarioCU)
         {
             this._repositorioUsuario = repositorioUsuarios;
             this._createUsuarioCU = crearUsuario;
             this._loginUsuarioCU = loginUsuarioCU;
+            this._listarUsuarioCU = listarUsuarioCU;
         }
 
 
@@ -30,6 +33,15 @@ namespace Tienda.Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult ListarUsuarios()
+        {
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            return View(this._listarUsuarioCU.ListarUsuarios());
         }
 
         // GET: UsuarioController/Details/5

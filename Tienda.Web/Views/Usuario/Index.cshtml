@@ -6,25 +6,19 @@
 
 <h1 class="text-center">Bienvenido</h1>
 
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
 @if (Context.Session.GetString("token") == null)
 {
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
-            </div>
-        </div>
-    </div>
+            <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
 }
 else
 {
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <a asp-action="RedirectToCliente" class="btn btn-primary">Gestionar clientes</a>
-                <a asp-action="Create" class="btn btn-primary">Registrar usuarios</a>
-            </div>
+                <a asp-action="ListarUsuarios" class="btn btn-primary">Gestionar usuarios</a>
+}
+            @ViewBag.Mensaje
         </div>
     </div>
-}
+</div>
 

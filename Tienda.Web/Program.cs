@@ -19,6 +19,7 @@ builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuarioCU>();
 builder.Services.AddScoped<ICreateCliente, CrearClienteCU>();   
 builder.Services.AddScoped<IObtenerClientes, ObtenerClientesCU>();
+builder.Services.AddScoped<IListarUsuario, ListarUsuarioCU>();
 
 var app = builder.Build();
 
