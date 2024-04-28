@@ -94,14 +94,11 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            if (HttpContext.Session.GetString("token") != null)
+            if (HttpContext.Session.GetString("token") == null)
             {
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         // POST: UsuarioController/Create
@@ -109,12 +106,13 @@ namespace Tienda.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioDTO usuario)
         {
-            if (HttpContext.Session.GetString("token") == null)
+            //El administrador debe estar logueado para registrar usuarios, por lo tanto nos interesa verificar si
+            //la variable de sesión NO es nula para permitir el registro
+            if (HttpContext.Session.GetString("token") != null)
             {
                 try
                 {
                     this._createUsuarioCU.CrearUsuario(usuario);
-                    //si el usuario se registró correctamente, se debe almacenar el inicio sesión antes de redirigir a la pag. principal
                     ViewBag.Message = "Usuario registrado correctamente";
                     HttpContext.Session.SetString("token", usuario.Email);
                     return RedirectToAction(nameof(Index));
