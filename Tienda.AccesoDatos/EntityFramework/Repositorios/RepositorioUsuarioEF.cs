@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,7 +68,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
+                aModificar.ClaveSinEncriptar = aModificar.Clave; 
                 aModificar.EsValido();
+                //antes de actualizar es necesario cifrar la contraseña nuevamente en caso de que la cambie
+                aModificar.Clave = Cifrado.EncriptarClave(aModificar.ClaveSinEncriptar);
                 this._context.Usuarios.Update(aModificar);
                 this._context.SaveChanges();
                 return true;
@@ -97,6 +101,15 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             if (string.IsNullOrEmpty(claveCifrada) || string.IsNullOrEmpty(claveTextoPlano)) throw new ClaveNoValidaException("La clave no puede ser vacía");
 
             return Cifrado.DesencriptarClave(claveCifrada) == claveTextoPlano;
+        }
+
+        public Usuario EncontrarPorId(int id)
+        {
+            if(id == null ) throw new UsuarioNoValidoException("El id no puede ser nulo");
+
+            Usuario encontrado = this._context.Usuarios.Where(u => u.Id == id).FirstOrDefault();
+            encontrado.Clave = Cifrado.DesencriptarClave(encontrado.Clave);
+            return encontrado;
         }
     }
 }

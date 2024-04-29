@@ -19,7 +19,7 @@ namespace Tienda.LogicaAplicacion.Mappers
         {
             if(usuarioDTO == null) throw new Exception();
 
-            return new Usuario(usuarioDTO.Nombre, usuarioDTO.Apellido, usuarioDTO.Email, usuarioDTO.Clave, usuarioDTO.ClaveSinEncriptar);
+            return new Usuario(usuarioDTO.Id, usuarioDTO.Nombre, usuarioDTO.Apellido, usuarioDTO.Email, usuarioDTO.Clave, usuarioDTO.ClaveSinEncriptar);
         }
     }
 }

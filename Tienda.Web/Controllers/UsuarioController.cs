@@ -14,17 +14,23 @@ namespace Tienda.Web.Controllers
         private ICreateUsuario _createUsuarioCU;
         private ILoginUsuario _loginUsuarioCU;
         private IListarUsuario _listarUsuarioCU;
+        private IObtenerUsuarioPorID _obtenerUsuarioPorID;
+        private IEditarUsuario _editarUsuarioCU;
 
 
         public UsuarioController(ICreateUsuario crearUsuario, 
             IRepositorioUsuario repositorioUsuarios,
             ILoginUsuario loginUsuarioCU,
-            IListarUsuario listarUsuarioCU)
+            IListarUsuario listarUsuarioCU,
+            IObtenerUsuarioPorID obtenerUsuarioPorID,
+            IEditarUsuario editarUsuario)
         {
             this._repositorioUsuario = repositorioUsuarios;
             this._createUsuarioCU = crearUsuario;
             this._loginUsuarioCU = loginUsuarioCU;
             this._listarUsuarioCU = listarUsuarioCU;
+            this._obtenerUsuarioPorID = obtenerUsuarioPorID;
+            this._editarUsuarioCU = editarUsuario;
         }
 
 
@@ -160,31 +166,27 @@ namespace Tienda.Web.Controllers
             {
                 return RedirectToAction(nameof(Login));
             }
-            else
-            {
-                return View();
-            }
+            UsuarioDTO usuario = this._obtenerUsuarioPorID.ObtenerUsuarioPorID(id);
+            return View(usuario);
         }
 
         // POST: UsuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UsuarioDTO aEditar)
         {
             if (HttpContext.Session.GetString("token") == null)
             {
                 return RedirectToAction(nameof(Login));
             }
-            else
+            try
             {
-                try
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                catch
-                {
-                    return View();
-                }
+                this._editarUsuarioCU.EditarUsuario(aEditar);
+                return RedirectToAction(nameof(ListarUsuarios));
+            }
+            catch
+            {
+                return View();
             }
         }
 

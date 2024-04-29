@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Tienda.LogicaNegocio.Entidades
     {
         public int Id { get; set; }
         public NombreCompleto NombreCompleto { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Clave { get; set; }
         //letra dice que se debe guardar una copia de la contraseña sin encriptar
