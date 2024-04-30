@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
@@ -16,6 +17,7 @@ namespace Tienda.Web.Controllers
         private IListarUsuario _listarUsuarioCU;
         private IObtenerUsuarioPorID _obtenerUsuarioPorID;
         private IEditarUsuario _editarUsuarioCU;
+        private IEliminarUsuario _eliminarUsuarioCU;
 
 
         public UsuarioController(ICreateUsuario crearUsuario, 
@@ -23,7 +25,8 @@ namespace Tienda.Web.Controllers
             ILoginUsuario loginUsuarioCU,
             IListarUsuario listarUsuarioCU,
             IObtenerUsuarioPorID obtenerUsuarioPorID,
-            IEditarUsuario editarUsuario)
+            IEditarUsuario editarUsuario,
+            IEliminarUsuario eliminarUsuarioCU)
         {
             this._repositorioUsuario = repositorioUsuarios;
             this._createUsuarioCU = crearUsuario;
@@ -31,6 +34,7 @@ namespace Tienda.Web.Controllers
             this._listarUsuarioCU = listarUsuarioCU;
             this._obtenerUsuarioPorID = obtenerUsuarioPorID;
             this._editarUsuarioCU = editarUsuario;
+            _eliminarUsuarioCU = eliminarUsuarioCU;
         }
 
 
@@ -87,7 +91,7 @@ namespace Tienda.Web.Controllers
                 {
                     if (this._loginUsuarioCU.Login(usuario))
                     {
-                        HttpContext.Session.SetString("token", usuario.Email);
+                        HttpContext.Session.SetString("token", usuario.Email);                        
                         return RedirectToAction(nameof(Index));
                     }
                     else
@@ -131,8 +135,7 @@ namespace Tienda.Web.Controllers
                 try
                 {
                     this._createUsuarioCU.CrearUsuario(usuario);
-                    ViewBag.Message = "Usuario registrado correctamente";
-                    HttpContext.Session.SetString("token", usuario.Email);
+                    ViewBag.Message = "Usuario registrado correctamente";                    
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -199,29 +202,37 @@ namespace Tienda.Web.Controllers
             }
             else
             {
-                return View();
+                UsuarioDTO usuario = this._obtenerUsuarioPorID.ObtenerUsuarioPorID(id);
+                return View(usuario);
             }
         }
 
         // POST: UsuarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(UsuarioDTO aBorrar)
         {
             if (HttpContext.Session.GetString("token") == null)
             {
                 return RedirectToAction(nameof(Login));
             }
-            else
+            try
             {
-                try
+                if (HttpContext.Session.GetString("token") != aBorrar.Email)
                 {
-                    return RedirectToAction(nameof(Index));
+                    this._eliminarUsuarioCU.EliminarUsuario(aBorrar);
+                    return RedirectToAction(nameof(ListarUsuarios));
                 }
-                catch
+                else
                 {
-                    return View();
+                    ViewBag.Message = "No te puedes eliminar a ti mismo";                                       
                 }
+                return View();
+                           
+            }
+            catch
+            {
+                return View();
             }
         }
     }
