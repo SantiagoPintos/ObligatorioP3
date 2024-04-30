@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.LogicaNegocio.Entidades;
 
 namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
@@ -11,7 +12,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         IEnumerable<T> FindAll();
         T FindByID(int id);
         bool Add(T aAgregar);
-        bool Remove(int id);//También podría recibirse el objeto
+        bool Remove(T aBorrar);//También podría recibirse el objeto
         bool Update(T aModificar);
     }
 }
