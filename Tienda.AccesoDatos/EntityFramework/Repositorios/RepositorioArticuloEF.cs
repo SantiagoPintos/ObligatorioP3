@@ -46,6 +46,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
+        public bool Remove(Articulo aBorrar)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Update(Articulo aModificar)
         {
             throw new NotImplementedException();

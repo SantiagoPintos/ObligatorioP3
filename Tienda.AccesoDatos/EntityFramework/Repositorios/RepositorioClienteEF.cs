@@ -66,6 +66,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             }   
         }
 
+        public bool Remove(Cliente aBorrar)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Update(Cliente aModificar)
         {
             try

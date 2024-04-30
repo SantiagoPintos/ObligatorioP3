@@ -49,11 +49,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             return this._context.Usuarios.Where(usuario => usuario.Id == id).FirstOrDefault();
         }
 
-        public bool Remove(int id)
+        public bool Remove(Usuario aBorrar)
         {
             try
-            {
-                Usuario aBorrar = new Usuario { Id = id };
+            {                
                 this._context.Usuarios.Remove(aBorrar);
                 this._context.SaveChanges();
                 return true;
