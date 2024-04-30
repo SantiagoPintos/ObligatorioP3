@@ -1,6 +1,8 @@
 using Tienda.AccesoDatos.EntityFramework.Repositorios;
+using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
@@ -23,6 +25,12 @@ builder.Services.AddScoped<IListarUsuario, ListarUsuarioCU>();
 builder.Services.AddScoped<IObtenerUsuarioPorID, ObtenerUsuarioPorID>();
 builder.Services.AddScoped<IEditarUsuario, EditarUsuarioCU>();
 builder.Services.AddScoped<IEliminarUsuario, EliminarUsuarioCU>();
+builder.Services.AddScoped<ICrearArticulo, CrearArticuloCU>();
+builder.Services.AddScoped<IListarArticulo, ListarArticuloCU>();
+builder.Services.AddScoped<IListarAlfabeticamente, ListarAlfabeticamenteCU>();
+builder.Services.AddScoped<IEliminarArticulo, EliminarArticuloCU>();
+builder.Services.AddScoped<IObtenerArticuloPorId, ObtenerArticuloPorId>();
+builder.Services.AddScoped<IEditarArticulo, EditarArticuloCU>();
 
 var app = builder.Build();
 
