@@ -4,11 +4,10 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Eliminar Usuario</h1>
 
-<h3>Quieres eliminar este usuario?</h3>
+<h3>¿Quieres eliminar este usuario?</h3>
 <div>
-    <h4>Usuario</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -18,10 +17,10 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClaveSinEncriptar)
+            @Html.DisplayNameFor(model => model.Clave)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClaveSinEncriptar)
+            @Html.DisplayFor(model => model.Clave)
         </dd>
     </dl>
 
@@ -48,7 +47,7 @@
         <div>
             <input type="hidden" asp-for="Id" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a asp-action="ListarUsuarios" class="btn btn-primary">Back to List</a>
+            <a asp-action="ListarUsuarios" class="btn btn-primary">Volver a la lista</a>
         </div>
     </form>
 </div>
