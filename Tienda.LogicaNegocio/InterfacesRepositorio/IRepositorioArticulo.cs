@@ -9,5 +9,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioArticulo:IRepositorio<Articulo>
     {
+        public Articulo EncontrarPorId(int id);
     }
 }

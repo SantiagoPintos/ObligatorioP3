@@ -12,7 +12,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         IEnumerable<T> FindAll();
         T FindByID(int id);
         bool Add(T aAgregar);
-        bool Remove(T aBorrar);//También podría recibirse el objeto
+        bool Remove(T aBorrar);
         bool Update(T aModificar);
     }
 }
