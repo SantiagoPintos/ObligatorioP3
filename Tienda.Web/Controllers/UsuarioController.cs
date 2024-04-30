@@ -10,31 +10,27 @@ using Tienda.LogicaNegocio.InterfacesRepositorio;
 namespace Tienda.Web.Controllers
 {
     public class UsuarioController : Controller
-    {
-        private IRepositorioUsuario _repositorioUsuario;
+    {        
         private ICreateUsuario _createUsuarioCU;
         private ILoginUsuario _loginUsuarioCU;
         private IListarUsuario _listarUsuarioCU;
         private IObtenerUsuarioPorID _obtenerUsuarioPorID;
         private IEditarUsuario _editarUsuarioCU;
         private IEliminarUsuario _eliminarUsuarioCU;
-
-
-        public UsuarioController(ICreateUsuario crearUsuario, 
-            IRepositorioUsuario repositorioUsuarios,
+        public UsuarioController(ICreateUsuario crearUsuario,             
             ILoginUsuario loginUsuarioCU,
             IListarUsuario listarUsuarioCU,
             IObtenerUsuarioPorID obtenerUsuarioPorID,
             IEditarUsuario editarUsuario,
             IEliminarUsuario eliminarUsuarioCU)
         {
-            this._repositorioUsuario = repositorioUsuarios;
+            
             this._createUsuarioCU = crearUsuario;
             this._loginUsuarioCU = loginUsuarioCU;
             this._listarUsuarioCU = listarUsuarioCU;
             this._obtenerUsuarioPorID = obtenerUsuarioPorID;
             this._editarUsuarioCU = editarUsuario;
-            _eliminarUsuarioCU = eliminarUsuarioCU;
+            this._eliminarUsuarioCU = eliminarUsuarioCU;
         }
 
 
@@ -54,6 +50,15 @@ namespace Tienda.Web.Controllers
             return View(this._listarUsuarioCU.ListarUsuarios());
         }
 
+        public IActionResult ListarArticulos()
+        {
+            if (HttpContext.Session.GetString("token") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            return RedirectToAction("ListarAlfabeticamente", "Articulo");
+        }
+
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
         {
@@ -63,7 +68,8 @@ namespace Tienda.Web.Controllers
             }
             else
             {
-                return View();
+                UsuarioDTO usuario = this._obtenerUsuarioPorID.ObtenerUsuarioPorID(id);
+                return View(usuario);
             }
         }
 
@@ -136,7 +142,7 @@ namespace Tienda.Web.Controllers
                 {
                     this._createUsuarioCU.CrearUsuario(usuario);
                     ViewBag.Message = "Usuario registrado correctamente";                    
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(ListarUsuarios));
                 }
                 catch (Exception ex)
                 {
