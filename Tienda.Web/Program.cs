@@ -22,6 +22,7 @@ builder.Services.AddScoped<IObtenerClientes, ObtenerClientesCU>();
 builder.Services.AddScoped<IListarUsuario, ListarUsuarioCU>();
 builder.Services.AddScoped<IObtenerUsuarioPorID, ObtenerUsuarioPorID>();
 builder.Services.AddScoped<IEditarUsuario, EditarUsuarioCU>();
+builder.Services.AddScoped<IEliminarUsuario, EliminarUsuarioCU>();
 
 var app = builder.Build();
 
