@@ -12,7 +12,7 @@ namespace Tienda.LogicaNegocio.Entidades
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public int Codigo { get; set; }
+        public long Codigo { get; set; }
         public string Descripcion { get; set; }
         public int stock { get; set; }
         public decimal PrecioUnitario { get; set; }
@@ -21,7 +21,8 @@ namespace Tienda.LogicaNegocio.Entidades
         //constructor vacío para MVC y EF
         public Articulo() { }
 
-        public Articulo(string Nombre, int Codigo, string Descripcion, int stock, decimal PrecioUnitario)
+        // Constructor Articulo sin id
+        public Articulo(string Nombre, long Codigo, string Descripcion, int stock, decimal PrecioUnitario)
         {
             this.Nombre = Nombre;
             this.Codigo = Codigo;
@@ -31,7 +32,7 @@ namespace Tienda.LogicaNegocio.Entidades
             EsValido(this);
         }
 
-        public Articulo(string Nombre, int Codigo, string Descripcion, int stock, decimal PrecioUnitario, int id)
+        public Articulo(string Nombre, long Codigo, string Descripcion, int stock, decimal PrecioUnitario, int id)
         {
             this.Nombre = Nombre;
             this.Codigo = Codigo;
@@ -50,27 +51,32 @@ namespace Tienda.LogicaNegocio.Entidades
             {
                 throw new NombreNoValidoException("El nombre no puede ser vacío");
             }
+            if (Nombre.Length < 10 || Nombre.Length > 200)
+            {
+                throw new NombreNoValidoException("El nombre debe tener entre 10 y 200 caracteres.");
+            }
             if (Descripcion.Length < 5 || string.IsNullOrEmpty(Descripcion))
             {
                 throw new DescripcionNoValidaException("La descripción debe tener al menos 5 caracteres");
+            }
+            if (string.IsNullOrEmpty(Codigo.ToString()))
+            {
+                throw new CodigoNoValidoException("El código no puede ser vacío");
+            }
+            if (Codigo.ToString().Length != 13)
+            {
+                throw new CodigoNoValidoException("El código debe tener 13 caracteres");
             }
             if (stock < 0)
             {
                 throw new StockNoValidoException("El stock no puede ser negativo");
             }
-            if (Descripcion.Length < 13) {
-                throw new DescripcionNoValidaException("La descripción debe tener al menos 13 caracteres");
-            }
             if (PrecioUnitario < 0)
             {
                 throw new PrecioUnitarioNoValidoException("El precio no es válido");
             }
-            //el código debe tener al menos 13 digitos significativos, se convierte a string para contar
-            //la cant de digitos
-            if (Descripcion.ToString().Length<13)
-            {
-                throw new CodigoNoValidoException("El código no es válido");
-            }
+
+
 
         }
 
