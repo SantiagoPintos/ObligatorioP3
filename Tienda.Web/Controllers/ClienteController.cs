@@ -36,10 +36,6 @@ namespace Tienda.Web.Controllers
             {
                 return RedirectToAction("Index", "Usuario");
             }
-            else
-            {
-                return View();
-            }
             return View();
         }
 
