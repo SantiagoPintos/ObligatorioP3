@@ -57,17 +57,23 @@ namespace Tienda.Web.Controllers
 
         public ActionResult VolverAlInicio()
         {
+            if(HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return RedirectToAction("Index", "Usuario");
         }
 
         public ActionResult ListarArticulos()
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return View(this._listarArticulos.ListarArticulos());
         }
 
 
         public IActionResult ListarAlfabeticamente()
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return View(this._listarAlfabeticamente.ListarAlfabeticamente());
         }
 
@@ -75,6 +81,8 @@ namespace Tienda.Web.Controllers
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return View();
         }
 
@@ -99,6 +107,8 @@ namespace Tienda.Web.Controllers
         // GET: ArticuloController/Edit/5
         public ActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             ArticuloDTO articulo = this._obtenerArticuloPorId.ObtenerArticuloPorId(id);
             return View(articulo);
         }        
@@ -128,6 +138,8 @@ namespace Tienda.Web.Controllers
         // GET: ArticuloController/Delete/5
         public ActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             ArticuloDTO articulo = this._obtenerArticuloPorId.ObtenerArticuloPorId(id);
             return View(articulo);
         }
