@@ -153,6 +153,8 @@ namespace Tienda.Web.Controllers
 
         public ActionResult ReturnToHome()
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return RedirectToAction("Index", "Usuario");
         }
     }
