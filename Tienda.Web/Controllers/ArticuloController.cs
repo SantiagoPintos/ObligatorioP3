@@ -30,7 +30,7 @@ namespace Tienda.Web.Controllers
             this._listarAlfabeticamente = listarAlfabeticamente;
             this._eliminarArticulo = eliminarArticulo;
             this._obtenerArticuloPorId = obtenerArticuloPorId;
-            _editarArticulo = editarArticulo;
+            this._editarArticulo = editarArticulo;
         }
 
 
@@ -53,6 +53,11 @@ namespace Tienda.Web.Controllers
                 return View(articulo);
             }
             
+        }
+
+        public ActionResult VolverAlInicio()
+        {
+            return RedirectToAction("Index", "Usuario");
         }
 
         public ActionResult ListarArticulos()
