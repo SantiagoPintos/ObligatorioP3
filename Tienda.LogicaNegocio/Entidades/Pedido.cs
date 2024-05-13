@@ -17,9 +17,33 @@ namespace Tienda.LogicaNegocio.Entidades
         public List<Linea> lineas = new List<Linea>();
         public decimal PrecioTotal { get; set; }
 
+        // Constructor vacio para MVC y EF
+        public Pedido() { }
+
+        // Constructor con Id
+        public Pedido(decimal recargo, int id, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal)
+        {
+            this.Recargo = recargo;
+            this.Id = id;
+            this.Fecha = fecha;
+            this.Cliente = cliente;
+            this.lineas = lineas;
+            this.PrecioTotal = precioTotal;
+        }
+
+        // Constructor sin Id
+        public Pedido(decimal recargo, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal)
+        {
+            this.Recargo = recargo;
+            this.Fecha = fecha;
+            this.Cliente = cliente;
+            this.lineas = lineas;
+            this.PrecioTotal = precioTotal;
+        }
+
         public void EsValido()
         {
-            throw new NotImplementedException();
+            if(this.Fecha == null ) throw new Exception("Fecha no puede ser nula");
         }
     }
 }

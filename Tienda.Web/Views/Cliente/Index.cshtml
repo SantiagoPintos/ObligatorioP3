@@ -1,11 +1,31 @@
-﻿@model IEnumerable<Tienda.LogicaNegocio.Entidades.Cliente>
+﻿@model IEnumerable<Tienda.LogicaAplicacion.DTOs.ClienteDTO>
 
 @{
     ViewData["Title"] = "Index";
 }
+<div>
+    <form method="post" action="Cliente/BuscarPorNombreApellido">
+        <label for="opcion">Buscar por nombre/apellido</label>
+        <br>
+        <label for="nombreApellido">Ingrese el valor:</label>
+        <input type="text" id="nombreApellido" name="nombreApellido" placeholder="" />
+        <input type="submit" value="Buscar"/>
+    </form>
+</div>
+<div>
+    <form method="post" action="Cliente/BuscarPorMonto">
+        <label for="opcion">Buscar por monto </label>
+        <br>
+        <label for="valor">Ingrese el valor:</label>
+        <input type="text" id="valor" name="valor" placeholder="" />
+        <input type="submit" value="Buscar" />
+    </form>
+</div>
+
+@ViewBag.Message
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Nuevo cliente</a>
+    @* <a asp-action="Create" class="btn btn-primary">Nuevo cliente</a> *@
     <a asp-action="ReturnToHome" class="btn btn-danger">Atrás</a>
     
 </p>
@@ -39,22 +59,28 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellido)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Rut)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.RazonSocial)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion.Calle)
+                            @Html.DisplayFor(modelItem => item.Calle)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion.Numero)
+                            @Html.DisplayFor(modelItem => item.Numero)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion.Ciudad)
+                            @Html.DisplayFor(modelItem => item.Ciudad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion.DistanciaDesdeTienda)
+                            @Html.DisplayFor(modelItem => item.distanciaDesdeTienda)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 

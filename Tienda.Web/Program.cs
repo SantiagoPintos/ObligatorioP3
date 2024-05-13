@@ -4,6 +4,7 @@ using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
@@ -31,6 +32,8 @@ builder.Services.AddScoped<IListarAlfabeticamente, ListarAlfabeticamenteCU>();
 builder.Services.AddScoped<IEliminarArticulo, EliminarArticuloCU>();
 builder.Services.AddScoped<IObtenerArticuloPorId, ObtenerArticuloPorId>();
 builder.Services.AddScoped<IEditarArticulo, EditarArticuloCU>();
+builder.Services.AddScoped<IObtenerClientePorNombreApellido, ObtenerClientePorNombreApellidoCU>();
+builder.Services.AddScoped<IBuscarClientePorMontoPedido, BuscarClientePorMontoPedidoCU>();
 
 var app = builder.Build();
 

@@ -45,5 +45,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Cliente> FindByMonto(decimal monto)
+        {
+            return this._context.Pedidos.Where(p => p.PrecioTotal > monto).Select(p => p.Cliente);
+        }
     }
 }

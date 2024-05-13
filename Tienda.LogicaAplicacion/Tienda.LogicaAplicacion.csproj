@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Tienda.LogicaNegocio\Tienda.LogicaNegocio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Pedido\" />
+  </ItemGroup>
+
 </Project>

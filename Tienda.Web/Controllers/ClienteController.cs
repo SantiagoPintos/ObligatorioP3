@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaNegocio.Entidades;
 
 namespace Tienda.Web.Controllers
@@ -11,22 +13,66 @@ namespace Tienda.Web.Controllers
     {       
         private ICreateCliente _createClienteCU;
         private IObtenerClientes _obtenerClientesCU;
+        private IObtenerClientePorNombreApellido _obtenerClientesPorNombreApellidoCU;
+        private IBuscarClientePorMontoPedido _buscarClientePorMontoPedido;
         public ClienteController(ICreateCliente createClienteCU, 
-                                IObtenerClientes obtenerClientesCU)
+                                IObtenerClientes obtenerClientesCU,
+                                IObtenerClientePorNombreApellido obtenerClientesPorNombreApellidoCU,
+                                IBuscarClientePorMontoPedido buscarClientePorMontoPedido)
         {
             this._createClienteCU = createClienteCU;
             this._obtenerClientesCU = obtenerClientesCU;
+            this._obtenerClientesPorNombreApellidoCU = obtenerClientesPorNombreApellidoCU;
+            this._buscarClientePorMontoPedido = buscarClientePorMontoPedido;
         }
 
 
         // GET: ClienteController
-        public ActionResult Index()
+        public ActionResult Index(string filtro, string msj)
         {
-            if (HttpContext.Session.GetString("token") == null)
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Index", "Usuario");
+
+            IEnumerable<ClienteDTO> aMostrar = new List<ClienteDTO>();
+            ViewBag.Message = msj;
+
+            if (string.IsNullOrEmpty(filtro))
             {
-                return RedirectToAction("Index", "Usuario");
+                aMostrar = this._obtenerClientesCU.ObtenerClientes();
             }
-            return View(this._obtenerClientesCU.ObtenerClientes());
+            if(filtro == "NombreApellido")
+            {
+                string nombre = (string)TempData["nombreApellido"];
+                aMostrar = this._obtenerClientesPorNombreApellidoCU.ObtenerClientePorNombreApellido(nombre);
+            }
+            if(filtro == "MontoPedidos")
+            {
+                string monto = (string)TempData["valor"];
+                //convert string to decimal 
+                decimal nuevoMonto = Convert.ToDecimal(monto);
+                aMostrar = this._buscarClientePorMontoPedido.BuscarClientePorMontoPedido(nuevoMonto);
+            }
+
+            return View(aMostrar);
+        }
+
+        [HttpPost]
+        public ActionResult BuscarPorNombreApellido(string nombreApellido)
+        {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Index", "Usuario");
+
+            if(nombreApellido.IsNullOrEmpty()) return RedirectToAction("Index", new { msj = "El texto no puede ser vacío" });
+            TempData["nombreApellido"] = nombreApellido;
+            return RedirectToAction("Index", new { filtro = "NombreApellido" });
+        }
+
+        [HttpPost]
+        public ActionResult BuscarPorMonto(string valor)
+        {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Index", "Usuario");
+            decimal nuevoValor = Convert.ToDecimal(valor);
+            if(nuevoValor <= 0) return RedirectToAction("Index", new { msj = "El monto no puede ser cero ni negativo" });
+            TempData["monto"] = valor;
+            return RedirectToAction("Index", new { filtro = "MontoPedidos" });
         }
 
         // GET: ClienteController/Details/5

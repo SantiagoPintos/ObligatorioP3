@@ -17,23 +17,27 @@ namespace Tienda.LogicaNegocio.Entidades
         public string Rut { get; set; }
         public string RazonSocial { get; set; }
         public DireccionCliente Direccion { get; set; }
+        public NombreCompletoCliente NombreCompleto {  get; set;}
+
         // Constructor vacio para EF
         public Cliente() { }
 
-        public Cliente(int id, string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda)
+        public Cliente(int id, string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda, string nombre, string apellido)
         {
             this.Id = id;
             this.Rut = rut;
             this.RazonSocial = razonSocial;
             this.Direccion = new DireccionCliente(calle, numero, ciudad, distanciaDesdeTienda);
+            this.NombreCompleto = new NombreCompletoCliente(nombre, apellido);
         }
 
         // Constructor sin id
-        public Cliente(string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda)
+        public Cliente(string rut, string razonSocial, string calle, int numero, string ciudad, decimal distanciaDesdeTienda, string nombre, string apellido)
         {            
             this.Rut = rut;
             this.RazonSocial = razonSocial;
             this.Direccion = new DireccionCliente(calle, numero, ciudad, distanciaDesdeTienda);
+            this.NombreCompleto = new NombreCompletoCliente(nombre, apellido);
         }
 
 
@@ -42,7 +46,7 @@ namespace Tienda.LogicaNegocio.Entidades
             if(Rut == null || Rut.Length!=12) throw new Exception("El rut debe tener 12 digitos");
                         
             if(RazonSocial == null) throw new Exception("La razon social no puede ser nula");
-
+            NombreCompleto.EsValido();
             Direccion.EsValido();
         }
     }

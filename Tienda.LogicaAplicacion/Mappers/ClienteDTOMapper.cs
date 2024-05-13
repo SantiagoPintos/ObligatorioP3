@@ -20,7 +20,7 @@ namespace Tienda.LogicaAplicacion.Mappers
         public static Cliente FromDto(ClienteDTO clienteDTO)
         {
             if(clienteDTO == null) throw new Exception();            
-            return new Cliente(clienteDTO.Id, clienteDTO.Rut, clienteDTO.RazonSocial, clienteDTO.Calle, clienteDTO.Numero, clienteDTO.Ciudad, clienteDTO.distanciaDesdeTienda);
+            return new Cliente(clienteDTO.Id, clienteDTO.Rut, clienteDTO.RazonSocial, clienteDTO.Calle, clienteDTO.Numero, clienteDTO.Ciudad, clienteDTO.distanciaDesdeTienda, clienteDTO.Nombre, clienteDTO.Apellido);
         }
 
 

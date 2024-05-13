@@ -18,7 +18,7 @@ namespace Tienda.LogicaAplicacion.Mappers
         public static Pedido FromDto(PedidoDTO pedidoDTO)
         {
             if (pedidoDTO == null) throw new Exception();
-            return new Pedido(pedidoDTO.Id, pedidoDTO.Recargo, clienteDTO.RazonSocial, clienteDTO.Calle, clienteDTO.Numero, clienteDTO.Ciudad, clienteDTO.distanciaDesdeTienda);
+            return new Pedido(pedidoDTO.Recargo, pedidoDTO.Id, pedidoDTO.Fecha, pedidoDTO.Cliente, pedidoDTO.lineas, pedidoDTO.PrecioTotal);
         }
     }
 }
