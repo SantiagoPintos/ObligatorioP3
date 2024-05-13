@@ -38,6 +38,8 @@ namespace Tienda.Web.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
             return View();
         }
 
