@@ -110,9 +110,9 @@ namespace Tienda.Web.Controllers
                     ViewBag.Message = "Cliente registrado correctamente";
                     return RedirectToAction(nameof(Index));                    
                 }
-                catch 
+                catch(Exception ex)
                 {
-                    ViewBag.Message = "No se pudo registrar";
+                    ViewBag.Message = ex.Message;
                     return View();                    
                 }
             }
