@@ -22,7 +22,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
-                aAgregar.EsValido();                
+                aAgregar.EsValido();         
+                foreach(Linea linea in aAgregar.lineas)
+                {
+                    this._context.Entry(linea.Articulo).State = EntityState.Unchanged;
+                }
                 this._context.Entry(aAgregar.Cliente).State = EntityState.Unchanged;
                 this._context.Set<Pedido>().Add(aAgregar);
                 this._context.SaveChanges();

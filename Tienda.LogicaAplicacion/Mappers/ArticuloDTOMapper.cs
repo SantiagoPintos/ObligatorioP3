@@ -32,6 +32,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             articulo.Descripcion = articuloDTO.Descripcion;
             articulo.stock = articuloDTO.stock;
             articulo.PrecioUnitario = articuloDTO.PrecioUnitario;
+            articulo.Id = articuloDTO.Id;
             return articulo;
 
         }

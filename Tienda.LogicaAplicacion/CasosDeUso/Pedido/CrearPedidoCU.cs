@@ -17,11 +17,14 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
     public class CrearPedidoCU:ICrearPedido
     {
         private IRepositorioPedido _repositorioPedido;
-        public CrearPedidoCU(IRepositorioPedido repositorioPedido)
+        // se agrega para que se pueda modificar el stock de los articulos, invocando al CU de 
+        // modificar stock
+        private IRepositorioArticulo _repositorioArticulo;
+        public CrearPedidoCU(IRepositorioPedido repositorioPedido, IRepositorioArticulo repositorioArticulo)
         {
             _repositorioPedido = repositorioPedido;
+            _repositorioArticulo = repositorioArticulo;
         }
-
 
         public void CrearPedido(PedidoDTO pedido, int tipoPedido)
         {
@@ -44,7 +47,8 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
                 foreach(Linea linea in comun.lineas)
                 {
-                    ModificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad);
+                    ModificarStockCU modificarStockCU = new ModificarStockCU(_repositorioArticulo); 
+                    modificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad); 
                 }
                 this._repositorioPedido.Add(comun);
             }
