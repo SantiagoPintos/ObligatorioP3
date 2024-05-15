@@ -16,7 +16,8 @@
             else
             {
                 <a asp-action="Create" class="btn btn-primary">Crear Pedido</a>
-                <a asp-action="AnularPedido" class="btn btn-primary">Anular Pedido</a>                
+                <a asp-action="AnularPedido" class="btn btn-primary">Anular Pedido</a>
+                <a asp-controller="Usuario" asp-action="Index" class="btn btn-danger">Volver atrás</a>
             }
             @ViewBag.Mensaje
         </div>
