@@ -17,21 +17,21 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Usuario
         {
             this._repositorioUsuario = repositorioUsuario;
         }
-        public bool Login(UsuarioDTO usuario)
+        public void Login(UsuarioDTO usuario)
         { 
-            if(usuario == null) throw new UsuarioNoValidoException("Usuario no válido");
+            if(usuario == null) throw new UsuarioNoValidoException("Email o contraseña incorrecta");
 
-            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Clave)) throw new UsuarioNoValidoException("Email o clave no válidas");
+            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Clave)) throw new UsuarioNoValidoException("Email o contraseña incorrecta");
 
             if (this._repositorioUsuario.ExisteUsuario(usuario.Email))
             {
                 var usuarioEncontrado = this._repositorioUsuario.EncontrarPorEmail(usuario.Email);
                 if (this._repositorioUsuario.ClaveCoincide(usuarioEncontrado.Clave, usuario.Clave))
                 {
-                    return true;
+                    return;
                 }
             }
-            return false;
+            throw new UsuarioNoValidoException("Email o contraseña incorrecta");
         }
 
     }

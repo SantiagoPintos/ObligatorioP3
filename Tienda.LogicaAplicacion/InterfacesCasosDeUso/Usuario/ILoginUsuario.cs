@@ -9,6 +9,6 @@ namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario
 {
     public interface ILoginUsuario
     {
-        public bool Login(UsuarioDTO usuario);
+        public void Login(UsuarioDTO usuario);
     }
 }

@@ -93,23 +93,18 @@ namespace Tienda.Web.Controllers
             if(HttpContext.Session.GetString("token") != null)
             {
                 return RedirectToAction(nameof(Index));
-            } else
+            } 
+            else
             {
                 try
                 {
-                    if (this._loginUsuarioCU.Login(usuario))
-                    {
-                        HttpContext.Session.SetString("token", usuario.Email);                        
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        ViewBag.Mensaje = "Usuario o contraseña incorrectos";
-                    }
+                    this._loginUsuarioCU.Login(usuario);
+                    HttpContext.Session.SetString("token", usuario.Email);                        
+                    return RedirectToAction(nameof(Index));
                 }
-                catch
+                catch (Exception ex)    
                 {
-                    ViewBag.Mensaje = "No se pudo iniciar sesión";
+                    ViewBag.Mensaje = ex.Message;
                 }
                 return View();
             }
