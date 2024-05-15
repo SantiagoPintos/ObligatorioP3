@@ -3,33 +3,41 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div>
-    <form method="post" action="Cliente/BuscarPorNombreApellido">
-        <label for="opcion">Buscar por nombre/apellido</label>
-        <br>
-        <label for="nombreApellido">Ingrese el valor:</label>
-        <input type="text" id="nombreApellido" name="nombreApellido" placeholder="" />
-        <input type="submit" value="Buscar"/>
-    </form>
-</div>
-<div>
-    <form method="post" action="Cliente/BuscarPorMonto">
-        <label for="opcion">Buscar por monto </label>
-        <br>
-        <label for="valor">Ingrese el valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="" />
-        <input type="submit" value="Buscar" />
-    </form>
+
+<div class="p-2">
+    <a asp-controller="Usuario" asp-action="Index" class="btn btn-danger">Atrás</a>
 </div>
 
-@ViewBag.Message
+@if(ViewBag.Message != null)
+{
+    <div class="text-center alert-warning p-2">
+        @ViewBag.Message
+    </div>
+}
 
-<p>
-    @* <a asp-action="Create" class="btn btn-primary">Nuevo cliente</a> *@
-    <a asp-action="ReturnToHome" class="btn btn-danger">Atrás</a>
-    
-</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <form method="post" action="Cliente/BuscarPorNombreApellido">
+                <label for="opcion">Buscar por nombre/apellido</label>
+                <br>
+                <input type="text" id="nombreApellido" name="nombreApellido" placeholder="Nombre/Apellido" />
+                <input type="submit" value="Buscar" class="btn btn-primary"/>
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" action="Cliente/BuscarPorMonto">
+                <label for="opcion">Buscar por monto </label>
+                <br>
+                <input type="text" id="valor" name="valor" placeholder="100" />
+                <input type="submit" value="Buscar" class="btn btn-primary"/>
+            </form>
+        </div>
+    </div>
+</div>
 
+
+<div class="p-2">
     <table class="table">
         <thead>
             <tr>
@@ -52,10 +60,10 @@
                     Numero
                 </th>
                 <th>
-                    Distancia desde tienda
+                    Ciudad
                 </th>
                 <th>
-                    Ciudad
+                    Distancia desde tienda
                 </th>  
             </tr>
         </thead>
@@ -89,14 +97,16 @@
                             @Html.DisplayFor(modelItem => item.distanciaDesdeTienda)
                         </td
                     </tr>
+                }
+            } 
+            else
+            {
+                    <tr>
+                        <td colspan="6" class="text-center alert alert-danger">No hay clientes registrados</td>
+                    </tr>
             }
-        } else
-        {
-                <tr>
-                    <td colspan="6" class="text-center">No hay clientes registrados</td>
-                </tr>
-        }
         </tbody>
     </table>
+</div>
 
 
