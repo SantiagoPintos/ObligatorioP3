@@ -34,10 +34,16 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Rut)
+                    Nombre
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RazonSocial)
+                    Apellido
+                </th>
+                <th>
+                    RUT
+                </th>
+                <th>
+                    Razon Social
                 </th>
                 <th>
                     Calle
@@ -46,10 +52,10 @@
                     Numero
                 </th>
                 <th>
-                    Ciudad
+                    Distancia desde tienda
                 </th>
                 <th>
-                    Distancia desde tienda
+                    Ciudad
                 </th>  
             </tr>
         </thead>
@@ -81,12 +87,7 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.distanciaDesdeTienda)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
+                        </td
                     </tr>
             }
         } else
