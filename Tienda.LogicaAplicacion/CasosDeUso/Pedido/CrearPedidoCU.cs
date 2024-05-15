@@ -35,10 +35,10 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             if (tipoPedido == 1)
             {
                 Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
-                comun.EsValido();
-                comun.Recargo = 5;
                 DateTime fecha = DateTime.Now;
                 comun.Fecha = fecha;
+                comun.EsValido();
+                comun.Recargo = 5;
                 comun.Cliente = cliente;
                 
                 decimal precioTotal = 0;
@@ -57,9 +57,9 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             else if(tipoPedido == 2)
             {
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
+                express.Fecha = DateTime.Now;
                 express.EsValido();
                 express.Recargo = 10;
-                express.Fecha = DateTime.Now;
                 express.Cliente = cliente;
                 decimal precioTotal = 0;
                 foreach (Linea linea in express.lineas)
