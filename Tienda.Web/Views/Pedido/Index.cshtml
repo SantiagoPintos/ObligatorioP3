@@ -6,10 +6,14 @@
 
 <h1 class="text-center">Pedidos</h1>
 
-<div class="container-fluid">
-    <div class="text-center">
-        @ViewBag.Mensaje
-    </div>        
+@if (ViewBag.Message != null)
+{
+    <div class="text-center alert-success p-2">
+        @ViewBag.Message
+    </div>
+}
+
+<div class="container-fluid"> 
     <div class="row justify-content-center">
         <div class="col-12 text-center">
             @if (Context.Session.GetString("token") == null)
