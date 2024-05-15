@@ -82,6 +82,11 @@ namespace Tienda.Web.Controllers
         public ActionResult AgregarLinea(int idArticulo, int cantidad)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+            //valor por defecto en vista es -1
+            if (idArticulo == -1 || cantidad == 0)
+            {
+                return RedirectToAction(nameof(Create), new { error = "Debe seleccionar un articulo y una cantidad" });
+            }
             try
             {
                 ArticuloDTO articulo = _obtenerArticuloPorId.ObtenerArticuloPorId(idArticulo);
