@@ -11,14 +11,14 @@ namespace Tienda.LogicaNegocio.Entidades
     public class Express:Pedido,IValidable<Express> 
     {
         // Constructor con id
-        public Express(decimal Recargo, int Id, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega ) : base(Recargo, Id, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega)
+        public Express(decimal Recargo, int Id, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega, bool anulado ) : base(Recargo, Id, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega, anulado)
         {            
            
         }
         // Constructor vacio
         public Express():base() { }
         // Constructor sin id
-        public Express(decimal Recargo, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega) : base(Recargo, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega)
+        public Express(decimal Recargo, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega, bool anulado) : base(Recargo, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega, anulado)
         {
 
         }

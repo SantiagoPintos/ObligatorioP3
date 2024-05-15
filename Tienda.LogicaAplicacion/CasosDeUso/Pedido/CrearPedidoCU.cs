@@ -46,7 +46,8 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                     comun.Cliente = cliente;
                     comun.PrecioTotal = comun.CalcularPrecio();                
                     comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
-                    foreach(Linea linea in comun.lineas)
+                    comun.anulado = false;
+                    foreach (Linea linea in comun.lineas)
                     {
                         ModificarStockCU modificarStockCU = new ModificarStockCU(_repositorioArticulo); 
                         modificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad); 
@@ -62,6 +63,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                     express.Cliente = cliente;
                     express.PrecioTotal = express.CalcularPrecio();                
                     express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
+                    express.anulado = false;
                     this._repositorioPedido.Add(express);
                 }            
 

@@ -135,6 +135,33 @@ namespace Tienda.Web.Controllers
             }
         }
 
+        public ActionResult anularPedido(string error)
+        {
+            if(HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+
+            ViewBag.error = error;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult anularPedido(int idPedido)
+        {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+            try
+            {
+                //this._anularPedido.AnularPedido(idPedido);
+                return RedirectToAction(nameof(Index), new { mensaje = "Pedido anulado correctamente" });
+            }
+            catch (PedidoException e)
+            {
+                return RedirectToAction(nameof(anularPedido), new { error = e.Message });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(anularPedido), new { error = e.Message });
+            }
+        }
+
         // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)
         {

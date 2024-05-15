@@ -20,5 +20,7 @@ namespace Tienda.LogicaAplicacion.DTOs
         public decimal IVA { get; set; }
         public DateTime FechaEntrega { get; set; }
 
+        public bool anulado { get; set; }
+
     }
 }

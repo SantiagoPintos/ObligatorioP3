@@ -10,14 +10,14 @@ namespace Tienda.LogicaNegocio.Entidades
     public class Comun:Pedido, IValidable<Comun>
     {
         // Constructor con id
-        public Comun(decimal Recargo, int Id, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega) : base(Recargo, Id, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega)
+        public Comun(decimal Recargo, int Id, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega, bool anulado) : base(Recargo, Id, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega, anulado)
         {
 
         }
         // Constructor vacio
         public Comun() : base() { }
         // Constructor sin id
-        public Comun(decimal Recargo, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega) : base(Recargo, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega)
+        public Comun(decimal Recargo, DateTime Fecha, Cliente Cliente, List<Linea> Lineas, decimal PrecioTotal, DateTime FechaEntrega, bool anulado) : base(Recargo, Fecha, Cliente, Lineas, PrecioTotal, FechaEntrega, anulado)
         {
 
         }

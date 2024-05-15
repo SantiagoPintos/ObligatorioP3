@@ -18,13 +18,14 @@ namespace Tienda.LogicaNegocio.Entidades
         public decimal PrecioTotal { get; set; }
         public DateTime FechaEntrega { get; set; }
 
+        public bool anulado { get; set; }
         public decimal IVA { get; set; }
 
         // Constructor vacio para MVC y EF
         public Pedido() { }
 
         // Constructor con Id
-        public Pedido(decimal recargo, int id, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal, DateTime FechaEntrega)
+        public Pedido(decimal recargo, int id, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal, DateTime FechaEntrega, bool anulado)
         {
             this.Recargo = recargo;
             this.Id = id;
@@ -33,16 +34,18 @@ namespace Tienda.LogicaNegocio.Entidades
             this.lineas = lineas;
             this.PrecioTotal = precioTotal;
             this.FechaEntrega = FechaEntrega;
+            this.anulado = anulado;
         }
 
         // Constructor sin Id
-        public Pedido(decimal recargo, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal, DateTime FechaEntrega)
+        public Pedido(decimal recargo, DateTime fecha, Cliente cliente, List<Linea> lineas, decimal precioTotal, DateTime FechaEntrega, bool anulado)
         {
             this.Recargo = recargo;
             this.Fecha = fecha;
             this.Cliente = cliente;
             this.lineas = lineas;
             this.PrecioTotal = precioTotal;
+            this.anulado = anulado;
         }
         public void EsValido()
         {

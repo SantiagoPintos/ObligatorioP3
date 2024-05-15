@@ -23,6 +23,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             pedidoDTO.Recargo = comun.Recargo;
             pedidoDTO.IVA = comun.IVA;
             pedidoDTO.FechaEntrega = comun.FechaEntrega;
+            pedidoDTO.anulado = comun.anulado;
             return pedidoDTO;
         }
         public static PedidoDTO toDtoFromExpress(Express express)
@@ -37,6 +38,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             pedidoDTO.Recargo = express.Recargo;
             pedidoDTO.IVA = express.IVA;
             pedidoDTO.FechaEntrega = express.FechaEntrega;
+            pedidoDTO.anulado = express.anulado;
             return pedidoDTO;
         }
 
@@ -51,6 +53,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             express.Recargo = pedidoDTO.Recargo;
             express.IVA = pedidoDTO.IVA;
             express.FechaEntrega = pedidoDTO.FechaEntrega;
+            express.anulado = pedidoDTO.anulado;
             return express;
         }
 
@@ -67,6 +70,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             comun.Recargo = pedidoDTO.Recargo;
             comun.IVA = pedidoDTO.IVA;
             comun.FechaEntrega = pedidoDTO.FechaEntrega;
+            comun.anulado = pedidoDTO.anulado;
             return comun;            
         }
 
