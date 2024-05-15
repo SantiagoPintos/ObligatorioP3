@@ -45,6 +45,7 @@ namespace Tienda.LogicaNegocio.Entidades
             {
                 base.Recargo = 15;
             }
+            base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo / 100);
             return precioTotal;
 
         }

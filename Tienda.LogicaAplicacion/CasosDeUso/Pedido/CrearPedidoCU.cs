@@ -40,7 +40,8 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 DateTime fecha = DateTime.Now;
                 comun.Fecha = fecha;
                 comun.Cliente = cliente;
-                comun.PrecioTotal = comun.CalcularPrecio();                                             
+                comun.PrecioTotal = comun.CalcularPrecio();
+                comun.ControlarStock();
                 comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
                 this._repositorioPedido.Add(comun);
             }
@@ -49,8 +50,9 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
                 express.EsValido();                
                 express.Fecha = DateTime.Now;
-                express.Cliente = cliente;                      
-                express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.Recargo / 100);
+                express.Cliente = cliente;
+                express.ControlarStock();
+                
                 express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
                 this._repositorioPedido.Add(express);
             }            
