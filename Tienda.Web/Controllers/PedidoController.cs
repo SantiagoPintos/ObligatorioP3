@@ -5,9 +5,6 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaNegocio.Excepciones.Pedido;
-using Tienda.LogicaNegocio.Entidades;
-using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
-using Tienda.LogicaAplicacion.Mappers;
 
 namespace Tienda.Web.Controllers
 {
