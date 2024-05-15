@@ -59,6 +59,5 @@ namespace Tienda.LogicaNegocio.Entidades
             return precioTotal;
         }
 
-
     }
 }
