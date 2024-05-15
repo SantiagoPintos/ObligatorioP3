@@ -28,41 +28,48 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
 
         public void CrearPedido(PedidoDTO pedido, int tipoPedido)
         {
-            Tienda.LogicaNegocio.Entidades.Cliente cliente = ClienteDTOMapper.FromDto(pedido.Cliente);
-
-
-            if (tipoPedido == 0)
+            try
             {
-                throw new Exception("No se eligio un tipo de pedido");
-            }
-            if (tipoPedido == 1)
-            {
-                Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
-                comun.EsValido();
-                comun.Recargo = 5;
-                DateTime fecha = DateTime.Today;
-                comun.Fecha = fecha;
-                comun.Cliente = cliente;
-                comun.PrecioTotal = comun.CalcularPrecio();                
-                comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
-                foreach(Linea linea in comun.lineas)
+                Tienda.LogicaNegocio.Entidades.Cliente cliente = ClienteDTOMapper.FromDto(pedido.Cliente);
+
+                if (tipoPedido == 0)
                 {
-                    ModificarStockCU modificarStockCU = new ModificarStockCU(_repositorioArticulo); 
-                    modificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad); 
+                    throw new PedidoException("No se eligio un tipo de pedido");
                 }
-                this._repositorioPedido.Add(comun);
-            }
-            else if(tipoPedido == 2)
+                if (tipoPedido == 1)
+                {
+                    Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
+                    comun.EsValido();
+                    comun.Recargo = 5;
+                    DateTime fecha = DateTime.Today;
+                    comun.Fecha = fecha;
+                    comun.Cliente = cliente;
+                    comun.PrecioTotal = comun.CalcularPrecio();                
+                    comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
+                    foreach(Linea linea in comun.lineas)
+                    {
+                        ModificarStockCU modificarStockCU = new ModificarStockCU(_repositorioArticulo); 
+                        modificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad); 
+                    }
+                    this._repositorioPedido.Add(comun);
+                }
+                else if(tipoPedido == 2)
+                {
+                    Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
+                    express.Fecha = DateTime.Today;
+                    express.EsValido();
+                    express.Recargo = 10;
+                    express.Cliente = cliente;
+                    express.PrecioTotal = express.CalcularPrecio();                
+                    express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
+                    this._repositorioPedido.Add(express);
+                }            
+
+            } 
+            catch (Exception e)
             {
-                Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
-                express.Fecha = DateTime.Today;
-                express.EsValido();
-                express.Recargo = 10;
-                express.Cliente = cliente;
-                express.PrecioTotal = express.CalcularPrecio();                
-                express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
-                this._repositorioPedido.Add(express);
-            }            
+                throw new PedidoException("Error al crear el pedido");
+            }
         }
 
 
