@@ -40,7 +40,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
                 comun.EsValido();
                 comun.Recargo = 5;
-                DateTime fecha = DateTime.Now;
+                DateTime fecha = DateTime.Today;
                 comun.Fecha = fecha;
                 comun.Cliente = cliente;
                 comun.PrecioTotal = comun.CalcularPrecio();                
@@ -55,7 +55,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             else if(tipoPedido == 2)
             {
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
-                express.Fecha = DateTime.Now;
+                express.Fecha = DateTime.Today;
                 express.EsValido();
                 express.Recargo = 10;
                 express.Cliente = cliente;

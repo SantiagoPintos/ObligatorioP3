@@ -42,9 +42,10 @@ namespace Tienda.Web.Controllers
 
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string mensaje)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+            ViewBag.Mensaje = mensaje;
 
             return View();
         }
@@ -117,7 +118,7 @@ namespace Tienda.Web.Controllers
                 pedido.Cliente = cliente;
                 this._crearPedido.CrearPedido(pedido, tipoPedido);
                 tempPedido = null;                
-                return RedirectToAction(nameof(Index)); 
+                return RedirectToAction(nameof(Index), new {mensaje = "Pedido creado correctamente"}); 
             }catch (PedidoException e)
             {
                 return RedirectToAction(nameof(Create), new {error = e.Message});

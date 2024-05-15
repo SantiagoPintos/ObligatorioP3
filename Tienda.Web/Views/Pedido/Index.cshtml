@@ -7,6 +7,9 @@
 <h1 class="text-center">Pedidos</h1>
 
 <div class="container-fluid">
+    <div class="text-center">
+        @ViewBag.Mensaje
+    </div>        
     <div class="row justify-content-center">
         <div class="col-12 text-center">
             @if (Context.Session.GetString("token") == null)
@@ -19,7 +22,8 @@
                 <a asp-action="AnularPedido" class="btn btn-primary">Anular Pedido</a>
                 <a asp-controller="Usuario" asp-action="Index" class="btn btn-danger">Volver atrás</a>
             }
-            @ViewBag.Mensaje
+    
+    
         </div>
     </div>
 </div>
