@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Tienda.LogicaAplicacion.DTOs.PedidoDTO>
+
+@{
+    ViewData["Title"] = "Anular pedido";
+}
+
+@if(!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@if(ViewBag.MostrarFormulario == true)
+{
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>Lista de pedidos</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Precio total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.pedidos)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Fecha</td>
+                            <td>@item.Cliente.Nombre</td>
+                            <td>@item.PrecioTotal</td>
+                            <td>
+                                <a asp-action="Anular" asp-route-id="@item.Id">Anular</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+} 
+else
+{
+    <form asp-action="buscarPedidosAular">
+    <div class="form-group py-1 my-1">
+        <label for="idPedido">Seleccione la fecha del pedido</label>
+        <br />
+        <input type="date" name="fecha" id="fecha"/>
+        <br />
+        <input type="submit" class="btn btn-primary"/>
+    </div>
+</form>
+}
+

@@ -13,6 +13,7 @@ namespace Tienda.Web.Controllers
         // GET: PedidoController
 
         private static PedidoDTO tempPedido;
+        private static DateTime fechaPedidoAnular;
 
         private IObtenerClientes _obtenerClientes;
         private IListarPedidos _listarPedidos;
@@ -21,13 +22,15 @@ namespace Tienda.Web.Controllers
         private ICrearPedido _crearPedido;
         private IObtenerClientePorId _obtenerClientePorId;
         private ICalcularStock  _calcularStock;
+        private IListarPedidosNoEntregados _listarPedidosNoEntregados;
         public PedidoController(IObtenerClientes obtenerClientes,
             IListarPedidos _listarPedidos,
             IListarAlfabeticamente _listaAlfabeticamente,
             IObtenerArticuloPorId obtenerArticuloPorId,
             ICrearPedido crearPedido,
             IObtenerClientePorId obtenerClientePorId,
-            ICalcularStock calcularStock)
+            ICalcularStock calcularStock,
+            IListarPedidosNoEntregados listarPedidosNoEntregados)
         {
             this._obtenerClientes = obtenerClientes;
             this._listarPedidos = _listarPedidos;
@@ -36,7 +39,7 @@ namespace Tienda.Web.Controllers
             this._crearPedido = crearPedido;
             this._obtenerClientePorId = obtenerClientePorId;
             _calcularStock = calcularStock;
-
+            _listarPedidosNoEntregados = listarPedidosNoEntregados;
         }
 
         public ActionResult Index(string mensaje)
@@ -132,20 +135,47 @@ namespace Tienda.Web.Controllers
             }
         }
 
-        public ActionResult anularPedido(string error)
+        public ActionResult anularPedido(string error, DateTime fechaPedidoAnular)
         {
             if(HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
-
+            ViewBag.MostrarFormulario = false;
+            if (fechaPedidoAnular != DateTime.MinValue && fechaPedidoAnular != null )
+            {
+                ViewBag.MostrarFormulario = true;
+                ViewBag.pedidos = this._listarPedidosNoEntregados.ListarPedidosNoEntregados(fechaPedidoAnular);
+            }
             ViewBag.error = error;
             return View();
         }
 
-        [HttpPost]
-        public ActionResult anularPedido(int idPedido)
+        public ActionResult buscarPedidosAular(DateTime fecha)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
             try
             {
+                if (fecha == null || fecha == DateTime.MinValue) throw new PedidoException("Debe seleccionar una fecha");
+                return RedirectToAction(nameof(anularPedido), new { fechaPedidoAnular = fecha});
+            }
+            catch (PedidoException e)
+            {
+                return RedirectToAction(nameof(anularPedido), new { error = e.Message });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(anularPedido), new { error = e.Message });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult anularPedido(int idPedido, DateTime fecha)
+        {
+            if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
+            try
+            {
+                ViewBag.pedidos = this._listarPedidosNoEntregados.ListarPedidosNoEntregados(fecha);
+                ViewBag.MostrarFormulario = false;
+
                 //this._anularPedido.AnularPedido(idPedido);
                 return RedirectToAction(nameof(Index), new { mensaje = "Pedido anulado correctamente" });
             }
