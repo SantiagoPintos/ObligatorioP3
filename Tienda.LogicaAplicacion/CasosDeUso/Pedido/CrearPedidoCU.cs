@@ -55,21 +55,11 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             else if(tipoPedido == 2)
             {
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
+                express.Fecha = DateTime.Now;
                 express.EsValido();
                 express.Recargo = 10;
-                express.Fecha = DateTime.Now;
                 express.Cliente = cliente;
-                decimal precioTotal = 0;
-                foreach (Linea linea in express.lineas)
-                {
-                    precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
-                }
-                express.PrecioTotal = precioTotal;
-                if (express.FechaEntrega == express.Fecha)
-                {
-                    express.Recargo = 15;
-                }                
-                express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.Recargo / 100);
+                express.PrecioTotal = express.CalcularPrecio();                
                 express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
                 this._repositorioPedido.Add(express);
             }            
