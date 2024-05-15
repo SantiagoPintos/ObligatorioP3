@@ -35,31 +35,25 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             if (tipoPedido == 1)
             {
                 Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
-                DateTime fecha = DateTime.Now;
-                comun.Fecha = fecha;
                 comun.EsValido();
                 comun.Recargo = 5;
+                DateTime fecha = DateTime.Now;
+                comun.Fecha = fecha;
                 comun.Cliente = cliente;
-                
-                decimal precioTotal = 0;
+                comun.PrecioTotal = comun.CalcularPrecio();                
+                comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
                 foreach(Linea linea in comun.lineas)
                 {
-                    precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;                    
+                    ModificarStockCU.ModificarStock(linea.Articulo, linea.Cantidad);
                 }
-                comun.PrecioTotal = precioTotal;
-                if (comun.Cliente.Direccion.DistanciaDesdeTienda > 100)
-                {
-                    comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.Recargo / 100);
-                }                             
-                comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
                 this._repositorioPedido.Add(comun);
             }
             else if(tipoPedido == 2)
             {
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
-                express.Fecha = DateTime.Now;
                 express.EsValido();
                 express.Recargo = 10;
+                express.Fecha = DateTime.Now;
                 express.Cliente = cliente;
                 decimal precioTotal = 0;
                 foreach (Linea linea in express.lineas)

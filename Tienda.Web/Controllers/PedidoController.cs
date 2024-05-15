@@ -7,6 +7,7 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaNegocio.Excepciones.Pedido;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.Mappers;
 
 namespace Tienda.Web.Controllers
 {
@@ -22,12 +23,14 @@ namespace Tienda.Web.Controllers
         private IObtenerArticuloPorId   _obtenerArticuloPorId;
         private ICrearPedido _crearPedido;
         private IObtenerClientePorId _obtenerClientePorId;
+        private ICalcularStock  _calcularStock;
         public PedidoController(IObtenerClientes obtenerClientes,
             IListarPedidos _listarPedidos,
             IListarAlfabeticamente _listaAlfabeticamente,
             IObtenerArticuloPorId obtenerArticuloPorId,
             ICrearPedido crearPedido,
-            IObtenerClientePorId obtenerClientePorId)
+            IObtenerClientePorId obtenerClientePorId,
+            ICalcularStock calcularStock)
         {
             this._obtenerClientes = obtenerClientes;
             this._listarPedidos = _listarPedidos;
@@ -35,6 +38,8 @@ namespace Tienda.Web.Controllers
             this._obtenerArticuloPorId = obtenerArticuloPorId;
             this._crearPedido = crearPedido;
             this._obtenerClientePorId = obtenerClientePorId;
+            _calcularStock = calcularStock;
+
         }
 
         public ActionResult Index()
@@ -76,15 +81,23 @@ namespace Tienda.Web.Controllers
         public ActionResult AgregarLinea(int idArticulo, int cantidad)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
-            
+            try
+            {
                 ArticuloDTO articulo = _obtenerArticuloPorId.ObtenerArticuloPorId(idArticulo);
-                LineaDTO linea = new LineaDTO { Articulo = articulo,  Cantidad = cantidad};
+                _calcularStock.CalcularStock(articulo, cantidad);
+                LineaDTO linea = new LineaDTO { Articulo = articulo, Cantidad = cantidad };
                 if (tempPedido == null)
                 {
                     tempPedido = new PedidoDTO { lineas = new List<LineaDTO>() };
                 }
                 tempPedido.lineas.Add(linea);
                 return RedirectToAction(nameof(Create));
+            }
+            catch(Exception e)
+            {                
+                return RedirectToAction(nameof(Create), new { error = e.Message });
+            }
+                
             
             
         }
