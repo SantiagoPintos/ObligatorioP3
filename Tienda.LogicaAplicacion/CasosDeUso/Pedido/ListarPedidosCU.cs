@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
+using Tienda.LogicaAplicacion.Mappers;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
@@ -20,7 +21,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
 
         public IEnumerable<PedidoDTO> ListarPedidos()
         {
-            throw new NotImplementedException();
+            return this._repositorioPedido.FindAll().Select(pedido => PedidoDTOMapper.toDto(pedido));
         }
     }
 }
