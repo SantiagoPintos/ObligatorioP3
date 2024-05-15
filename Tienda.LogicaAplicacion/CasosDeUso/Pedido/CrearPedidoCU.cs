@@ -36,41 +36,20 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             {
                 Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
                 comun.EsValido();
-                comun.Recargo = 5;
+                
                 DateTime fecha = DateTime.Now;
                 comun.Fecha = fecha;
                 comun.Cliente = cliente;
-                
-                decimal precioTotal = 0;
-                foreach(Linea linea in comun.lineas)
-                {
-                    precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;                    
-                }
-                comun.PrecioTotal = precioTotal;
-                if (comun.Cliente.Direccion.DistanciaDesdeTienda > 100)
-                {
-                    comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.Recargo / 100);
-                }                             
+                comun.PrecioTotal = comun.CalcularPrecio();                                             
                 comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
                 this._repositorioPedido.Add(comun);
             }
             else if(tipoPedido == 2)
             {
                 Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
-                express.EsValido();
-                express.Recargo = 10;
+                express.EsValido();                
                 express.Fecha = DateTime.Now;
-                express.Cliente = cliente;
-                decimal precioTotal = 0;
-                foreach (Linea linea in express.lineas)
-                {
-                    precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
-                }
-                express.PrecioTotal = precioTotal;
-                if (express.FechaEntrega == express.Fecha)
-                {
-                    express.Recargo = 15;
-                }                
+                express.Cliente = cliente;                      
                 express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.Recargo / 100);
                 express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
                 this._repositorioPedido.Add(express);

@@ -51,5 +51,14 @@ namespace Tienda.LogicaNegocio.Entidades
             if (this.IVA < 0)  throw new Exception("El IVA no puede ser negativo");
 
         }
+
+
+        public virtual decimal CalcularPrecio()
+        {
+            decimal precioTotal = 0;
+            return precioTotal;
+        }
+
+
     }
 }

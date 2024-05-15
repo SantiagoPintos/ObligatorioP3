@@ -32,5 +32,20 @@ namespace Tienda.LogicaNegocio.Entidades
                 throw new Exception("La fecha de entrega no puede ser menor a 7 días de la fecha del pedido");
             }
         }
+
+        public override decimal CalcularPrecio()
+        {
+            base.PrecioTotal = 0;
+            base.Recargo = 5;
+            foreach (Linea linea in base.lineas)
+            {
+                base.PrecioTotal = PrecioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
+            }
+            if (base.Cliente.Direccion.DistanciaDesdeTienda > 100)
+            {
+                base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo / 100);
+            }
+            return PrecioTotal;
+        }
     }
 }

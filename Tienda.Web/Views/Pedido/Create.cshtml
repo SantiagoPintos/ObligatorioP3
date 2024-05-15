@@ -31,7 +31,7 @@
                 <label for="idCliente">Selecciona un cliente:</label>
                 <select id="idCliente" name="idCliente">
                         <option value="-1">Seleciona un cliente:</option>
-                        @if (ViewBag.clientes != null)
+                        @if (ViewBag.clientes != null   )
                         {                            
                             @foreach (ClienteDTO cliente in ViewBag.clientes)
                             {

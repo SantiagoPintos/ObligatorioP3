@@ -23,13 +23,6 @@ namespace Tienda.LogicaNegocio.Entidades
 
         }
 
-
-
-
-
-
-
-
         public void EsValido()
         {
             base.EsValido();
@@ -39,5 +32,21 @@ namespace Tienda.LogicaNegocio.Entidades
             }
         }
 
+        public override decimal CalcularPrecio()
+        {
+            base.Recargo = 10;
+            decimal precioTotal = 0;
+            foreach (Linea linea in base.lineas)
+            {
+                precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
+            }
+            base.PrecioTotal = precioTotal;
+            if (base.FechaEntrega == base.Fecha)
+            {
+                base.Recargo = 15;
+            }
+            return precioTotal;
+
+        }
     }
 }
