@@ -10,5 +10,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
     public interface IRepositorioPedido:IRepositorio<Pedido>
     {
         public IEnumerable<Cliente> FindByMonto(decimal monto);
+
     }
 }

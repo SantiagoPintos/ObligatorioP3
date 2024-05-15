@@ -12,12 +12,28 @@ namespace Tienda.LogicaAplicacion.Mappers
     {
         public static ArticuloDTO toDto(Articulo articulo)
         {
-            return new ArticuloDTO(articulo);
+            ArticuloDTO articuloDTO = new ArticuloDTO();
+            articuloDTO.Id = articulo.Id;
+            articuloDTO.Nombre = articulo.Nombre;
+            articuloDTO.Codigo = articulo.Codigo;
+            articuloDTO.Descripcion = articulo.Descripcion;
+            articuloDTO.stock = articulo.stock;
+            articuloDTO.PrecioUnitario = articulo.PrecioUnitario;
+
+            return articuloDTO;
         }
 
         public static Articulo FromDto(ArticuloDTO articuloDTO)
         {
-            return new Articulo(articuloDTO.Nombre, articuloDTO.Codigo, articuloDTO.Descripcion, articuloDTO.stock, articuloDTO.PrecioUnitario, articuloDTO.Id);
+            if (articuloDTO == null) throw new Exception();
+            Articulo articulo = new Articulo();            
+            articulo.Nombre = articuloDTO.Nombre;
+            articulo.Codigo = articuloDTO.Codigo;                
+            articulo.Descripcion = articuloDTO.Descripcion;
+            articulo.stock = articuloDTO.stock;
+            articulo.PrecioUnitario = articuloDTO.PrecioUnitario;
+            return articulo;
+
         }
     }
 }

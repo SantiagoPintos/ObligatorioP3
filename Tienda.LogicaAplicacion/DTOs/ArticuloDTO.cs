@@ -16,17 +16,5 @@ namespace Tienda.LogicaAplicacion.DTOs
         public int stock { get; set; }
         public decimal PrecioUnitario { get; set; }
 
-        public ArticuloDTO() { }
-        public ArticuloDTO(Articulo articulo)
-        {
-            if(articulo == null) throw new Exception();
-
-            this.Id = articulo.Id;
-            this.Nombre = articulo.Nombre;
-            this.Codigo = articulo.Codigo;
-            this.Descripcion = articulo.Descripcion;
-            this.stock = articulo.stock;
-            this.PrecioUnitario = articulo.PrecioUnitario;
-        }
     }
 }

@@ -36,6 +36,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
 
 
+
         public bool ExisteCliente(string rut)
         {
             return this._context.Clientes.Where(cliente => cliente.Rut == rut).Any();

@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
-using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaNegocio.Entidades;
 
 namespace Tienda.Web.Controllers

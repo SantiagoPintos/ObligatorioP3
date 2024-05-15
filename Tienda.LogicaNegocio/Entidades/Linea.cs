@@ -12,6 +12,18 @@ namespace Tienda.LogicaNegocio.Entidades
         public Articulo Articulo { get; set; }
         public int Cantidad { get; set; }
 
+        // Constructor vacio
+        public Linea() { }
+
+        // Constructor con parametros
+        public Linea(Articulo articulo, int cantidad)
+        {
+            this.Articulo = articulo;
+            this.Cantidad = cantidad;
+        }
+
+
+
         public void EsValido()
         {
             throw new NotImplementedException();

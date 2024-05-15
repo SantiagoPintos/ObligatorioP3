@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Tienda.LogicaAplicacion.DTOs.PedidoDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Pedidos</h1>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            @if (Context.Session.GetString("token") == null)
+            {
+                <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
+            }
+            else
+            {
+                <a asp-action="Create" class="btn btn-primary">Crear Pedido</a>
+                <a asp-action="AnularPedido" class="btn btn-primary">Anular Pedido</a>                
+            }
+            @ViewBag.Mensaje
+        </div>
+    </div>
+</div>

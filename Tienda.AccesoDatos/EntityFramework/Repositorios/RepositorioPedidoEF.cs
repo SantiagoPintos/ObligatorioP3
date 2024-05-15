@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.AccesoDatos.CrifradoClave;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
@@ -18,12 +20,27 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public bool Add(Pedido aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();                
+                this._context.Entry(aAgregar.Cliente).State = EntityState.Unchanged;
+                this._context.Set<Pedido>().Add(aAgregar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            
+            
         }
 
         public IEnumerable<Pedido> FindAll()
         {
-            throw new NotImplementedException();
+            return this._context.Pedidos;
         }
 
         public Pedido FindByID(int id)

@@ -18,18 +18,5 @@ namespace Tienda.LogicaAplicacion.DTOs
         //letra dice que se debe guardar una copia de la contraseña sin encriptar
         public string ClaveSinEncriptar { get; set; }
 
-        public UsuarioDTO() { }
-
-        public UsuarioDTO(Usuario usuario)
-        {
-            if(usuario == null) throw new Exception();
-
-            this.Id = usuario.Id;
-            this.Nombre = usuario.NombreCompleto.Nombre;
-            this.Apellido = usuario.NombreCompleto.Apellido;
-            this.Email = usuario.Email;
-            this.Clave = usuario.Clave;
-            this.ClaveSinEncriptar = usuario.ClaveSinEncriptar;
-        }
     }
 }

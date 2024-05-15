@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tienda.AccesoDatos.EntityFramework;
 
@@ -11,9 +12,11 @@ using Tienda.AccesoDatos.EntityFramework;
 namespace Tienda.AccesoDatos.Migrations
 {
     [DbContext(typeof(TiendaContext))]
-    partial class TiendaContextModelSnapshot : ModelSnapshot
+    [Migration("20240514202327_pedido")]
+    partial class pedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,12 +89,6 @@ namespace Tienda.AccesoDatos.Migrations
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("IVA")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PrecioTotal")
                         .HasColumnType("decimal(18,2)");

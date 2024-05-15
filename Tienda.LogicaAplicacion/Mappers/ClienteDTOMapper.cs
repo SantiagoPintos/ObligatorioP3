@@ -14,13 +14,32 @@ namespace Tienda.LogicaAplicacion.Mappers
 
         public static ClienteDTO toDto(Cliente cliente)
         {
-            return new ClienteDTO(cliente);
+            ClienteDTO clienteDTO = new ClienteDTO();
+            clienteDTO.Id = cliente.Id;
+            clienteDTO.Rut = cliente.Rut;
+            clienteDTO.RazonSocial = cliente.RazonSocial;            
+            clienteDTO.Calle = cliente.Direccion.Calle;  
+            clienteDTO.Numero = cliente.Direccion.Numero;
+            clienteDTO.Ciudad = cliente.Direccion.Ciudad;
+            clienteDTO.distanciaDesdeTienda = cliente.Direccion.DistanciaDesdeTienda;
+            clienteDTO.Nombre = cliente.NombreCompleto.Nombre;
+            clienteDTO.Apellido = cliente.NombreCompleto.Apellido;
+            return clienteDTO;
+
         }
 
         public static Cliente FromDto(ClienteDTO clienteDTO)
         {
-            if(clienteDTO == null) throw new Exception();            
-            return new Cliente(clienteDTO.Id, clienteDTO.Rut, clienteDTO.RazonSocial, clienteDTO.Calle, clienteDTO.Numero, clienteDTO.Ciudad, clienteDTO.distanciaDesdeTienda, clienteDTO.Nombre, clienteDTO.Apellido);
+            if(clienteDTO == null) throw new Exception();
+            Cliente cliente = new Cliente();
+            cliente.Id = clienteDTO.Id;
+            cliente.Rut = clienteDTO.Rut;
+            cliente.RazonSocial = clienteDTO.RazonSocial;
+            DireccionCliente direccion = new DireccionCliente(clienteDTO.Calle, clienteDTO.Numero, clienteDTO.Ciudad, clienteDTO.distanciaDesdeTienda);
+            cliente.Direccion = direccion;
+            NombreCompletoCliente nombreCompleto = new NombreCompletoCliente(clienteDTO.Nombre, clienteDTO.Apellido);
+            cliente.NombreCompleto = nombreCompleto;
+            return cliente;
         }
 
 

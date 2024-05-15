@@ -1,6 +1,7 @@
 using Tienda.AccesoDatos.EntityFramework.Repositorios;
 using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
@@ -30,10 +31,13 @@ builder.Services.AddScoped<ICrearArticulo, CrearArticuloCU>();
 builder.Services.AddScoped<IListarArticulo, ListarArticuloCU>();
 builder.Services.AddScoped<IListarAlfabeticamente, ListarAlfabeticamenteCU>();
 builder.Services.AddScoped<IEliminarArticulo, EliminarArticuloCU>();
-builder.Services.AddScoped<IObtenerArticuloPorId, ObtenerArticuloPorId>();
+builder.Services.AddScoped<IObtenerArticuloPorId, ObtenerArticuloPorIdCU>();
 builder.Services.AddScoped<IEditarArticulo, EditarArticuloCU>();
 builder.Services.AddScoped<IObtenerClientePorNombreApellido, ObtenerClientePorNombreApellidoCU>();
 builder.Services.AddScoped<IBuscarClientePorMontoPedido, BuscarClientePorMontoPedidoCU>();
+builder.Services.AddScoped<IListarPedidos, ListarPedidosCU>();
+builder.Services.AddScoped<ICrearPedido, CrearPedidoCU>();
+builder.Services.AddScoped<IObtenerClientePorId, ObtenerClientePorIdCU>();
 
 var app = builder.Build();
 

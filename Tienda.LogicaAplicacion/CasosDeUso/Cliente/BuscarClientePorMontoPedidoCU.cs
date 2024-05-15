@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
-using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 using Tienda.LogicaAplicacion.Mappers;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Cliente
 {

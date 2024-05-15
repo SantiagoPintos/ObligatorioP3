@@ -10,11 +10,11 @@ using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
 {
-    public class ObtenerArticuloPorId : IObtenerArticuloPorId
+    public class ObtenerArticuloPorIdCU : IObtenerArticuloPorId
     {
 
         private IRepositorioArticulo _repositorioArticulo;
-        public ObtenerArticuloPorId(IRepositorioArticulo repositorioArticulo)
+        public ObtenerArticuloPorIdCU(IRepositorioArticulo repositorioArticulo)
         {
             _repositorioArticulo = repositorioArticulo;
         }

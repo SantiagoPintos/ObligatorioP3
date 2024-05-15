@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
 
-namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido
+namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente
 {
     public interface IBuscarClientePorMontoPedido
     {

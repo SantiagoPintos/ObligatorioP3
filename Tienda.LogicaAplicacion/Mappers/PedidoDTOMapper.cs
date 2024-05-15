@@ -5,20 +5,75 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaAplicacion.Mappers;
+using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 
 namespace Tienda.LogicaAplicacion.Mappers
 {
     public class PedidoDTOMapper
     {
-        public static PedidoDTO toDto(Pedido pedido)
+        public static PedidoDTO toDtoFromComun(Comun comun)
         {
-            return new PedidoDTO(pedido);
+            if (comun == null) throw new Exception();
+            PedidoDTO pedidoDTO = new PedidoDTO();                  
+            pedidoDTO.Fecha = comun.Fecha;
+            pedidoDTO.Cliente = (ClienteDTOMapper.toDto(comun.Cliente));
+            pedidoDTO.lineas = comun.lineas.Select(linea => LineaDTOMapper.toDto(linea)).ToList();
+            pedidoDTO.PrecioTotal = comun.PrecioTotal;
+            pedidoDTO.Recargo = comun.Recargo;
+            pedidoDTO.IVA = comun.IVA;
+            pedidoDTO.FechaEntrega = comun.FechaEntrega;
+            return pedidoDTO;
+        }
+        public static PedidoDTO toDtoFromExpress(Express express)
+        {
+            if (express == null) throw new Exception();
+            PedidoDTO pedidoDTO = new PedidoDTO();
+            pedidoDTO.Id = express.Id;
+            pedidoDTO.Fecha = express.Fecha;
+            pedidoDTO.Cliente = (ClienteDTOMapper.toDto(express.Cliente));
+            pedidoDTO.lineas = express.lineas.Select(linea => LineaDTOMapper.toDto(linea)).ToList();
+            pedidoDTO.PrecioTotal = express.PrecioTotal;
+            pedidoDTO.Recargo = express.Recargo;
+            pedidoDTO.IVA = express.IVA;
+            pedidoDTO.FechaEntrega = express.FechaEntrega;
+            return pedidoDTO;
         }
 
-        public static Pedido FromDto(PedidoDTO pedidoDTO)
+        public static Express FromDtoToExpress(PedidoDTO pedidoDTO)
         {
             if (pedidoDTO == null) throw new Exception();
-            return new Pedido(pedidoDTO.Recargo, pedidoDTO.Id, pedidoDTO.Fecha, pedidoDTO.Cliente, pedidoDTO.lineas, pedidoDTO.PrecioTotal);
+            Express express = new Express();
+            express.Fecha = pedidoDTO.Fecha;
+            express.Cliente = ClienteDTOMapper.FromDto(pedidoDTO.Cliente);
+            express.lineas = pedidoDTO.lineas.Select(linea => LineaDTOMapper.FromDto(linea)).ToList();
+            express.PrecioTotal = pedidoDTO.PrecioTotal;
+            express.Recargo = pedidoDTO.Recargo;
+            express.IVA = pedidoDTO.IVA;
+            express.FechaEntrega = pedidoDTO.FechaEntrega;
+            return express;
         }
+
+
+        public static Comun FromDtoToComun(PedidoDTO pedidoDTO)
+        {
+            if (pedidoDTO == null) throw new Exception();
+            Comun comun = new Comun();
+            comun.Fecha = pedidoDTO.Fecha;
+            comun.Cliente = new Cliente();
+            comun.Cliente = ClienteDTOMapper.FromDto(pedidoDTO.Cliente);
+            comun.lineas = pedidoDTO.lineas.Select(linea => LineaDTOMapper.FromDto(linea)).ToList();
+            comun.PrecioTotal = pedidoDTO.PrecioTotal;
+            comun.Recargo = pedidoDTO.Recargo;
+            comun.IVA = pedidoDTO.IVA;
+            comun.FechaEntrega = pedidoDTO.FechaEntrega;
+            return comun;            
+        }
+
+
+
+
+
+
     }
 }
