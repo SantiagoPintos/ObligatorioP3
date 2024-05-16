@@ -160,7 +160,7 @@ namespace Tienda.Web.Controllers
             try
             {
                 if (fecha == null || fecha == DateTime.MinValue) throw new PedidoException("Debe seleccionar una fecha");
-                return RedirectToAction(nameof(anularPedido), new { fechaPedidoAnular = fecha});
+                return RedirectToAction(nameof(anularPedido), new { fechaPedidoAnular = fecha });
             }
             catch (PedidoException e)
             {
