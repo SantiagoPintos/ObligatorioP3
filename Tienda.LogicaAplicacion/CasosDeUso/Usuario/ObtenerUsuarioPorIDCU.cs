@@ -10,10 +10,10 @@ using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Usuario
 {
-    public class ObtenerUsuarioPorID : IObtenerUsuarioPorID
+    public class ObtenerUsuarioPorIDCU : IObtenerUsuarioPorID
     {
         private IRepositorioUsuario _repositorioUsuario;
-        public ObtenerUsuarioPorID(IRepositorioUsuario _repositorioUsuario)
+        public ObtenerUsuarioPorIDCU(IRepositorioUsuario _repositorioUsuario)
         {
             this._repositorioUsuario = _repositorioUsuario;
         }

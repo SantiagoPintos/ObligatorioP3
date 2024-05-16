@@ -19,7 +19,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
             _repositorioArticulo = repositorioArticulo;
         }
 
-        ArticuloDTO IObtenerArticuloPorId.ObtenerArticuloPorId(int id)
+        public ArticuloDTO IObtenerArticuloPorId.ObtenerArticuloPorId(int id)
         {
             return ArticuloDTOMapper.toDto(this._repositorioArticulo.EncontrarPorId(id));
         }
