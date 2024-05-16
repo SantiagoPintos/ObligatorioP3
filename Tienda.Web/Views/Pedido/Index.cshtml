@@ -6,10 +6,10 @@
 
 <h1 class="text-center">Pedidos</h1>
 
-@if (ViewBag.Message != null)
+@if (ViewBag.mensaje != null)
 {
     <div class="text-center alert-success p-2">
-        @ViewBag.Message
+        @ViewBag.mensaje
     </div>
 }
 
@@ -18,7 +18,7 @@
         <div class="col-12 text-center">
             @if (Context.Session.GetString("token") == null)
             {
-                <a asp-action="Login" class="btn btn-primary">Iniciar Sesión</a>
+                <a asp-action="Login" class="btn btn-primary">Iniciar eppqe teteslSesión</a>
             }
             else
             {

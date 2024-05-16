@@ -27,7 +27,7 @@ namespace Tienda.Web.Controllers
 
 
         // GET: ClienteController
-        public ActionResult Index(string filtro, string msj)
+        public ActionResult Index(string filtro, string msj, decimal valorDecimal)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Index", "Usuario");
 
@@ -44,11 +44,8 @@ namespace Tienda.Web.Controllers
                 aMostrar = this._obtenerClientesPorNombreApellidoCU.ObtenerClientePorNombreApellido(nombre);
             }
             if(filtro == "MontoPedidos")
-            {
-                string monto = (string)TempData["valor"];
-                //convert string to decimal 
-                decimal nuevoMonto = Convert.ToDecimal(monto);
-                aMostrar = this._buscarClientePorMontoPedido.BuscarClientePorMontoPedido(nuevoMonto);
+            {                                                
+                aMostrar = this._buscarClientePorMontoPedido.BuscarClientePorMontoPedido(valorDecimal);
             }
 
             return View(aMostrar);
@@ -69,9 +66,8 @@ namespace Tienda.Web.Controllers
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Index", "Usuario");
             decimal nuevoValor = Convert.ToDecimal(valor);
-            if(nuevoValor <= 0) return RedirectToAction("Index", new { msj = "El monto no puede ser cero ni negativo" });
-            TempData["monto"] = valor;
-            return RedirectToAction("Index", new { filtro = "MontoPedidos" });
+            if(nuevoValor <= 0) return RedirectToAction("Index", new { msj = "El monto no puede ser cero ni negativo" });            
+            return RedirectToAction("Index", new { filtro = "MontoPedidos", valorDecimal = nuevoValor });
         }
 
         // GET: ClienteController/Details/5

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
@@ -23,6 +24,7 @@ namespace Tienda.Web.Controllers
         private IObtenerClientePorId _obtenerClientePorId;
         private ICalcularStock  _calcularStock;
         private IListarPedidosNoEntregados _listarPedidosNoEntregados;
+        private IAnularPedido _anularPedido;
         public PedidoController(IObtenerClientes obtenerClientes,
             IListarPedidos _listarPedidos,
             IListarAlfabeticamente _listaAlfabeticamente,
@@ -30,7 +32,8 @@ namespace Tienda.Web.Controllers
             ICrearPedido crearPedido,
             IObtenerClientePorId obtenerClientePorId,
             ICalcularStock calcularStock,
-            IListarPedidosNoEntregados listarPedidosNoEntregados)
+            IListarPedidosNoEntregados listarPedidosNoEntregados,
+            IAnularPedido anularPedido)
         {
             this._obtenerClientes = obtenerClientes;
             this._listarPedidos = _listarPedidos;
@@ -40,12 +43,14 @@ namespace Tienda.Web.Controllers
             this._obtenerClientePorId = obtenerClientePorId;
             _calcularStock = calcularStock;
             _listarPedidosNoEntregados = listarPedidosNoEntregados;
+            _anularPedido = anularPedido;
         }
 
         public ActionResult Index(string mensaje)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
-            ViewBag.Mensaje = mensaje;
+
+            ViewBag.mensaje = mensaje;
 
             return View();
         }
@@ -110,7 +115,7 @@ namespace Tienda.Web.Controllers
         // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PedidoDTO pedido, int tipoPedido, int idCliente)
+        public ActionResult Create(PedidoDTO pedido, int tipoPedido, int idCliente, decimal RecargoExpress, decimal RecargoExpressHoy, decimal RecargoComun)
         {
             try
             {
@@ -121,7 +126,7 @@ namespace Tienda.Web.Controllers
                 }
                 ClienteDTO cliente = this._obtenerClientePorId.ObtenerClientePorId(idCliente);
                 pedido.Cliente = cliente;
-                this._crearPedido.CrearPedido(pedido, tipoPedido);
+                this._crearPedido.CrearPedido(pedido, tipoPedido, RecargoComun, RecargoExpress, RecargoExpressHoy);
                 tempPedido = null;                
                 return RedirectToAction(nameof(Index), new {mensaje = "Pedido creado correctamente"}); 
             }catch (PedidoException e)
@@ -135,6 +140,7 @@ namespace Tienda.Web.Controllers
             }
         }
 
+        // GET
         public ActionResult anularPedido(string error, DateTime fechaPedidoAnular)
         {
             if(HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
@@ -148,7 +154,7 @@ namespace Tienda.Web.Controllers
             return View();
         }
 
-        public ActionResult buscarPedidosAular(DateTime fecha)
+        public ActionResult buscarPedidosAanular(DateTime fecha)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
             try
@@ -166,17 +172,16 @@ namespace Tienda.Web.Controllers
             }
 
         }
-
+        // POST
         [HttpPost]
-        public ActionResult anularPedido(int idPedido, DateTime fecha)
+        public ActionResult anularPedido(int Id, DateTime fecha)
         {
             if (HttpContext.Session.GetString("token") == null) return RedirectToAction("Login", "Usuario");
             try
             {
                 ViewBag.pedidos = this._listarPedidosNoEntregados.ListarPedidosNoEntregados(fecha);
-                ViewBag.MostrarFormulario = false;
-
-                //this._anularPedido.AnularPedido(idPedido);
+                ViewBag.MostrarFormulario = false;                
+                this._anularPedido.AnularPedido(Id);
                 return RedirectToAction(nameof(Index), new { mensaje = "Pedido anulado correctamente" });
             }
             catch (PedidoException e)
@@ -188,6 +193,7 @@ namespace Tienda.Web.Controllers
                 return RedirectToAction(nameof(anularPedido), new { error = e.Message });
             }
         }
+
 
         // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)
