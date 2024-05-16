@@ -81,8 +81,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             Pedido pedido = this._context.Pedidos.Where(p => p.Id == id).FirstOrDefault();
             pedido.anulado = true;
             this._context.SaveChanges();
-        }   
+        }
 
-
+        public IEnumerable<Pedido> FindPedidosAnulados()
+        {
+            return this._context.Pedidos.Where(pedido => pedido.anulado == true).ToList();
+        }
     }
 }

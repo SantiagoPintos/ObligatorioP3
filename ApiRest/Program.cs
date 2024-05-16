@@ -49,6 +49,7 @@ builder.Services.AddScoped<IObtenerClientePorId, ObtenerClientePorIdCU>();
 builder.Services.AddScoped<ICalcularStock, CalcularStockCU>();
 builder.Services.AddScoped<IListarPedidosNoEntregados, ListarPedidosNoEntregadosCU>();
 builder.Services.AddScoped<IAnularPedido, AnularPedidoCU>();
+builder.Services.AddScoped<IListarPedidosAnulados, ListarPedidosAnuladosCU>();
 
 
 var app = builder.Build();
