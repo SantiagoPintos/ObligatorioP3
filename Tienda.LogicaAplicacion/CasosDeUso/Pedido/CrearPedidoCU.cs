@@ -44,7 +44,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                     comun.Fecha = fecha;
                     comun.Cliente = cliente;
                     comun.PrecioTotal = comun.CalcularPrecio(RecargoComun, RecargoExpress, RecargoExpressHoy);
-                    decimal iva = (comun.IVA*100);
+                    decimal iva = (comun.IVA/100);
                     comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal*iva);
                     comun.anulado = false;
                     foreach (Linea linea in comun.lineas)
