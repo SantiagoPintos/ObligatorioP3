@@ -21,9 +21,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
         {
             if (fecha == null) throw new Exception("Fecha no puede ser nula");
 
-            return this._repositorioPedido.FindAll()
-                .Where(pedido => pedido.Fecha == fecha && pedido.FechaEntrega>DateTime.Today)
-                .Select(pedido => PedidoDTOMapper.toDto(pedido));
+            return this._repositorioPedido.ListarPedidosNoEntregados(fecha).Select(pedido => PedidoDTOMapper.toDto(pedido));
         }
     }
 }
