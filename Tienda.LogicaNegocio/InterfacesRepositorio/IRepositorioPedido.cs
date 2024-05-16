@@ -12,5 +12,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         public IEnumerable<Pedido> FindByMonto(decimal monto);
         public IEnumerable<Pedido> ListarPedidosNoEntregados(DateTime fecha);
         public void AnularPedido(int id);
+        public IEnumerable<Pedido> FindPedidosAnulados();
     }
 }

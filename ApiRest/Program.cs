@@ -12,6 +12,14 @@ using Tienda.LogicaNegocio.InterfacesRepositorio;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticuloEF>();
@@ -21,7 +29,7 @@ builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEF>();
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuarioCU>();
-builder.Services.AddScoped<ICreateCliente, CrearClienteCU>();   
+builder.Services.AddScoped<ICreateCliente, CrearClienteCU>();
 builder.Services.AddScoped<IObtenerClientes, ObtenerClientesCU>();
 builder.Services.AddScoped<IListarUsuario, ListarUsuarioCU>();
 builder.Services.AddScoped<IObtenerUsuarioPorID, ObtenerUsuarioPorIDCU>();
@@ -43,23 +51,18 @@ builder.Services.AddScoped<IListarPedidosNoEntregados, ListarPedidosNoEntregados
 builder.Services.AddScoped<IAnularPedido, AnularPedidoCU>();
 builder.Services.AddScoped<IListarPedidosAnulados, ListarPedidosAnuladosCU>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
-app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseSession();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Usuario}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();

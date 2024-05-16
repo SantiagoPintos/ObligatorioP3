@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tienda.LogicaNegocio", "Tie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tienda.LogicaAplicacion", "Tienda.LogicaAplicacion\Tienda.LogicaAplicacion.csproj", "{937C0EB3-43B8-47C2-912C-23454852E3CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiRest", "ApiRest\ApiRest.csproj", "{3AF15CFB-8A9E-4714-A7B2-142E074331F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{937C0EB3-43B8-47C2-912C-23454852E3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{937C0EB3-43B8-47C2-912C-23454852E3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{937C0EB3-43B8-47C2-912C-23454852E3CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF15CFB-8A9E-4714-A7B2-142E074331F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF15CFB-8A9E-4714-A7B2-142E074331F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF15CFB-8A9E-4714-A7B2-142E074331F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF15CFB-8A9E-4714-A7B2-142E074331F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
