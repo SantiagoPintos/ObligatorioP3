@@ -67,9 +67,22 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Cliente> FindByMonto(decimal monto)
+        public IEnumerable<Pedido> FindByMonto(decimal monto)
         {
-            return this._context.Pedidos.Where(p => p.PrecioTotal > monto).Select(p => p.Cliente);
+            return this._context.Pedidos.Include(pedido => pedido.Cliente).Where(p => p.PrecioTotal > monto);
         }
+
+        public IEnumerable<Pedido> ListarPedidosNoEntregados(DateTime fecha)
+        {
+            return this._context.Pedidos.Include(pedido => pedido.Cliente).Where(pedido => pedido.Fecha == fecha && pedido.FechaEntrega >= DateTime.Today && pedido.anulado==false).ToList();
+        }
+        public void AnularPedido(int id)
+        {
+            Pedido pedido = this._context.Pedidos.Where(p => p.Id == id).FirstOrDefault();
+            pedido.anulado = true;
+            this._context.SaveChanges();
+        }   
+
+
     }
 }
