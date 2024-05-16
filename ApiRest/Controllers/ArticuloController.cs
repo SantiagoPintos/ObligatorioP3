@@ -16,9 +16,9 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet(Name = "GetArticulos")]
-        public IEnumerable<ArticuloDTO> Get()
+        public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {
-            return _listarAlfabeticamente.ListarAlfabeticamente();
+            return Ok(_listarAlfabeticamente.ListarAlfabeticamente());
         }
     }
 }
