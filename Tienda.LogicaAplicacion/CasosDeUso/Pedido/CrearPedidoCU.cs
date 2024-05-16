@@ -26,7 +26,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             _repositorioArticulo = repositorioArticulo;
         }
 
-        public void CrearPedido(PedidoDTO pedido, int tipoPedido)
+        public void CrearPedido(PedidoDTO pedido, int tipoPedido, decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy)
         {
             try
             {
@@ -40,12 +40,12 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 {
                     Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
                     comun.EsValido();
-                    comun.Recargo = 5;
                     DateTime fecha = DateTime.Today;
                     comun.Fecha = fecha;
                     comun.Cliente = cliente;
-                    comun.PrecioTotal = comun.CalcularPrecio();                
-                    comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal * comun.IVA / 100);
+                    comun.PrecioTotal = comun.CalcularPrecio(RecargoComun, RecargoExpress, RecargoExpressHoy);
+                    decimal iva = (comun.IVA*100);
+                    comun.PrecioTotal = comun.PrecioTotal + (comun.PrecioTotal*iva);
                     comun.anulado = false;
                     foreach (Linea linea in comun.lineas)
                     {
@@ -59,10 +59,10 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                     Tienda.LogicaNegocio.Entidades.Express express = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToExpress(pedido);
                     express.Fecha = DateTime.Today;
                     express.EsValido();
-                    express.Recargo = 10;
                     express.Cliente = cliente;
-                    express.PrecioTotal = express.CalcularPrecio();                
-                    express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal * express.IVA / 100);
+                    express.PrecioTotal = express.CalcularPrecio(RecargoComun, RecargoExpress, RecargoExpressHoy);
+                    decimal iva = express.IVA / 100;
+                    express.PrecioTotal = express.PrecioTotal + (express.PrecioTotal*iva);
                     express.anulado = false;
                     this._repositorioPedido.Add(express);
                 }            
@@ -70,7 +70,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
             } 
             catch (Exception e)
             {
-                throw new PedidoException("Error al crear el pedido");
+                throw new PedidoException(e.Message);
             }
         }
 
