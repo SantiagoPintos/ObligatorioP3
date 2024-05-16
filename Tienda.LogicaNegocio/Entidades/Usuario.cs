@@ -12,12 +12,17 @@ namespace Tienda.LogicaNegocio.Entidades
 {
     public class Usuario:IValidable<Usuario>
     {
+        [Key]
         public int Id { get; set; }
+        [Required]
         public NombreCompleto NombreCompleto { get; set; }
         [Required]
         public string Email { get; set; }
+        [Required]
         public string Clave { get; set; }
         //letra dice que se debe guardar una copia de la contraseña sin encriptar
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
         public string ClaveSinEncriptar { get; set; }
 
         //constructor vacío para MVC y EF

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +11,22 @@ namespace Tienda.LogicaNegocio.Entidades
 {
     public class Pedido : IValidable<Pedido>
     {
-        public decimal Recargo { get; set; }
+        [Key]
         public int Id { get; set; }
+        [Required]
+        public decimal Recargo { get; set; }
+        [Required]   
         public DateTime Fecha { get; set; }
+        [ForeignKey(nameof(Cliente))] public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
-
         public List<Linea> lineas = new List<Linea>();
+        [Required]
         public decimal PrecioTotal { get; set; }
+        [Required]
         public DateTime FechaEntrega { get; set; }
-
+        [Required]
         public bool anulado { get; set; }
+        [Required]
         public decimal IVA { get; set; }
 
         // Constructor vacio para MVC y EF

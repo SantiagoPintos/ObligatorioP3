@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,20 @@ namespace Tienda.LogicaNegocio.Entidades
 {
     public class Articulo : IValidable<Articulo>, IEquatable<Articulo>
     {
+        [Key]
         public int Id { get; set; }
+        [Required]
         public string Nombre { get; set; }
+        [Required]
+        [MaxLength(13), MinLength(13)]
         public long Codigo { get; set; }
+        [Required]
+        [MaxLength(200), MinLength(5)]
         public string Descripcion { get; set; }
+        [Required]
+        [Range(0, int.MaxValue)]
         public int stock { get; set; }
+        [Required]
         public decimal PrecioUnitario { get; set; }
 
 

@@ -14,9 +14,13 @@ namespace Tienda.LogicaNegocio.Entidades
         [Key]
         public int Id { get; set; }        
         [Required]
+        [StringLength(12)]
         public string Rut { get; set; }
+        [Required]
         public string RazonSocial { get; set; }
+        [Required]
         public DireccionCliente Direccion { get; set; }
+        [Required]
         public NombreCompletoCliente NombreCompleto {  get; set;}
 
         // Constructor vacio para EF
