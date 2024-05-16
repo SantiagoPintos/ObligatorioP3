@@ -9,6 +9,6 @@ namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido
 {
     public interface ICrearPedido
     {
-        public void CrearPedido(PedidoDTO pedido, int tipoPedido);
+        public void CrearPedido(PedidoDTO pedido, int tipoPedido, decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy);
     }
 }
