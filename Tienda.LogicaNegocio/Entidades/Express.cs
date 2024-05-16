@@ -30,23 +30,26 @@ namespace Tienda.LogicaNegocio.Entidades
             {
                 throw new Exception("La fecha de entrega no puede ser mayor a 5 días de la fecha del pedido");
             }
+            if (base.FechaEntrega < base.Fecha)
+            {
+                throw new Exception("La fecha no puede ser menor a hoy");
+            }
         }
 
-        public override decimal CalcularPrecio()
+        public override decimal CalcularPrecio(decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy)
         {
-            base.Recargo = 10;
-            decimal precioTotal = 0;
+            base.Recargo = RecargoExpress/100;
+            base.validarRecargos(RecargoComun, RecargoExpress, RecargoExpressHoy);
             foreach (Linea linea in base.lineas)
             {
-                precioTotal = precioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
+                base.PrecioTotal = base.PrecioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
             }
-            base.PrecioTotal = precioTotal;
             if (base.FechaEntrega == base.Fecha)
             {
-                base.Recargo = 15;
+                base.Recargo = RecargoExpressHoy/100;
             }
-            base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo / 100);
-            return precioTotal;
+            base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo);
+            return base.PrecioTotal;
 
         }
     }

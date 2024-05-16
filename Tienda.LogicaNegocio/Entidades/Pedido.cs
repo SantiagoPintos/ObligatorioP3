@@ -56,11 +56,17 @@ namespace Tienda.LogicaNegocio.Entidades
         }
 
 
-        public virtual decimal CalcularPrecio()
+        public virtual decimal CalcularPrecio(decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy)
         {
             decimal precioTotal = 0;
             return precioTotal;
         }
+
+        public void validarRecargos(decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy)
+        {
+            if (RecargoComun < 0 || RecargoExpress < 0 || RecargoExpressHoy < 0) throw new Exception("Los recargos no pueden ser negativos");
+        }
+
 
     }
 }

@@ -33,17 +33,17 @@ namespace Tienda.LogicaNegocio.Entidades
             }
         }
 
-        public override decimal CalcularPrecio()
+        public override decimal CalcularPrecio(decimal RecargoComun, decimal RecargoExpress, decimal RecargoExpressHoy)
         {
-            base.PrecioTotal = 0;
-            base.Recargo = 5;
+            base.validarRecargos(RecargoComun, RecargoExpress, RecargoExpressHoy);
+            base.Recargo = (RecargoComun / 100);            
             foreach (Linea linea in base.lineas)
             {
-                base.PrecioTotal = PrecioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
+                base.PrecioTotal = base.PrecioTotal + linea.Articulo.PrecioUnitario * linea.Cantidad;
             }
             if (base.Cliente.Direccion.DistanciaDesdeTienda > 100)
             {
-                base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo / 100);
+                base.PrecioTotal = base.PrecioTotal + (base.PrecioTotal * base.Recargo);
             }
             return PrecioTotal;
         }

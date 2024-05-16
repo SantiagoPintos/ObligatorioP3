@@ -9,7 +9,8 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioPedido:IRepositorio<Pedido>
     {
-        public IEnumerable<Cliente> FindByMonto(decimal monto);
-
+        public IEnumerable<Pedido> FindByMonto(decimal monto);
+        public IEnumerable<Pedido> ListarPedidosNoEntregados(DateTime fecha);
+        public void AnularPedido(int id);
     }
 }
