@@ -20,7 +20,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Cliente
 
         public IEnumerable<ClienteDTO> BuscarClientePorMontoPedido(decimal monto)
         {
-            return this._repositorioPedido.FindByMonto(monto).Select(cliente => ClienteDTOMapper.toDto(cliente));
+            return this._repositorioPedido.FindByMonto(monto).Select(pedido => ClienteDTOMapper.toDto(pedido.Cliente));
         }
     }
 }
