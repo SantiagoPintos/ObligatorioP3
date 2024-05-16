@@ -68,18 +68,18 @@
                     <br />
                     <input id="IVA" name="IVA" type="number" value="22" />
                 </div>
-                <div class="form-group py-1">
-                    <label for="RecargoExpress">Recargo express:</label>
+                <div class="form-group py-1" id="recargoExpressDiv">
+                    <label for="RecargoExpress">Recargo por tipo de pedido:</label>
                     <br />
                     <input id="RecargoExpress" name="RecargoExpress" type="number" value="10" />
                 </div>
-                <div class="form-group py-1">
-                    <label for="RecargoExpressHoy">Recargo express HOY (Se entrega hoy):</label>
+                <div class="form-group py-1" id="recargoExpressHoyDiv">
+                    <label for="RecargoExpressHoy">Recargo por entrega en el día:</label>
                     <br />
                     <input id="RecargoExpressHoy" name="RecargoExpressHoy" type="number" value="15"/>
                 </div>
-                <div class="form-group py-1">
-                    <label for="RecargoComun">Recargo comun:</label>
+                <div class="form-group py-1" id="recargoComunDiv">
+                    <label for="RecargoComun">Recargo por tipo de pedido</label>
                     <br />
                     <input id="RecargoComun" name="RecargoComun" type="number" value="5"/>
                 </div>
@@ -132,4 +132,35 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        //Santiago: Script que oculta/muestra los divs con los recargos en función del tipo de pedido que se seleccione
+        // en el select principal
+        document.addEventListener("DOMContentLoaded", function () {
+            const tipoPedidoSelect = document.getElementById("tipoPedido");
+            const recargoExpressDiv = document.getElementById("recargoExpressDiv");
+            const recargoExpressHoyDiv = document.getElementById("recargoExpressHoyDiv");
+            const recargoComunDiv = document.getElementById("recargoComunDiv");
+
+            function mostrarOcultarCamposRecargo() {
+                const tipoPedido = tipoPedidoSelect.value;
+                if (tipoPedido == 1) { // Pedido Común
+                    recargoComunDiv.style.display = "block";
+                    recargoExpressDiv.style.display = "none";
+                    recargoExpressHoyDiv.style.display = "none";
+                } else if (tipoPedido == 2) { // Pedido Express
+                    recargoComunDiv.style.display = "none";
+                    recargoExpressDiv.style.display = "block";
+                    recargoExpressHoyDiv.style.display = "block";
+                } else {
+                    //si no hay tipo de pedido asumimos que no se seleccionó ninguno en select
+                    recargoComunDiv.style.display = "none";
+                    recargoExpressDiv.style.display = "none";
+                    recargoExpressHoyDiv.style.display = "none";
+                }
+            }
+
+            mostrarOcultarCamposRecargo(); 
+            tipoPedidoSelect.addEventListener("change", mostrarOcultarCamposRecargo);
+        });
+    </script>
 }
