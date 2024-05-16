@@ -15,7 +15,8 @@ namespace Tienda.LogicaAplicacion.Mappers
         public static PedidoDTO toDto(Pedido pedido)
         {
             if (pedido == null) throw new Exception();
-            PedidoDTO pedidoDTO = new PedidoDTO();                  
+            PedidoDTO pedidoDTO = new PedidoDTO();        
+            pedidoDTO.Id = pedido.Id;
             pedidoDTO.Fecha = pedido.Fecha;
             pedidoDTO.Cliente = (ClienteDTOMapper.toDto(pedido.Cliente));
             pedidoDTO.lineas = pedido.lineas.Select(linea => LineaDTOMapper.toDto(linea)).ToList();
