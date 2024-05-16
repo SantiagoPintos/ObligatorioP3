@@ -18,7 +18,23 @@ namespace ApiRest.Controllers
         [HttpGet(Name = "GetArticulos")]
         public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {
-            return Ok(_listarAlfabeticamente.ListarAlfabeticamente());
+            try
+            {
+                IEnumerable<ArticuloDTO> listaDeDTO = _listarAlfabeticamente.ListarAlfabeticamente();
+                if (listaDeDTO.Count()>0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

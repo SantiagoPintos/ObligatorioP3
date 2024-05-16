@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 
 namespace ApiRest.Controllers
@@ -16,9 +17,24 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet(Name = "GetPedidos")]
-        public ActionResult<IEnumerable<ArticuloDTO>> GetPedidos()
+        public ActionResult<IEnumerable<PedidoDTO>> GetPedidos()
         {
-            return Ok(_listarPedidosAnulados.ListarPedidosAnulados());
+            try
+            {
+                IEnumerable<PedidoDTO> listaDeDTO = _listarPedidosAnulados.ListarPedidosAnulados();
+                if (listaDeDTO.Count() > 0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -85,7 +85,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            return this._context.Pedidos.Where(pedido => pedido.anulado == true).ToList();
+            return this._context.Pedidos.Include(pedido => pedido.Cliente).Where(pedido=>pedido.anulado==true).ToList();
+            
+            
+
+
         }
     }
 }
