@@ -60,6 +60,7 @@ namespace Tienda.LogicaNegocio.Entidades
             if(this.Fecha == null ) throw new Exception("Fecha no puede ser nula");
             if(this.lineas.Count() == 0 || this.lineas == null) throw new Exception("El pedido debe tener al menos una linea");
             if (this.IVA < 0)  throw new Exception("El IVA no puede ser negativo");
+            if (this.Cliente == null) throw new Exception("El pedido debe tener un cliente asignado");
 
         }
 
