@@ -27,6 +27,7 @@ namespace Tienda.LogicaAplicacion.Mappers
         {
             if(usuarioDTO == null) throw new Exception();
             Usuario usuario = new Usuario();
+            usuario.Id = usuarioDTO.Id;
             NombreCompleto nombreCompleto = new NombreCompleto(usuarioDTO.Nombre, usuarioDTO.Apellido);
             usuario.NombreCompleto = nombreCompleto;
             usuario.Email = usuarioDTO.Email;
