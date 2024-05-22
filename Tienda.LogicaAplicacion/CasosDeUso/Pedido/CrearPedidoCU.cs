@@ -38,10 +38,9 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Pedido
                 }
                 if (tipoPedido == 1)
                 {
-                    Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);         
+                    Tienda.LogicaNegocio.Entidades.Comun comun = Tienda.LogicaAplicacion.Mappers.PedidoDTOMapper.FromDtoToComun(pedido);
+                    comun.Fecha = DateTime.Today;
                     comun.EsValido();
-                    DateTime fecha = DateTime.Today;
-                    comun.Fecha = fecha;
                     comun.Cliente = cliente;
                     comun.PrecioTotal = comun.CalcularPrecio(RecargoComun, RecargoExpress, RecargoExpressHoy);
                     decimal iva = (comun.IVA/100);
