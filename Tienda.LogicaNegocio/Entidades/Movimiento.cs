@@ -1,7 +1,6 @@
 ﻿using Tienda.LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations;
 using Tienda.LogicaNegocio.Excepciones.Movimiento;
-using Tienda.LogicaNegocio.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tienda.LogicaNegocio.Entidades
@@ -21,7 +20,7 @@ namespace Tienda.LogicaNegocio.Entidades
         [Required]
         public int Cantidad { get; set; }
         [Required]
-        TipoMovimiento TipoMoivmiento { get; set; }
+        public TipoMovimiento TipoMovimiento { get; set; }
 
         public Movimiento() { }
 
@@ -32,7 +31,7 @@ namespace Tienda.LogicaNegocio.Entidades
             this.Articulo = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
-            this.TipoMoivmiento = tipo;
+            this.TipoMovimiento = tipo;
             EsValido();
         }
 
@@ -44,7 +43,7 @@ namespace Tienda.LogicaNegocio.Entidades
             this.Articulo = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
-            this.TipoMoivmiento = tipo;
+            this.TipoMovimiento = tipo;
             EsValido();
         }
 
