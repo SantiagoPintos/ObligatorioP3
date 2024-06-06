@@ -10,6 +10,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 {
     public class RepositorioEncargadoEF : IRepositorioEncargado
     {
+        private TiendaContext _context;
+        public RepositorioEncargadoEF()
+        {
+            this._context = new TiendaContext();
+        }
         public bool Add(Encargado aAgregar)
         {
             throw new NotImplementedException();
