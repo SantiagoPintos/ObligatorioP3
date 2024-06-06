@@ -16,6 +16,9 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet(Name = "GetArticulos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {
             try

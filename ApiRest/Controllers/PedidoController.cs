@@ -17,6 +17,9 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet(Name = "GetPedidos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<IEnumerable<PedidoDTO>> GetPedidos()
         {
             try
