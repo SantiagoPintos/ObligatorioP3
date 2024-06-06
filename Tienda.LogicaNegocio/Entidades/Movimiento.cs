@@ -17,7 +17,7 @@ namespace Tienda.LogicaNegocio.Entidades
         [Required]
         public Usuario Usuario { get; set; }
         [Required]
-        int Cantidad { get; set; }
+        public int Cantidad { get; set; }
 
         public Movimiento() { }
 
