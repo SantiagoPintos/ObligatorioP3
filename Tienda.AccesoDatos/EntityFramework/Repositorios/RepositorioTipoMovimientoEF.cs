@@ -17,27 +17,56 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         }
         public bool Add(TipoMovimiento aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();
+                _context.TiposMovimiento.Add(aAgregar);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<TipoMovimiento> FindAll()
         {
-            throw new NotImplementedException();
+            return this._context.TiposMovimiento;
         }
 
         public TipoMovimiento FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.TiposMovimiento.Where(t => t.Id == id).FirstOrDefault();
         }
 
         public bool Remove(TipoMovimiento aBorrar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this._context.TiposMovimiento.Remove(aBorrar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool Update(TipoMovimiento aModificar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aModificar.EsValido();
+                this._context.TiposMovimiento.Update(aModificar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
