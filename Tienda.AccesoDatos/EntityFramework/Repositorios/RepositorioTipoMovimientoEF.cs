@@ -40,6 +40,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             return this._context.TiposMovimiento.Where(t => t.Id == id).FirstOrDefault();
         }
 
+        public TipoMovimiento FindByName(string name)
+        {
+            return this._context.TiposMovimiento.Where(t => t.Nombre == name).FirstOrDefault();
+        }
+
         public bool Remove(TipoMovimiento aBorrar)
         {
             try
