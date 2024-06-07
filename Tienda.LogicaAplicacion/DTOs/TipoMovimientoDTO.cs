@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.LogicaNegocio.Enums;
 
 namespace Tienda.LogicaAplicacion.DTOs
 {
@@ -10,6 +11,6 @@ namespace Tienda.LogicaAplicacion.DTOs
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public int Signo { get; set; }
+        public SignoTipoMovimiento Signo { get; set; }
     }
 }

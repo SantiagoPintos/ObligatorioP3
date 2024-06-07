@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.InterfacesEntidades;
 using Tienda.LogicaNegocio.Excepciones.TipoMovimiento;
+using Tienda.LogicaNegocio.Enums;
 
 namespace Tienda.LogicaNegocio.Entidades
 {
@@ -21,16 +22,16 @@ namespace Tienda.LogicaNegocio.Entidades
         // de esa forma se puede calcular el stock con la siguiente fórmula: 
         // stock = stock + cantidad * signo 
         [Required]
-        public int Signo { get; set; }
+        public SignoTipoMovimiento Signo { get; set; }
 
         public TipoMovimiento() { }
-        public TipoMovimiento(string nombre, int signo)
+        public TipoMovimiento(string nombre, SignoTipoMovimiento signo)
         {
             Nombre = nombre;
             Signo = signo;
             this.EsValido();
         }
-        public TipoMovimiento(int id, string nombre, int signo)
+        public TipoMovimiento(int id, string nombre, SignoTipoMovimiento signo)
         {
             Id = id;
             Nombre = nombre;
@@ -41,7 +42,6 @@ namespace Tienda.LogicaNegocio.Entidades
         {
             if (string.IsNullOrEmpty(Nombre)) throw new TipoMovimientoNoValidoException("El nombre no puede ser nulo o vacio");
             if (Nombre.Length > 50) throw new TipoMovimientoNoValidoException("El nombre no puede tener mas de 50 caracteres");
-            if (Signo != 1 && Signo != -1) throw new TipoMovimientoNoValidoException("Tipo de movimiento no válido");
         }
     }
 }
