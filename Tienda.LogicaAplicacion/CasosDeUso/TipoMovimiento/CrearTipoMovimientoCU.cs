@@ -21,7 +21,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento
         public void CrearTipoMovimiento(TipoMovimientoDTO aCrear)
         {
             //Se guardan nombres en mayúsculas para evitar duplicados
-            aCrear.Nombre = aCrear.Nombre.ToUpper();
+            aCrear.Nombre = aCrear.Nombre.ToUpper().Trim();
             this._repositorioTipoMovimiento.Add(TipoMovimientoDTOMapper.fromDTO(aCrear));
         }
     }

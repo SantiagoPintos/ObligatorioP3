@@ -21,7 +21,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento
         public void EditarTipoMovimiento(TipoMovimientoDTO aEditar)
         {
             //Se guarda nombre en mayus para evitar duplicados
-            aEditar.Nombre = aEditar.Nombre.ToUpper();
+            aEditar.Nombre = aEditar.Nombre.ToUpper().Trim();
             this._repositorio.Update(TipoMovimientoDTOMapper.fromDTO(aEditar));
         }
     }
