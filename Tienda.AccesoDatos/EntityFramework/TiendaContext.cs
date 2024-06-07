@@ -15,6 +15,8 @@ namespace Tienda.AccesoDatos.EntityFramework
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Encargado> Encargados { get; set; }
+        public DbSet<Movimiento> Movimientos { get; set; }
+        public DbSet<TipoMovimiento> TiposMovimiento { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"SERVER=(localdb)\MsSqlLocalDb;DATABASE=PapeleriaBDDM3C;Integrated Security=true;");
