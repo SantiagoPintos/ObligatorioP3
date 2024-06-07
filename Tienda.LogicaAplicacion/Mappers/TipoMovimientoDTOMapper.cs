@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaAplicacion.DTOs;
+using Tienda.LogicaNegocio.Excepciones.TipoMovimiento;
 
 namespace Tienda.LogicaAplicacion.Mappers
 {
@@ -21,7 +22,7 @@ namespace Tienda.LogicaAplicacion.Mappers
 
         public static TipoMovimiento fromDTO(TipoMovimientoDTO tipoMovimientoDTO)
         {
-            if (tipoMovimientoDTO == null) throw new Exception("Tipo de movimiento nulo");
+            if (tipoMovimientoDTO == null) throw new TipoMovimientoNoValidoException("El tipo de movimiento no es válido");
             TipoMovimiento tipoMovimiento = new TipoMovimiento();
             tipoMovimiento.Id = tipoMovimientoDTO.Id;
             tipoMovimiento.Nombre = tipoMovimientoDTO.Nombre;
