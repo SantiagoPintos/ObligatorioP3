@@ -19,6 +19,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
+                if(this.FindByName(aAgregar.Nombre) != null) throw new Exception("Ya existe un tipo de movimiento con ese nombre");
                 aAgregar.EsValido();
                 _context.TiposMovimiento.Add(aAgregar);
                 _context.SaveChanges();
