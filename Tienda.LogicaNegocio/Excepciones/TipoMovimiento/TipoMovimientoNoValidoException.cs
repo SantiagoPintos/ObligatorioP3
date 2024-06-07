@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tienda.LogicaNegocio.Excepciones.TipoMovimiento
 {
-    internal class TipoMovimientoNoValidoException : Exception
+    public class TipoMovimientoNoValidoException : Exception
     {
          public TipoMovimientoNoValidoException()
         {
