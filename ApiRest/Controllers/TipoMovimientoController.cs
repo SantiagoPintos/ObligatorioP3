@@ -13,11 +13,14 @@ namespace ApiRest.Controllers
     {
         private IListarTipoMovimiento _listarTipoMovimiento;
         private ICreateTipoMovimiento _crearTipoMovimiento;
+        private IEliminarTipoMovimiento _eliminarTipoMovimiento;
         public TipoMovimientoController(IListarTipoMovimiento listarTipoMovimiento,
-                                        ICreateTipoMovimiento crearTipoMovimiento)
+                                        ICreateTipoMovimiento crearTipoMovimiento,
+                                        IEliminarTipoMovimiento eliminarTipoMovimiento)
         {
             this._listarTipoMovimiento = listarTipoMovimiento;
             this._crearTipoMovimiento = crearTipoMovimiento;
+            _eliminarTipoMovimiento = eliminarTipoMovimiento;
         }
 
         // GET: api/<TipoMovimientoController>
@@ -59,6 +62,27 @@ namespace ApiRest.Controllers
             {
                 this._crearTipoMovimiento.CrearTipoMovimiento(tipoMovimiento);
                 return Created("api/TipoMovimiento", tipoMovimiento);
+            }
+            catch (TipoMovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Algo salió mal");
+            }
+        }
+
+        // DELETE api/<TipoMovimientoController>/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                this._eliminarTipoMovimiento.EliminarTipoMovimiento(id);
+                return Ok();
             }
             catch (TipoMovimientoNoValidoException ex)
             {
