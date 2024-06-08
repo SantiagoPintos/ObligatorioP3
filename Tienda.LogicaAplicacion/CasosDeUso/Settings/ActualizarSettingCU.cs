@@ -20,7 +20,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Settings
         public void ActualizarSetting(string nombre, double valor)
         {
             Tienda.LogicaNegocio.Entidades.Setting setting = _repositorioSettings.GetSettingByName(nombre);
-            if(setting != null) throw new SettingsException("El setting no existe");
+            if (setting == null) throw new SettingsException("El setting no existe");
             setting.Valor = valor;
             this._repositorioSettings.Update(setting);
         }

@@ -2,11 +2,13 @@ using Tienda.AccesoDatos.EntityFramework.Repositorios;
 using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
+using Tienda.LogicaAplicacion.CasosDeUso.Settings;
 using Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Settings;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
@@ -29,6 +31,8 @@ builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidoEF>();
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarioEF>();
 builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEF>();
 builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimientoEF>();
+builder.Services.AddScoped<IRepositorioSettings, RepositorioSettingsEF>();
+builder.Services.AddScoped<IRepositorioMovimiento, RepositorioMovimientoEF>();
 
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
@@ -59,7 +63,7 @@ builder.Services.AddScoped<ICreateTipoMovimiento, CrearTipoMovimientoCU>();
 builder.Services.AddScoped<IEliminarTipoMovimiento, EliminarTipoMovimientoCU>();
 builder.Services.AddScoped<IEditarTipoMovimiento, EditarTipoMovimientoCU>();
 builder.Services.AddScoped<IEncontrarPorNombreTipoMovimiento, EncontrarPorNombreTipoMovimientoCU>();
-
+builder.Services.AddScoped<IActualizarSetting, ActualizarSettingCU>();
 
 var app = builder.Build();
 
