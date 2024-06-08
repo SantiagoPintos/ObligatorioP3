@@ -116,7 +116,6 @@ namespace ApiRest.Controllers
         {
             try
             {
-                //Falta verificar que no se estén utilizando en algún movimiento antes de ser eliminados
                 this._eliminarTipoMovimiento.EliminarTipoMovimiento(id);
                 return Ok();
             }
@@ -137,7 +136,6 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<TipoMovimientoDTO> Update(int id, [FromBody] TipoMovimientoDTO tipoMovimiento)
         {
-            //Falta verificar que no se estén utilizando en algún movimiento antes de ser actualizados
             try
             {
                 //Evita que id de DTO sea distinto al id de la URL y/o que tenga id 0
