@@ -21,6 +21,7 @@ namespace Tienda.LogicaNegocio.Entidades
         // 1 para aumento de stock, -1 para reducción
         // de esa forma se puede calcular el stock con la siguiente fórmula: 
         // stock = stock + cantidad * signo 
+        [Range(-1, 1)]
         [Required]
         public SignoTipoMovimiento Signo { get; set; }
 
