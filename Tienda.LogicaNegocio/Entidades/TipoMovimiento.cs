@@ -43,6 +43,7 @@ namespace Tienda.LogicaNegocio.Entidades
         {
             if (string.IsNullOrEmpty(Nombre)) throw new TipoMovimientoNoValidoException("El nombre no puede ser nulo o vacio");
             if (Nombre.Length > 50) throw new TipoMovimientoNoValidoException("El nombre no puede tener mas de 50 caracteres");
+            if (Signo != SignoTipoMovimiento.Aumento && Signo != SignoTipoMovimiento.Reduccion) throw new TipoMovimientoNoValidoException("El signo solo puede ser 1 o -1");
         }
     }
 }
