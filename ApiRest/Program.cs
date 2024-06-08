@@ -2,10 +2,12 @@ using Tienda.AccesoDatos.EntityFramework.Repositorios;
 using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
+using Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
@@ -50,6 +52,7 @@ builder.Services.AddScoped<ICalcularStock, CalcularStockCU>();
 builder.Services.AddScoped<IListarPedidosNoEntregados, ListarPedidosNoEntregadosCU>();
 builder.Services.AddScoped<IAnularPedido, AnularPedidoCU>();
 builder.Services.AddScoped<IListarPedidosAnulados, ListarPedidosAnuladosCU>();
+builder.Services.AddScoped<IListarTipoMovimiento, ListarTipoMovimientoCU>();
 
 
 var app = builder.Build();
