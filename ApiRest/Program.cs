@@ -28,6 +28,8 @@ builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticuloEF>();
 builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidoEF>();
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarioEF>();
 builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEF>();
+builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimientoEF>();
+
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuarioCU>();
