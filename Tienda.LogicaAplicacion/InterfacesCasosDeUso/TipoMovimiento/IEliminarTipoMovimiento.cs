@@ -9,6 +9,6 @@ namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento
 {
     public interface IEliminarTipoMovimiento
     {
-        public void EliminarTipoMovimiento(TipoMovimientoDTO tipo);
+        public void EliminarTipoMovimiento(int tipo);
     }
 }

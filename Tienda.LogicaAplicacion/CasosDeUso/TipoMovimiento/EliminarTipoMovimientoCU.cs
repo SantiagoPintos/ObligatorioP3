@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
-using Tienda.LogicaAplicacion.Mappers;
 using Tienda.LogicaNegocio.Excepciones.TipoMovimiento;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
@@ -19,10 +18,12 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento
             this._repositorio = repositorio;
         }
 
-        public void EliminarTipoMovimiento(TipoMovimientoDTO tipo)
+        public void EliminarTipoMovimiento(int tipo)
         {
             if(tipo==null) throw new TipoMovimientoNoValidoException("El movimiento a eliminar no es válido");
-            this._repositorio.Remove(TipoMovimientoDTOMapper.fromDTO(tipo));
+            Tienda.LogicaNegocio.Entidades.TipoMovimiento movimiento = this._repositorio.FindByID(tipo);
+            if (movimiento == null) throw new TipoMovimientoNoValidoException("El movimiento a eliminar no existe");
+            this._repositorio.Remove(movimiento);
         }
     }
 }
