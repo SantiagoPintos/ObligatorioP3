@@ -57,6 +57,7 @@ builder.Services.AddScoped<IListarPedidosAnulados, ListarPedidosAnuladosCU>();
 builder.Services.AddScoped<IListarTipoMovimiento, ListarTipoMovimientoCU>();
 builder.Services.AddScoped<ICreateTipoMovimiento, CrearTipoMovimientoCU>();
 builder.Services.AddScoped<IEliminarTipoMovimiento, EliminarTipoMovimientoCU>();
+builder.Services.AddScoped<IEditarTipoMovimiento, EditarTipoMovimientoCU>();
 
 
 var app = builder.Build();

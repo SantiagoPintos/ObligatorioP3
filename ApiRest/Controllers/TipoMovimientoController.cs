@@ -14,13 +14,16 @@ namespace ApiRest.Controllers
         private IListarTipoMovimiento _listarTipoMovimiento;
         private ICreateTipoMovimiento _crearTipoMovimiento;
         private IEliminarTipoMovimiento _eliminarTipoMovimiento;
+        private IEditarTipoMovimiento _editarTipoMovimiento;
         public TipoMovimientoController(IListarTipoMovimiento listarTipoMovimiento,
                                         ICreateTipoMovimiento crearTipoMovimiento,
-                                        IEliminarTipoMovimiento eliminarTipoMovimiento)
+                                        IEliminarTipoMovimiento eliminarTipoMovimiento,
+                                        IEditarTipoMovimiento editarTipoMovimiento)
         {
             this._listarTipoMovimiento = listarTipoMovimiento;
             this._crearTipoMovimiento = crearTipoMovimiento;
             _eliminarTipoMovimiento = eliminarTipoMovimiento;
+            this._editarTipoMovimiento = editarTipoMovimiento;
         }
 
         // GET: api/<TipoMovimientoController>
@@ -93,5 +96,31 @@ namespace ApiRest.Controllers
                 return BadRequest("Algo salió mal");
             }
         }
+
+
+        // PUT api/<TipoMovimientoController>/5
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> Update(int id, [FromBody] TipoMovimientoDTO tipoMovimiento)
+        {
+            try
+            {
+                //Evita que id de DTO sea distinto al id de la URL y/o que tenga id 0
+                tipoMovimiento.Id = id;
+                this._editarTipoMovimiento.EditarTipoMovimiento(tipoMovimiento);
+                return Ok();
+            }
+            catch (TipoMovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Algo salió mal");
+            }
+        }
+
+
     }
 }
