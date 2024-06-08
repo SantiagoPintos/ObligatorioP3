@@ -116,7 +116,6 @@ namespace ApiRest.Controllers
         {
             try
             {
-                //Falta verificar que no se estén utilizando en algún movimiento antes de ser eliminados
                 this._eliminarTipoMovimiento.EliminarTipoMovimiento(id);
                 return Ok();
             }
