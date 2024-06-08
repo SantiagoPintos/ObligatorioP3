@@ -6,7 +6,7 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 namespace ApiRest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PedidoController : ControllerBase
     {
         private IListarPedidosAnulados _listarPedidosAnulados;

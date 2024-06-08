@@ -5,7 +5,7 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 namespace ApiRest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ArticuloController : ControllerBase
     {
         private IListarAlfabeticamente _listarAlfabeticamente;
