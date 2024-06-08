@@ -12,9 +12,12 @@ namespace ApiRest.Controllers
     public class TipoMovimientoController : ControllerBase
     {
         private IListarTipoMovimiento _listarTipoMovimiento;
-        public TipoMovimientoController(IListarTipoMovimiento listarTipoMovimiento)
+        private ICreateTipoMovimiento _crearTipoMovimiento;
+        public TipoMovimientoController(IListarTipoMovimiento listarTipoMovimiento,
+                                        ICreateTipoMovimiento crearTipoMovimiento)
         {
             this._listarTipoMovimiento = listarTipoMovimiento;
+            this._crearTipoMovimiento = crearTipoMovimiento;
         }
 
         // GET: api/<TipoMovimientoController>
@@ -46,5 +49,25 @@ namespace ApiRest.Controllers
             }
         }
 
+        // POST api/<TipoMovimientoController>
+        [HttpPost("")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> Create([FromBody] TipoMovimientoDTO tipoMovimiento)
+        {
+            try
+            {
+                this._crearTipoMovimiento.CrearTipoMovimiento(tipoMovimiento);
+                return Created("api/TipoMovimiento", tipoMovimiento);
+            }
+            catch (TipoMovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Algo salió mal");
+            }
+        }
     }
 }

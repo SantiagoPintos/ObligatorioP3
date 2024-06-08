@@ -55,6 +55,7 @@ builder.Services.AddScoped<IListarPedidosNoEntregados, ListarPedidosNoEntregados
 builder.Services.AddScoped<IAnularPedido, AnularPedidoCU>();
 builder.Services.AddScoped<IListarPedidosAnulados, ListarPedidosAnuladosCU>();
 builder.Services.AddScoped<IListarTipoMovimiento, ListarTipoMovimientoCU>();
+builder.Services.AddScoped<ICreateTipoMovimiento, CrearTipoMovimientoCU>();
 
 
 var app = builder.Build();
