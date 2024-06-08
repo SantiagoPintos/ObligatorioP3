@@ -7,7 +7,7 @@ using Tienda.LogicaAplicacion.DTOs;
 
 namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento
 {
-    internal interface ICreateTipoMovimiento
+    public interface ICreateTipoMovimiento
     {
         public void CrearTipoMovimiento(TipoMovimientoDTO aCrear);
     }
