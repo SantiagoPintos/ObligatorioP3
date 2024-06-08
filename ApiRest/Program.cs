@@ -58,6 +58,7 @@ builder.Services.AddScoped<IListarTipoMovimiento, ListarTipoMovimientoCU>();
 builder.Services.AddScoped<ICreateTipoMovimiento, CrearTipoMovimientoCU>();
 builder.Services.AddScoped<IEliminarTipoMovimiento, EliminarTipoMovimientoCU>();
 builder.Services.AddScoped<IEditarTipoMovimiento, EditarTipoMovimientoCU>();
+builder.Services.AddScoped<IEncontrarPorNombreTipoMovimiento, EncontrarPorNombreTipoMovimientoCU>();
 
 
 var app = builder.Build();

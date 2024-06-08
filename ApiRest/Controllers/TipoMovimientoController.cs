@@ -12,18 +12,21 @@ namespace ApiRest.Controllers
     public class TipoMovimientoController : ControllerBase
     {
         private IListarTipoMovimiento _listarTipoMovimiento;
+        private IEncontrarPorNombreTipoMovimiento _listarTipoMovimientoPorNombre;
         private ICreateTipoMovimiento _crearTipoMovimiento;
         private IEliminarTipoMovimiento _eliminarTipoMovimiento;
         private IEditarTipoMovimiento _editarTipoMovimiento;
         public TipoMovimientoController(IListarTipoMovimiento listarTipoMovimiento,
                                         ICreateTipoMovimiento crearTipoMovimiento,
                                         IEliminarTipoMovimiento eliminarTipoMovimiento,
-                                        IEditarTipoMovimiento editarTipoMovimiento)
+                                        IEditarTipoMovimiento editarTipoMovimiento,
+                                        IEncontrarPorNombreTipoMovimiento listarTipoMovimientoPorNombre)
         {
             this._listarTipoMovimiento = listarTipoMovimiento;
             this._crearTipoMovimiento = crearTipoMovimiento;
-            _eliminarTipoMovimiento = eliminarTipoMovimiento;
+            this._eliminarTipoMovimiento = eliminarTipoMovimiento;
             this._editarTipoMovimiento = editarTipoMovimiento;
+            this._listarTipoMovimientoPorNombre = listarTipoMovimientoPorNombre;
         }
 
         // GET: api/<TipoMovimientoController>
@@ -50,6 +53,35 @@ namespace ApiRest.Controllers
                 return BadRequest(ex.Message);
             }
             catch(Exception e)
+            {
+                return BadRequest("Algo salió mal");
+            }
+        }
+
+        // GET: api/<TipoMovimientoController>
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult <TipoMovimientoDTO> GetTipoMovimientoByName(string name)
+        {
+            try
+            {
+                TipoMovimientoDTO tipoMovimiento = _listarTipoMovimientoPorNombre.EncontrarPorNombreTipoMovimiento(name);
+                if (tipoMovimiento != null)
+                {
+                    return Ok(tipoMovimiento);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (TipoMovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception e)
             {
                 return BadRequest("Algo salió mal");
             }
