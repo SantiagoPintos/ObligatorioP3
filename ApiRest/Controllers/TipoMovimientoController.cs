@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
+using Tienda.LogicaNegocio.Excepciones.TipoMovimiento;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,9 +36,13 @@ namespace ApiRest.Controllers
                     return NoContent();
                 }
             }
-            catch (System.Exception ex)
+            catch (TipoMovimientoNoValidoException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch(Exception e)
+            {
+                return BadRequest("Algo salió mal");
             }
         }
 

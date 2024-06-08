@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaNegocio.Excepciones.TipoMovimiento;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.AccesoDatos.EntityFramework.Repositorios
@@ -19,7 +20,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
-                if(this.FindByName(aAgregar.Nombre) != null) throw new Exception("Ya existe un tipo de movimiento con ese nombre");
+                if(this.FindByName(aAgregar.Nombre) != null) throw new TipoMovimientoNoValidoException("Ya existe un tipo de movimiento con ese nombre");
                 aAgregar.EsValido();
                 _context.TiposMovimiento.Add(aAgregar);
                 _context.SaveChanges();
