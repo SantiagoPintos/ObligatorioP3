@@ -22,9 +22,11 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento
 
         public TipoMovimientoDTO EncontrarPorNombreTipoMovimiento(string nombre)
         {
-            if(string.IsNullOrEmpty(nombre)) throw new TipoMovimientoNoValidoException("El nombre del movimiento no es válido");
-
-            return TipoMovimientoDTOMapper.toDTO(this._repositorio.FindByName(nombre));
+            Tienda.LogicaNegocio.Entidades.TipoMovimiento tipoMovimiento = this._repositorio.FindByName(nombre);
+            //Condicional ternario, funciona igual que en js/ts
+            return tipoMovimiento == null
+                ? throw new TipoMovimientoNoValidoException("No se encontró el tipo de movimiento")
+                : TipoMovimientoDTOMapper.toDTO(tipoMovimiento);
         }
     }
 }
