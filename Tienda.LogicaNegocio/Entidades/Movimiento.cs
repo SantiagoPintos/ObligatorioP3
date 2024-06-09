@@ -14,9 +14,11 @@ namespace Tienda.LogicaNegocio.Entidades
         [Required]
         public TimeOnly Hora { get; set; }
         [Required]
-        public Articulo Articulo { get; set; }
+        [ForeignKey("Articulo")]
+        public int ArticuloId { get; set; }
         [Required]
-        public Usuario Usuario { get; set; }
+        //de acuerdo a la letra corresponde al email del usuario
+        public string Usuario { get; set; }
         [Required]
         public int Cantidad { get; set; }
         [Required]
@@ -24,23 +26,23 @@ namespace Tienda.LogicaNegocio.Entidades
 
         public Movimiento() { }
 
-        public Movimiento(DateOnly fecha, TimeOnly hora, Articulo articulo, Usuario usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(DateOnly fecha, TimeOnly hora, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Fecha = fecha;
             this.Hora = hora;
-            this.Articulo = articulo;
+            this.ArticuloId = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
             this.TipoMovimiento = tipo;
             EsValido();
         }
 
-        public Movimiento(int id, DateOnly fecha, TimeOnly hora, Articulo articulo, Usuario usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(int id, DateOnly fecha, TimeOnly hora, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Id = id;
             this.Fecha = fecha;
             this.Hora = hora;
-            this.Articulo = articulo;
+            this.ArticuloId = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
             this.TipoMovimiento = tipo;
@@ -50,7 +52,6 @@ namespace Tienda.LogicaNegocio.Entidades
         public void EsValido()
         {
             if(this.Cantidad<0) throw new MovimientoNoValidoException("La cantidad no puede ser negativa");
-            if(this.Cantidad>this.Articulo.stock) throw new MovimientoNoValidoException("La cantidad no puede ser mayor al stock");
         }
     }
 }

@@ -1,12 +1,14 @@
 using Tienda.AccesoDatos.EntityFramework.Repositorios;
 using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock;
 using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.CasosDeUso.Settings;
 using Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Settings;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
@@ -64,6 +66,7 @@ builder.Services.AddScoped<IEliminarTipoMovimiento, EliminarTipoMovimientoCU>();
 builder.Services.AddScoped<IEditarTipoMovimiento, EditarTipoMovimientoCU>();
 builder.Services.AddScoped<IEncontrarPorNombreTipoMovimiento, EncontrarPorNombreTipoMovimientoCU>();
 builder.Services.AddScoped<IActualizarSetting, ActualizarSettingCU>();
+builder.Services.AddScoped<ICreateMovimientoStock, CrearMovimientoStockCU>();
 
 var app = builder.Build();
 

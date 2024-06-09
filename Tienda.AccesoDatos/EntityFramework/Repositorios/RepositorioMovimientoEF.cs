@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,18 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         }
         public bool Add(Movimiento aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();
+                aAgregar.TipoMovimiento.EsValido();
+                this._context.Movimientos.Add(aAgregar);
+                this._context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public IEnumerable<Movimiento> FindAll()

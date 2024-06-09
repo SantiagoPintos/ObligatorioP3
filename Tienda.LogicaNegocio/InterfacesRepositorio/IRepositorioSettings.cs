@@ -10,5 +10,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
     public interface IRepositorioSettings:IRepositorio<Setting>
     {
         public Setting GetSettingByName(string nombre);
+
+        public double GetSettingValueByName(string nombre);
     }
 }

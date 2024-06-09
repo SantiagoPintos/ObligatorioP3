@@ -45,6 +45,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             return this._context.Settings.Where(setting => setting.Nombre == nombre).FirstOrDefault();
         }
 
+        public double GetSettingValueByName(string nombre)
+        {
+            return this._context.Settings.Where(setting => setting.Nombre == nombre).FirstOrDefault().Valor;
+        }
+
         public bool Remove(Setting aBorrar)
         {
             throw new NotImplementedException();
