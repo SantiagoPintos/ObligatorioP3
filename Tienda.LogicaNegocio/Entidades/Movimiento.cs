@@ -24,21 +24,21 @@ namespace Tienda.LogicaNegocio.Entidades
 
         public Movimiento() { }
 
-        public Movimiento(DateTime fecha, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(DateTime fecha, Articulo articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Fecha = fecha;
-            this.ArticuloId = articulo;
+            this.Articulo = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
             this.TipoMovimiento = tipo;
             EsValido();
         }
 
-        public Movimiento(int id, DateTime fecha, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(int id, DateTime fecha, Articulo articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Id = id;
             this.Fecha = fecha;
-            this.ArticuloId = articulo;
+            this.Articulo = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
             this.TipoMovimiento = tipo;

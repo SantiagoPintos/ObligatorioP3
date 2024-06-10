@@ -17,9 +17,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             movimientoDTO.Fecha = movimiento.Fecha;
             movimientoDTO.Cantidad = movimiento.Cantidad;
             movimientoDTO.Usuario = movimiento.Usuario;
-            movimientoDTO.TipoMovimientoId = movimiento.TipoMovimiento.Id;
-            movimientoDTO.TipoMovimientoNombre = movimiento.TipoMovimiento.Nombre;
-            movimientoDTO.TipoMovimientoSigno = (int)movimiento.TipoMovimiento.Signo;
+            movimientoDTO.TipoMovimiento = TipoMovimientoDTOMapper.toDTO(movimiento.TipoMovimiento);
             movimientoDTO.Articulo = Tienda.LogicaAplicacion.Mappers.ArticuloDTOMapper.toDto(movimiento.Articulo);
             return movimientoDTO;
         }
@@ -33,9 +31,7 @@ namespace Tienda.LogicaAplicacion.Mappers
             movimiento.Cantidad = movimientoDTO.Cantidad;
             movimiento.Usuario = movimientoDTO.Usuario;
             movimiento.Articulo = ArticuloDTOMapper.FromDto(movimientoDTO.Articulo);
-            movimiento.TipoMovimiento.Id = movimientoDTO.TipoMovimientoId;
-            movimiento.TipoMovimiento.Nombre = movimientoDTO.TipoMovimientoNombre;
-            movimiento.TipoMovimiento.Signo = (LogicaNegocio.Enums.SignoTipoMovimiento)movimientoDTO.TipoMovimientoSigno;
+            movimiento.TipoMovimiento = TipoMovimientoDTOMapper.fromDTO(movimientoDTO.TipoMovimiento);
             return movimiento;
         }
     }

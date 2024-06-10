@@ -13,10 +13,6 @@ namespace Tienda.LogicaAplicacion.DTOs
         public ArticuloDTO Articulo { get; set; }
         public string Usuario { get; set; }
         public int Cantidad { get; set; }
-        //El tipo de movimiento se implementa de esta forma en vez de utilizar su DTO
-        //Porque de lo contrario se generan problemas al mapear el DTO a la entidad
-        public int TipoMovimientoId { get; set; }
-        public string TipoMovimientoNombre { get; set; }
-        public int TipoMovimientoSigno { get; set; }
+        public TipoMovimientoDTO TipoMovimiento { get; set; }
     }
 }
