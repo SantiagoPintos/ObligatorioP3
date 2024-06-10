@@ -36,7 +36,8 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
             if (this.repositorioUsuario.EncontrarPorEmail(movimiento.Usuario) == null) throw new MovimientoNoValidoException("El usuario no existe");
             if (this.repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") > movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
             if (this.repositorioTipoMovimiento.FindByName(movimiento.TipoMovimientoNombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
-            
+            //si es una salida de stock 
+            if (movimiento.TipoMovimientoSigno == -1 ) movimiento.Cantidad = movimiento.Cantidad * -1;
             this._repositorioMovimiento.Add(MovimientoStockMapperDTO.FromDto(movimiento));
         }
     }
