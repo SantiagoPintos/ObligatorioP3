@@ -10,9 +10,7 @@ namespace Tienda.LogicaNegocio.Entidades
         [Key]
         public int Id { get; set; }
         [Required]
-        public DateOnly Fecha { get; set; }
-        [Required]
-        public TimeOnly Hora { get; set; }
+        public DateTime Fecha { get; set; }
         [Required]
         [ForeignKey("Articulo")]
         public int ArticuloId { get; set; }
@@ -26,10 +24,9 @@ namespace Tienda.LogicaNegocio.Entidades
 
         public Movimiento() { }
 
-        public Movimiento(DateOnly fecha, TimeOnly hora, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(DateTime fecha, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Fecha = fecha;
-            this.Hora = hora;
             this.ArticuloId = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;
@@ -37,11 +34,10 @@ namespace Tienda.LogicaNegocio.Entidades
             EsValido();
         }
 
-        public Movimiento(int id, DateOnly fecha, TimeOnly hora, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
+        public Movimiento(int id, DateTime fecha, int articulo, string usuario, int cantidad, TipoMovimiento tipo)
         {
             this.Id = id;
             this.Fecha = fecha;
-            this.Hora = hora;
             this.ArticuloId = articulo;
             this.Usuario = usuario;
             this.Cantidad = cantidad;

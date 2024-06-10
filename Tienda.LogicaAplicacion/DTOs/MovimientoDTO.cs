@@ -9,8 +9,7 @@ namespace Tienda.LogicaAplicacion.DTOs
     public class MovimientoDTO
     {
         public int Id { get; set; }
-        public DateOnly Fecha { get; set; }
-        public TimeOnly Hora { get; set; }
+        public DateTime Fecha { get; set; } 
         public int ArticuloId { get; set; }
         public string Usuario { get; set; }
         public int Cantidad { get; set; }
