@@ -10,7 +10,7 @@ namespace Tienda.LogicaAplicacion.DTOs
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; } 
-        public int ArticuloId { get; set; }
+        public ArticuloDTO Articulo { get; set; }
         public string Usuario { get; set; }
         public int Cantidad { get; set; }
         //El tipo de movimiento se implementa de esta forma en vez de utilizar su DTO
