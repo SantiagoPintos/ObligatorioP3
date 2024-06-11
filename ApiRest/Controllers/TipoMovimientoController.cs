@@ -34,6 +34,7 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult <IEnumerable<TipoMovimientoDTO>> GetTipoMovimiento()
         {
             try
@@ -54,7 +55,7 @@ namespace ApiRest.Controllers
             }
             catch(Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
         }
 
@@ -63,6 +64,7 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult <TipoMovimientoDTO> GetTipoMovimientoByName(string name)
         {
             try
@@ -83,7 +85,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
         }
 
@@ -91,6 +93,7 @@ namespace ApiRest.Controllers
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<TipoMovimientoDTO> Create([FromBody] TipoMovimientoDTO tipoMovimiento)
         {
             try
@@ -104,7 +107,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
         }
 
@@ -112,6 +115,7 @@ namespace ApiRest.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult Delete(int id)
         {
             try
@@ -125,7 +129,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
         }
 
@@ -134,6 +138,7 @@ namespace ApiRest.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<TipoMovimientoDTO> Update(int id, [FromBody] TipoMovimientoDTO tipoMovimiento)
         {
             try
@@ -149,7 +154,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
         }
 

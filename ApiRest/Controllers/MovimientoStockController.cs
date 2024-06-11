@@ -21,6 +21,7 @@ namespace ApiRest.Controllers
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<MovimientoDTO> Post([FromBody] MovimientoDTO movimiento)
         {
             try
@@ -34,7 +35,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Algo salió mal");
+                return StatusCode(500, "Algo salió mal");
             }
 
         }
