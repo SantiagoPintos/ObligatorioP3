@@ -9,5 +9,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioEncargado : IRepositorio<Encargado>
     {
+        public Encargado FindByEmail(string email);
+        public void Login(string email, string clave);
     }
 }

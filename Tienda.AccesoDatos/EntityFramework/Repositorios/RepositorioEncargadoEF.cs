@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaNegocio.Excepciones.Encargado;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 
 namespace Tienda.AccesoDatos.EntityFramework.Repositorios
@@ -25,9 +26,21 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
+        public Encargado FindByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email)) throw new EncargadoException();
+            return this._context.Encargados.FirstOrDefault(e => e.Email == email);
+        }
+
         public Encargado FindByID(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public void Login(string email, string clave)
+        {
+            Encargado e = this.FindByEmail(email);
+            if(e.Email != email || e.Clave != clave) throw new EncargadoException("Datos incorrectos");
         }
 
         public bool Remove(Encargado aBorrar)
