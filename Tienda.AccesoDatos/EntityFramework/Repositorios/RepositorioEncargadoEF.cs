@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda.AccesoDatos.CrifradoClave;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.Excepciones.Encargado;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
@@ -40,7 +41,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         public void Login(string email, string clave)
         {
             Encargado e = this.FindByEmail(email);
-            if(e.Email != email || e.Clave != clave) throw new EncargadoException("Datos incorrectos");
+            if(e.Email != email || Cifrado.DesencriptarClave(e.Clave) != clave) throw new EncargadoException("Datos incorrectos");
         }
 
         public bool Remove(Encargado aBorrar)
