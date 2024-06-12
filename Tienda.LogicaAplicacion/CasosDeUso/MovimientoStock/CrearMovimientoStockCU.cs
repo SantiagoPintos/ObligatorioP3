@@ -38,7 +38,9 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
             if (this.repositorioTipoMovimiento.FindByName(movimiento.TipoMovimiento.Nombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
             //si es una salida de stock 
             if (movimiento.TipoMovimiento.Signo == LogicaNegocio.Enums.SignoTipoMovimiento.Reduccion) movimiento.Cantidad *= -1;
-            
+            //Por letra se debe usar fecha del sistema aunque se reciba desde el front
+            movimiento.Fecha = DateTime.Now;
+
             this._repositorioMovimiento.Add(MovimientoStockMapperDTO.FromDto(movimiento));
         }
     }
