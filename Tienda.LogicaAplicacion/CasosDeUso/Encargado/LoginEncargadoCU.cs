@@ -9,21 +9,26 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 using Tienda.LogicaNegocio.Excepciones;
 using Tienda.LogicaNegocio.Excepciones.Encargado;
+using System.Security.Principal;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
 {
     public class LoginEncargadoCU : ILoginEncargado
     {
         private IRepositorioEncargado _repositorioEncargado;
-        public LoginEncargadoCU(IRepositorioEncargado repositorioEncargado)
+        private IObtenerEncargadoPorEmail _obtenerEncargadoPorEmail;
+        public LoginEncargadoCU(IRepositorioEncargado repositorioEncargado, IObtenerEncargadoPorEmail encargadoPorEmail)
         {
             this._repositorioEncargado = repositorioEncargado;
+            this._obtenerEncargadoPorEmail = encargadoPorEmail;
         }
-        public void login(EncargadoDTO encargado)
+        public string login(EncargadoDTO encargado)
         {
             if(encargado == null) throw new EncargadoException("Datos incorrectos");
             if(string.IsNullOrEmpty(encargado.Email) || string.IsNullOrEmpty(encargado.Clave)) throw new EncargadoException("Datos incorrectos");
             this._repositorioEncargado.Login(encargado.Email, encargado.Clave);
+            string token = ManejadorJwt.GenerarToken(_obtenerEncargadoPorEmail.ObtenerEncargadoPorEmail(encargado.Email));
+            return token;
         }
     }
 }

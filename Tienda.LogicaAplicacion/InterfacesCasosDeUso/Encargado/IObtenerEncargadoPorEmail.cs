@@ -7,8 +7,8 @@ using Tienda.LogicaAplicacion.DTOs;
 
 namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado
 {
-    public interface ILoginEncargado
+    public interface IObtenerEncargadoPorEmail
     {
-        public string login(EncargadoDTO encargado);
+        public EncargadoDTO ObtenerEncargadoPorEmail(string email);
     }
 }

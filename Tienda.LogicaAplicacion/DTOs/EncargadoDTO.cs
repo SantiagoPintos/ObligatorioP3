@@ -9,6 +9,7 @@ namespace Tienda.LogicaAplicacion.DTOs
     public class EncargadoDTO
     {
         public int Id { get; set; }
+        public DTOs.RolDto Rol { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
