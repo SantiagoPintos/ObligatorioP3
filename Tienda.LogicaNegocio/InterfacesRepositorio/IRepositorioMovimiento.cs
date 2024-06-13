@@ -9,5 +9,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioMovimiento : IRepositorio<Movimiento>
     {
+        public List<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento);
     }
 }

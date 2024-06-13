@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 {
@@ -42,6 +43,28 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         public Movimiento FindByID(int id)
         {
             throw new NotImplementedException();
+        }
+
+        //Dado un id de artículo y un tipo de movimiento, devuelve una lista de movimientos
+        //realizados sobre ese artículo, ordenados descendentemente por fecha y en
+        //forma ascendente por la cantidad de unidades involucradas en el movimiento Se
+        //muestran todos los datos del movimiento, incluyendo todos los datos de su tipo.
+        public List<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento)
+        {
+            try
+            {
+                return this._context.Movimientos
+                    .Include(m => m.TipoMovimiento)
+                    .Include(m => m.Articulo)
+                    .Where(m => m.Articulo.Id == idArticulo && m.TipoMovimiento.Nombre == tipoMovimiento)
+                    .OrderByDescending(m => m.Fecha)
+                    .ThenBy(m => m.Cantidad)
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }   
         }
 
         public bool Remove(Movimiento aBorrar)
