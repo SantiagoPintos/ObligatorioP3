@@ -12,7 +12,6 @@ namespace Tienda.LogicaNegocio.Entidades
         [Required]
         public DateTime Fecha { get; set; }
         [Required]
-        [ForeignKey("Articulo")]
         public Articulo Articulo { get; set; }
         [Required]
         //de acuerdo a la letra corresponde al email del usuario
