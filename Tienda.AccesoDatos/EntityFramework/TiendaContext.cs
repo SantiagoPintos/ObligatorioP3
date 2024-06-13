@@ -14,13 +14,16 @@ namespace Tienda.AccesoDatos.EntityFramework
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
-        public DbSet<Encargado> Encargados { get; set; }
+        public DbSet<Encargado> Encargado { get; set; }
         public DbSet<Movimiento> Movimientos { get; set; }
         public DbSet<TipoMovimiento> TiposMovimiento { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"SERVER=(localdb)\MsSqlLocalDb;DATABASE=PapeleriaBDDM3C;Integrated Security=true;");
         }
+
+
     }
 }

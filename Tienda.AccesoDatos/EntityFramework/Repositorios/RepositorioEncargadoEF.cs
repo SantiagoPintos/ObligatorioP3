@@ -30,7 +30,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         public Encargado FindByEmail(string email)
         {
             if (string.IsNullOrEmpty(email)) throw new EncargadoException();
-            return this._context.Encargados.FirstOrDefault(e => e.Email == email);
+            return this._context.Encargado.FirstOrDefault(e => e.Email == email);
         }
 
         public Encargado FindByID(int id)
