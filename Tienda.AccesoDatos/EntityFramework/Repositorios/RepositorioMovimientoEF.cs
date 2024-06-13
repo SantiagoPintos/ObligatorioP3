@@ -49,7 +49,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         //realizados sobre ese artículo, ordenados descendentemente por fecha y en
         //forma ascendente por la cantidad de unidades involucradas en el movimiento Se
         //muestran todos los datos del movimiento, incluyendo todos los datos de su tipo.
-        public List<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento)
+        public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento)
         {
             try
             {
