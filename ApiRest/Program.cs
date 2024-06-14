@@ -52,7 +52,7 @@ builder.Services.AddAuthentication(aut =>
         };
     });
 
-var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
+var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ApiRest.xml");
 builder.Services.AddSwaggerGen(
         opciones =>
         {
