@@ -6,6 +6,7 @@ using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.CasosDeUso.Settings;
 using Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.CasosDeUso.Usuario;
+using Tienda.LogicaAplicacion.CasosDeUso.Encargado;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Cliente;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
@@ -13,6 +14,7 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Settings;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.TipoMovimiento;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Usuario;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +22,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
-using Tienda.LogicaAplicacion.CasosDeUso.Encargado;
+using Tienda.LogicaAplicacion.CasosDeUso.Token;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +93,7 @@ builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimiento
 builder.Services.AddScoped<IRepositorioSettings, RepositorioSettingsEF>();
 builder.Services.AddScoped<IRepositorioMovimiento, RepositorioMovimientoEF>();
 builder.Services.AddScoped<IRepositorioEncargado, RepositorioEncargadoEF>();
+builder.Services.AddScoped<IRepositorioToken, RepositorioTokenEF>();
 
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
@@ -123,6 +127,11 @@ builder.Services.AddScoped<IEncontrarPorNombreTipoMovimiento, EncontrarPorNombre
 builder.Services.AddScoped<IActualizarSetting, ActualizarSettingCU>();
 builder.Services.AddScoped<ICreateMovimientoStock, CrearMovimientoStockCU>();
 builder.Services.AddScoped<IObtenerEncargadoPorEmail, ObtenerEncargadoPorEmailCU>();
+builder.Services.AddScoped<ILoginEncargado, LoginEncargadoCU>();
+builder.Services.AddScoped<IEncontrarTokenPorEmail, ObtenerTokenPorEmailCU>();
+builder.Services.AddScoped<IEliminarToken, EliminarTokenCU>();
+builder.Services.AddScoped<IAlmacenarToken, AlmanecerTokenCU>();
+
 
 var app = builder.Build();
 
