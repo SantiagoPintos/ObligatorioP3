@@ -35,7 +35,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             throw new NotImplementedException();
         }
-
+        public Token FindByEmail(string email)
+        {
+            return this._context.Tokens.FirstOrDefault(t => t.Encargado.Email == email);
+        }
         public Token FindByID(int id)
         {
             return this._context.Tokens.FirstOrDefault(t => t.Id == id);
