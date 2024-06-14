@@ -21,7 +21,8 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             try
             {
                 aAgregar.EsValido();
-                this._context.Tokens.Add(aAgregar);
+                this._context.Entry(aAgregar.Encargado).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+                this._context.Set<Token>().Add(aAgregar);
                 this._context.SaveChanges();
                 return true;
             }
