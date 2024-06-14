@@ -39,6 +39,21 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             return this._context.Tokens.FirstOrDefault(t => t.Encargado.Email == email);
         }
+
+        //Método usado para eliminar token en caso de que ya exista uno para ese usuario
+        public void FindByEmailAndRemove(string email)
+        {
+            try
+            {
+                Token tokenBuscado = this._context.Tokens.FirstOrDefault(t => t.Encargado.Email == email);
+                if (tokenBuscado != null) this._context.Tokens.Remove(tokenBuscado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public Token FindByID(int id)
         {
             return this._context.Tokens.FirstOrDefault(t => t.Id == id);

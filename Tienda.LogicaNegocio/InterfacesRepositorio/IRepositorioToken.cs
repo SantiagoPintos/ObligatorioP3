@@ -9,6 +9,8 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioToken:IRepositorio<Token>
     {
-        Token FindByEmail(string email);
+        public Token FindByEmail(string email);
+
+        public void FindByEmailAndRemove(string email);       
     }
 }
