@@ -38,7 +38,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
             TokenDTO tokenNuevo = new TokenDTO
             {
                 TokenUsuario = token,
-                Encargado = encargado
+                Encargado = en
             };           
             this._repositorioToken.Add(TokenDTOMapper.FromDto(tokenNuevo));
             return token;
