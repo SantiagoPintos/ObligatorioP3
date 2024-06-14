@@ -41,6 +41,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         public void Login(string email, string clave)
         {
             Encargado e = this.FindByEmail(email);
+            if(e == null) throw new EncargadoException("Datos incorrectos");
             if(e.Email != email || Cifrado.DesencriptarClave(e.Clave) != clave) throw new EncargadoException("Datos incorrectos");
         }
 
