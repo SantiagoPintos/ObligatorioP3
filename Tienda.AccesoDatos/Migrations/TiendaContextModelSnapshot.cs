@@ -76,6 +76,32 @@ namespace Tienda.AccesoDatos.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Encargado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Clave")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaveSinEncriptar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Encargado");
+                });
+
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Movimiento", b =>
                 {
                     b.Property<int>("Id")
@@ -179,6 +205,28 @@ namespace Tienda.AccesoDatos.Migrations
                     b.ToTable("TiposMovimiento");
                 });
 
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Token", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EncargadoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TokenUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EncargadoId");
+
+                    b.ToTable("Tokens");
+                });
+
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -196,11 +244,6 @@ namespace Tienda.AccesoDatos.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -208,17 +251,6 @@ namespace Tienda.AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Usuario");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Encargado", b =>
-                {
-                    b.HasBaseType("Tienda.LogicaNegocio.Entidades.Usuario");
-
-                    b.HasDiscriminator().HasValue("Encargado");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Cliente", b =>
@@ -278,6 +310,33 @@ namespace Tienda.AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Encargado", b =>
+                {
+                    b.OwnsOne("Tienda.LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
+                        {
+                            b1.Property<int>("EncargadoId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Apellido")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Nombre")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("EncargadoId");
+
+                            b1.ToTable("Encargado");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EncargadoId");
+                        });
+
+                    b.Navigation("NombreCompleto")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Movimiento", b =>
                 {
                     b.HasOne("Tienda.LogicaNegocio.Entidades.Articulo", "Articulo")
@@ -306,6 +365,17 @@ namespace Tienda.AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Token", b =>
+                {
+                    b.HasOne("Tienda.LogicaNegocio.Entidades.Encargado", "Encargado")
+                        .WithMany()
+                        .HasForeignKey("EncargadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Encargado");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>

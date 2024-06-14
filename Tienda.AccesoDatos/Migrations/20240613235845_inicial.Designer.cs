@@ -12,8 +12,8 @@ using Tienda.AccesoDatos.EntityFramework;
 namespace Tienda.AccesoDatos.Migrations
 {
     [DbContext(typeof(TiendaContext))]
-    [Migration("20240516162010_dataAnotations")]
-    partial class dataAnotations
+    [Migration("20240613235845_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,65 @@ namespace Tienda.AccesoDatos.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Encargado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Clave")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaveSinEncriptar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Encargado");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Movimiento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TipoMovimientoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("TipoMovimientoId");
+
+                    b.ToTable("Movimientos");
+                });
+
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Pedido", b =>
                 {
                     b.Property<int>("Id")
@@ -113,6 +172,62 @@ namespace Tienda.AccesoDatos.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Setting", b =>
+                {
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.HasKey("Nombre");
+
+                    b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.TipoMovimiento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Signo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposMovimiento");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Token", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EncargadoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TokenUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EncargadoId");
+
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>
@@ -198,6 +313,52 @@ namespace Tienda.AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Encargado", b =>
+                {
+                    b.OwnsOne("Tienda.LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
+                        {
+                            b1.Property<int>("EncargadoId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Apellido")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Nombre")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("EncargadoId");
+
+                            b1.ToTable("Encargado");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EncargadoId");
+                        });
+
+                    b.Navigation("NombreCompleto")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Movimiento", b =>
+                {
+                    b.HasOne("Tienda.LogicaNegocio.Entidades.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tienda.LogicaNegocio.Entidades.TipoMovimiento", "TipoMovimiento")
+                        .WithMany()
+                        .HasForeignKey("TipoMovimientoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("TipoMovimiento");
+                });
+
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Pedido", b =>
                 {
                     b.HasOne("Tienda.LogicaNegocio.Entidades.Cliente", "Cliente")
@@ -207,6 +368,17 @@ namespace Tienda.AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Token", b =>
+                {
+                    b.HasOne("Tienda.LogicaNegocio.Entidades.Encargado", "Encargado")
+                        .WithMany()
+                        .HasForeignKey("EncargadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Encargado");
                 });
 
             modelBuilder.Entity("Tienda.LogicaNegocio.Entidades.Usuario", b =>
