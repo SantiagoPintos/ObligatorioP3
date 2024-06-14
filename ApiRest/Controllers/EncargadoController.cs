@@ -4,7 +4,6 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaNegocio.Excepciones.Encargado;
 using Microsoft.AspNetCore.Authorization;
-using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaNegocio.Entidades;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using NuGet.Common;
@@ -32,7 +31,7 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult Post([FromBody] EncargadoDTO encargado)
+        public ActionResult Login([FromBody] EncargadoDTO encargado)
         {
             try
             {
