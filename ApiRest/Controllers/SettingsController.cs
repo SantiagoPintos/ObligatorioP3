@@ -16,6 +16,12 @@ namespace ApiRest.Controllers
         {
             this._actualizarSetting = actualizarSetting;
         }
+
+        /// <summary>
+        /// Actualiza un setting dado su nombre
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <returns></returns>
         // PUT api/<SettingsController>
         [HttpPut("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

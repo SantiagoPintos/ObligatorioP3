@@ -15,6 +15,10 @@ namespace ApiRest.Controllers
             this._listarAlfabeticamente = listarAlfabeticamente;
         }
 
+        /// <summary>
+        /// Retorna una lista de articulos ordenados alfabeticamente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "GetArticulos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

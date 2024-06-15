@@ -16,6 +16,10 @@ namespace ApiRest.Controllers
             this._listarPedidosAnulados = listarPedidosAnulados;
         }
 
+        /// <summary>
+        /// Retorna una lista de pedidos anulados
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "GetPedidos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
