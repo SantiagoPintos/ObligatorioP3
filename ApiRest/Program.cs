@@ -70,11 +70,11 @@ builder.Services.AddSwaggerGen(
             opciones.IncludeXmlComments(ruta);
             opciones.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
             {
-                Title = "Teams manager",
-                Description = "Aplicacion para rankear equipos de cualquier disciplina.",
+                Title = "Tienda",
+                Description = "Aplicacion para gestionar stock.",
                 Contact = new Microsoft.OpenApi.Models.OpenApiContact
                 {
-                    Email = "lucaslopezeguren@gmail.com"
+                    Email = "email@email.com"
                 },
                 Version = "v1"
             });
