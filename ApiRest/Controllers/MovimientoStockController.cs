@@ -17,9 +17,14 @@ namespace ApiRest.Controllers
             _createMovimientoStock = createMovimientoStock;
         }
 
+        /// <summary>
+        /// RF03 - Ingreso de movimiento de stock
+        /// </summary>
+        /// <param name="movimiento"></param>
+        /// <returns></returns>
         // POST api/<MovimientoStockController>
         [HttpPost("")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<MovimientoDTO> Post([FromBody] MovimientoDTO movimiento)
@@ -27,7 +32,7 @@ namespace ApiRest.Controllers
             try
             {
                 this._createMovimientoStock.CreateMovimientoStock(movimiento);
-                return Ok();
+                return Created();
             }
             catch(MovimientoNoValidoException e)
             {
