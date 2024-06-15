@@ -13,11 +13,14 @@ namespace ApiRest.Controllers
     {
         private IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo;
         private IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas;
+        private IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas;
         public ConsultasController(IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo,
-                                    IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas)
+                                    IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas,
+                                    IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas)
         {
             this.obtenerMovimientosSobreArticulo = obtenerMovimientosSobreArticulo;
             this.obtenerArticulosConMovimientosEntreFechas = obtenerArticulosConMovimientosEntreFechas;
+            this.obtenerResumenCantidadesMovidas = obtenerResumenCantidadesMovidas;
         }
 
 
@@ -78,6 +81,40 @@ namespace ApiRest.Controllers
                 DateTime fechaInicial = DateTime.Parse(fchInicial);
                 DateTime fechaFinal = DateTime.Parse(fchFinal);
                 IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fechaInicial, fechaFinal);
+                if (listaDeDTO.Count() > 0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (ArticuloNuloException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(500, "Algo salió mal");
+            }
+        }
+
+        /// <summary>
+        /// RF04 C - Obtiene un resumen de las cantidades movidas agrupadas por año y dentro de año por tipo de movimiento
+        /// </summary>
+        /// <returns></returns>
+        [Route("ResumenCantidades")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult <IEnumerable<ResumenDTO>> ResumenCantidadesMovidas()
+        {
+            try
+            {
+                IEnumerable<ResumenDTO> listaDeDTO = obtenerResumenCantidadesMovidas.ObtenerResumenCantidadesMovidas();
                 if (listaDeDTO.Count() > 0)
                 {
                     return Ok(listaDeDTO);

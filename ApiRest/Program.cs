@@ -134,6 +134,7 @@ builder.Services.AddScoped<IEliminarToken, EliminarTokenCU>();
 builder.Services.AddScoped<IAlmacenarToken, AlmanecerTokenCU>();
 builder.Services.AddScoped<IObtenerMovimientosSobreArticulo, ObtenerMovimientosStobreArticuloCU>();
 builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechas, ObtenerArticulosConMovimientosEntreFechasCU>();
+builder.Services.AddScoped<IObtenerResumenCantidadesMovidas, ObtenerResumenCandidadesMovidasCU>();
 
 
 var app = builder.Build();

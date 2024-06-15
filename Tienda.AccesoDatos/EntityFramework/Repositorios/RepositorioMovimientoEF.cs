@@ -37,7 +37,10 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
 
         public IEnumerable<Movimiento> FindAll()
         {
-            throw new NotImplementedException();
+            return this._context.Movimientos
+                .Include(m => m.TipoMovimiento)
+                .Include(m => m.Articulo)
+                .ToList();
         }
 
         public Movimiento FindByID(int id)
