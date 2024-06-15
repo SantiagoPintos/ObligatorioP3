@@ -47,5 +47,38 @@ namespace ApiRest.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// RF-04 b - Obtiene los artículos que han tenido movimientos en un rango de fechas
+        /// </summary>
+        /// <param name="fchInicial"></param>
+        /// <param name="fchFinal"></param>
+        /// <returns></returns>
+        [Route("MovimientosEntreFechas/{fchInicial}/{fchFinal}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechas(string fchInicial, string fchFinal)
+        {
+            try
+            {
+                IEnumerable<ArticuloDTO> listaDeDTO = obtenerMovimientosSobreArticulo.ObtenerMovimientosEntreFechas(fchInicial, fchFinal);
+                if (listaDeDTO.Count() > 0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
