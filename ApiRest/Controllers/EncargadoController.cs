@@ -21,11 +21,11 @@ namespace ApiRest.Controllers
             _login = login;
         }
 
-        ///<summary>
-        /// Metodo para permitir inicio de sesion y obtener un jwt para uso de la api
+        /// <summary>
+        /// RF02 - Login
         /// </summary>
-        /// <param name = "encargado" > nombre de usuario y contraseña</param>
-        /// <returns>Token y datos del usuario</returns>
+        /// <param name="encargado"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
