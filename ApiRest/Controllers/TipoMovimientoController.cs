@@ -29,6 +29,10 @@ namespace ApiRest.Controllers
             this._listarTipoMovimientoPorNombre = listarTipoMovimientoPorNombre;
         }
 
+        /// <summary>
+        /// RF01 - Listar todos los tipos de movimientos
+        /// </summary>
+        /// <returns></returns>
         // GET: api/<TipoMovimientoController>
         [HttpGet(Name = "GetTipoMovimiento")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,6 +63,11 @@ namespace ApiRest.Controllers
             }
         }
 
+        /// <summary>
+        /// RF01 - Obtener un tipo de moivmiento según su nombre
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         // GET: api/<TipoMovimientoController>
         [HttpGet("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -89,6 +98,11 @@ namespace ApiRest.Controllers
             }
         }
 
+        /// <summary>
+        /// RF01 - Crear un tipo de movimiento
+        /// </summary>
+        /// <param name="tipoMovimiento"></param>
+        /// <returns></returns>
         // POST api/<TipoMovimientoController>
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -111,6 +125,11 @@ namespace ApiRest.Controllers
             }
         }
 
+        /// <summary>
+        /// RF01 - Eliminar un tipo de movimiento
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE api/<TipoMovimientoController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -134,6 +153,12 @@ namespace ApiRest.Controllers
         }
 
 
+        /// <summary>
+        /// RF01 - Editar un tipo de movimiento
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tipoMovimiento"></param>
+        /// <returns></returns>
         // PUT api/<TipoMovimientoController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
