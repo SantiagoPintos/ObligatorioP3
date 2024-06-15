@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
+using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
 
 namespace ApiRest.Controllers
@@ -10,9 +11,12 @@ namespace ApiRest.Controllers
     public class ConsultasController : ControllerBase
     {
         private IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo;
-        public ConsultasController(IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo)
+        private IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas;
+        public ConsultasController(IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo,
+                                    IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas)
         {
             this.obtenerMovimientosSobreArticulo = obtenerMovimientosSobreArticulo;
+            this.obtenerArticulosConMovimientosEntreFechas = obtenerArticulosConMovimientosEntreFechas;
         }
 
 
@@ -65,7 +69,10 @@ namespace ApiRest.Controllers
         {
             try
             {
-                IEnumerable<ArticuloDTO> listaDeDTO = obtenerMovimientosSobreArticulo.ObtenerMovimientosEntreFechas(fchInicial, fchFinal);
+                if (String.IsNullOrEmpty(fchInicial) || String.IsNullOrEmpty(fchFinal)) throw new Exception("Las fechas no son válidas");
+                DateTime fechaInicial = DateTime.Parse(fchInicial);
+                DateTime fechaFinal = DateTime.Parse(fchFinal);
+                IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fechaInicial, fechaFinal);
                 if (listaDeDTO.Count() > 0)
                 {
                     return Ok(listaDeDTO);

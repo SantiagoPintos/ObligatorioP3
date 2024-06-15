@@ -24,6 +24,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
 using Tienda.LogicaAplicacion.CasosDeUso.Token;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Token;
+using Tienda.LogicaAplicacion.CasosDeUso.Movimiento;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -131,6 +132,8 @@ builder.Services.AddScoped<ILoginEncargado, LoginEncargadoCU>();
 builder.Services.AddScoped<IEncontrarTokenPorEmail, ObtenerTokenPorEmailCU>();
 builder.Services.AddScoped<IEliminarToken, EliminarTokenCU>();
 builder.Services.AddScoped<IAlmacenarToken, AlmanecerTokenCU>();
+builder.Services.AddScoped<IObtenerMovimientosSobreArticulo, ObtenerMovimientosStobreArticuloCU>();
+builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechas, ObtenerArticulosConMovimientosEntreFechasCU>();
 
 
 var app = builder.Build();
