@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
+using Tienda.LogicaNegocio.Excepciones.Articulo;
 
 namespace ApiRest.Controllers
 {
@@ -46,9 +47,13 @@ namespace ApiRest.Controllers
                     return NoContent();
                 }
             }
-            catch (System.Exception ex)
+            catch (ArticuloNuloException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(500, "Algo salió mal");
             }
         }
 
@@ -82,9 +87,13 @@ namespace ApiRest.Controllers
                     return NoContent();
                 }
             }
-            catch (System.Exception ex)
+            catch (ArticuloNuloException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(500, "Algo salió mal");
             }
         }
     }
