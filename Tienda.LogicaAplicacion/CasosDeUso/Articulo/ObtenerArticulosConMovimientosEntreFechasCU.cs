@@ -21,6 +21,13 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
         public IEnumerable<ArticuloDTO> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal)
         {
             if(fchInicial == DateTime.MinValue || fchFinal == DateTime.MinValue) throw new ArticuloNuloException("Las fechas no son válidas");
+            //Invertimos fecha en caso de que la inicial sea mayor a la final
+            if (fchInicial > fchFinal)
+            {
+                DateTime aux = fchInicial; 
+                fchInicial = fchFinal; 
+                fchFinal = aux; 
+            }
             return this.repositorioMovimiento.ObtenerArticulosConMovimientosEntreFechas(fchInicial, fchFinal).Select(articulo => ArticuloDTOMapper.toDto(articulo));
         }
     }
