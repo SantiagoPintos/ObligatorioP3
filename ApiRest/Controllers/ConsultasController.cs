@@ -28,9 +28,10 @@ namespace ApiRest.Controllers
         /// <summary>
         /// RF-04 a - Obtiene los movimientos de un articulo en base a su id y tipo de movimiento
         /// </summary>
-        /// <param name="idArticulo"></param>
-        /// <param name="tipoMovimiento"></param>
-        /// <returns></returns>
+        /// <param name="idArticulo">Id de artículo</param>
+        /// <param name="tipoMovimiento">Nombre del tipo de movimiento</param>
+        /// <param name="pagina">Página</param>
+        /// <returns>Retorna movimientos de artículo seleccionado</returns>
         [Route("MovimientosIdTipo/{idArticulo}/{tipoMovimiento}/{pagina}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -65,9 +66,9 @@ namespace ApiRest.Controllers
         /// <summary>
         /// RF-04 b - Obtiene los artículos que han tenido movimientos en un rango de fechas
         /// </summary>
-        /// <param name="fchInicial"></param>
-        /// <param name="fchFinal"></param>
-        /// <returns></returns>
+        /// <param name="fchInicial">Fecha inicial</param>
+        /// <param name="fchFinal">Fecha final</param>
+        /// <returns>Retorna una lista de artículos que han estado involucrados en movimientos entre las dos fechas indicadas</returns>
         [Route("MovimientosEntreFechas/{fchInicial}/{fchFinal}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -104,7 +105,7 @@ namespace ApiRest.Controllers
         /// <summary>
         /// RF04 C - Obtiene un resumen de las cantidades movidas agrupadas por año y dentro de año por tipo de movimiento
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retorna un resumen de las cantidades movidas agrupadas por año y dentro de año por tipo de movimiento</returns>
         [Route("ResumenCantidades")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
