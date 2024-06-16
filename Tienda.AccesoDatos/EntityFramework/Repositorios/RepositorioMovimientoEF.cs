@@ -49,16 +49,21 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         }
 
         //Dado un rango de fechas, seleccionar los artículos que hayan tenido movimientos (al menos uno) entre esas fechas inclusive.
-        public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal)
+        public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal, int numPag, int size)
         {
             try
             {
                 IEnumerable<Movimiento> movimientos = this._context.Movimientos
                                                     .Include(m => m.Articulo)
                                                     .Where(m => m.Fecha >= fchInicial && m.Fecha <= fchFinal)
-                                                    .ToList();
+                                                    .ToList()                    
+                                                    //Paginado
+                                                    .Skip((numPag - 1) * size)
+                                                    .Skip(size);
                 //Distinct ignora los duplicados, mismo funcionamiento que sql
-                return movimientos.Select(m => m.Articulo).Distinct();
+                return movimientos
+                    .Select(m => m.Articulo)
+                    .Distinct();
             }
             catch (Exception e)
             {

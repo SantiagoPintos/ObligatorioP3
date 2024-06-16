@@ -68,6 +68,7 @@ namespace ApiRest.Controllers
         /// </summary>
         /// <param name="fchInicial">Fecha inicial</param>
         /// <param name="fchFinal">Fecha final</param>
+        /// <param name="pagina">Pagina</param>
         /// <returns>Retorna una lista de artículos que han estado involucrados en movimientos entre las dos fechas indicadas</returns>
         [Route("MovimientosEntreFechas/{fchInicial}/{fchFinal}")]
         [HttpGet]
@@ -75,14 +76,12 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechas(string fchInicial, string fchFinal)
+        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal, int pagina)
         {
             try
             {
-                if (String.IsNullOrEmpty(fchInicial) || String.IsNullOrEmpty(fchFinal)) throw new Exception("Las fechas no son válidas");
-                DateTime fechaInicial = DateTime.Parse(fchInicial);
-                DateTime fechaFinal = DateTime.Parse(fchFinal);
-                IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fechaInicial, fechaFinal);
+                if (fchFinal == DateTime.MinValue || fchFinal == DateTime.MinValue ) throw new Exception("Las fechas no son válidas");
+                IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fchInicial, fchFinal, pagina);
                 if (listaDeDTO.Count() > 0)
                 {
                     return Ok(listaDeDTO);

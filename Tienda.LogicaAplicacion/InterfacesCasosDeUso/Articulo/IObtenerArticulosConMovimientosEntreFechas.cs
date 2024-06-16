@@ -9,6 +9,6 @@ namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo
 {
     public interface IObtenerArticulosConMovimientosEntreFechas
     {
-        public IEnumerable<ArticuloDTO> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal);
+        public IEnumerable<ArticuloDTO> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal, int pagina);
     }
 }
