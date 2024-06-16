@@ -4,6 +4,7 @@ using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
 using Tienda.LogicaNegocio.Excepciones.Articulo;
+using Tienda.LogicaNegocio.Excepciones.Movimiento;
 
 namespace ApiRest.Controllers
 {
@@ -50,7 +51,7 @@ namespace ApiRest.Controllers
                     return NoContent();
                 }
             }
-            catch (ArticuloNuloException ex)
+            catch (MovimientoNoValidoException ex)
             {
                 return BadRequest(ex.Message);
             }
