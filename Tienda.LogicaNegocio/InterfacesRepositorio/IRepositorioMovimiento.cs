@@ -9,7 +9,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioMovimiento : IRepositorio<Movimiento>
     {
-        public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento);
+        public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pagina, int size);
         public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal);
     }
 }

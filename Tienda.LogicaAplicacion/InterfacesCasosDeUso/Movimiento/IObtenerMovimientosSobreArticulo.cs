@@ -9,6 +9,6 @@ namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento
 {
     public interface IObtenerMovimientosSobreArticulo
     {
-        public IEnumerable<MovimientoDTO> ObtenerMovimientos(int idArticulo, string tipoMovimiento);
+        public IEnumerable<MovimientoDTO> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pagina);
     }
 }

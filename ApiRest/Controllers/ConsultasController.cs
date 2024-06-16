@@ -30,17 +30,17 @@ namespace ApiRest.Controllers
         /// <param name="idArticulo"></param>
         /// <param name="tipoMovimiento"></param>
         /// <returns></returns>
-        [Route("MovimientosIdTipo/{idArticulo}/{tipoMovimiento}")]
+        [Route("MovimientosIdTipo/{idArticulo}/{tipoMovimiento}/{pagina}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<MovimientoDTO>> ObtenerMovimientos(int idArticulo, string tipoMovimiento)
+        public ActionResult<IEnumerable<MovimientoDTO>> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pagina)
         {
             try
             {
-                IEnumerable<MovimientoDTO> listaDeDTO = obtenerMovimientosSobreArticulo.ObtenerMovimientos(idArticulo, tipoMovimiento);
+                IEnumerable<MovimientoDTO> listaDeDTO = obtenerMovimientosSobreArticulo.ObtenerMovimientos(idArticulo, tipoMovimiento, pagina);
                 if (listaDeDTO.Count() > 0)
                 {
                     return Ok(listaDeDTO);

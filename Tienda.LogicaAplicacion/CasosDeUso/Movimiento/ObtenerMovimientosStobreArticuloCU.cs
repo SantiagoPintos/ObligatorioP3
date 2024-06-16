@@ -16,17 +16,24 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Movimiento
     public class ObtenerMovimientosStobreArticuloCU : IObtenerMovimientosSobreArticulo
     {
         private IRepositorioMovimiento _repositorioMovimiento;
-        public ObtenerMovimientosStobreArticuloCU(IRepositorioMovimiento repositorioMovimiento)
+        private IRepositorioSettings _repositorioSettings;
+        public ObtenerMovimientosStobreArticuloCU(IRepositorioMovimiento repositorioMovimiento, IRepositorioSettings repositorioSettings)
         {
             _repositorioMovimiento = repositorioMovimiento;
+            _repositorioSettings = repositorioSettings;
         }
-        public IEnumerable<MovimientoDTO> ObtenerMovimientos(int idArticulo, string tipoMovimiento)
+        public IEnumerable<MovimientoDTO> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pag)
         {
             if (String.IsNullOrEmpty(tipoMovimiento)) throw new MovimientoNoValidoException("El tipo de movimiento no es válido");
-            if(idArticulo<0) throw new MovimientoNoValidoException("El id del artículo no es válido");
-            //Los tipos de movimiento se guardan en mayus
+            if (pag <= 0) throw new MovimientoNoValidoException("El número de página no es válido");
+            if (idArticulo<0) throw new MovimientoNoValidoException("El id del artículo no es válido");
+            //Los tipos de movimiento se guardan en mayus en la base de datos
             tipoMovimiento = tipoMovimiento.ToUpper();
-            return this._repositorioMovimiento.ObtenerMovimientos(idArticulo, tipoMovimiento).Select(a => MovimientoStockMapperDTO.toDto(a));
+            //Obtener paginado
+            int paginado = (int)this._repositorioSettings.GetSettingValueByName("PAGINADO");
+            if (paginado <= 0) throw new MovimientoNoValidoException("El valor del paginado no es válido");
+
+            return this._repositorioMovimiento.ObtenerMovimientos(idArticulo, tipoMovimiento, pag, paginado).Select(a => MovimientoStockMapperDTO.toDto(a));
         }
     }
 }
