@@ -25,6 +25,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Movimiento
         public IEnumerable<MovimientoDTO> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pag)
         {
             if (String.IsNullOrEmpty(tipoMovimiento)) throw new MovimientoNoValidoException("El tipo de movimiento no es válido");
+            if (int.TryParse(tipoMovimiento, out int result)) throw new MovimientoNoValidoException("El tipo de movimiento no es válido");
             if (pag <= 0) throw new MovimientoNoValidoException("El número de página no es válido");
             if (idArticulo<0) throw new MovimientoNoValidoException("El id del artículo no es válido");
             //Los tipos de movimiento se guardan en mayus en la base de datos
