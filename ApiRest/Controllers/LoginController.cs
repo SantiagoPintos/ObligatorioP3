@@ -13,10 +13,10 @@ namespace ApiRest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EncargadoController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private ILoginEncargado _login;
-        public EncargadoController(ILoginEncargado login)
+        public LoginController(ILoginEncargado login)
         {
             _login = login;
         }
@@ -27,7 +27,6 @@ namespace ApiRest.Controllers
         /// <param name="encargado"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
