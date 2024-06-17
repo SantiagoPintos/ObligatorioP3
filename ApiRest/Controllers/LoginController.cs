@@ -32,6 +32,7 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("Login")]
         public ActionResult Login([FromBody] EncargadoDTO encargado)
         {
             try
