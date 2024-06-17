@@ -22,7 +22,6 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
-using Tienda.LogicaAplicacion.CasosDeUso.Token;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Token;
 using Tienda.LogicaAplicacion.CasosDeUso.Movimiento;
 
@@ -94,7 +93,6 @@ builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimiento
 builder.Services.AddScoped<IRepositorioSettings, RepositorioSettingsEF>();
 builder.Services.AddScoped<IRepositorioMovimiento, RepositorioMovimientoEF>();
 builder.Services.AddScoped<IRepositorioEncargado, RepositorioEncargadoEF>();
-builder.Services.AddScoped<IRepositorioToken, RepositorioTokenEF>();
 
 //casos de uso
 builder.Services.AddScoped<ICreateUsuario, CrearUsuarioCU>();
@@ -129,9 +127,6 @@ builder.Services.AddScoped<IActualizarSetting, ActualizarSettingCU>();
 builder.Services.AddScoped<ICreateMovimientoStock, CrearMovimientoStockCU>();
 builder.Services.AddScoped<IObtenerEncargadoPorEmail, ObtenerEncargadoPorEmailCU>();
 builder.Services.AddScoped<ILoginEncargado, LoginEncargadoCU>();
-builder.Services.AddScoped<IEncontrarTokenPorEmail, ObtenerTokenPorEmailCU>();
-builder.Services.AddScoped<IEliminarToken, EliminarTokenCU>();
-builder.Services.AddScoped<IAlmacenarToken, AlmanecerTokenCU>();
 builder.Services.AddScoped<IObtenerMovimientosSobreArticulo, ObtenerMovimientosStobreArticuloCU>();
 builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechas, ObtenerArticulosConMovimientosEntreFechasCU>();
 builder.Services.AddScoped<IObtenerResumenCantidadesMovidas, ObtenerResumenCandidadesMovidasCU>();

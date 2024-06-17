@@ -27,8 +27,10 @@ namespace ApiRest.Controllers
         /// <param name="encargado"></param>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult Login([FromBody] EncargadoDTO encargado)
         {
@@ -43,7 +45,7 @@ namespace ApiRest.Controllers
             }
             catch (EncargadoException e)
             {
-                return BadRequest(e.Message);
+                return Unauthorized(e.Message);
             }
             catch (Exception e)
             {

@@ -19,12 +19,9 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
     public class LoginEncargadoCU : ILoginEncargado
     {
         private IRepositorioEncargado _repositorioEncargado;
-        private IRepositorioToken _repositorioToken;
-        public LoginEncargadoCU(IRepositorioEncargado repositorioEncargado, 
-                                IRepositorioToken repositorioToken)
+        public LoginEncargadoCU(IRepositorioEncargado repositorioEncargado)
         {
             this._repositorioEncargado = repositorioEncargado;
-            this._repositorioToken = repositorioToken;
         }
 
         public string login(EncargadoDTO encargado)
@@ -32,15 +29,12 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
             if(string.IsNullOrEmpty(encargado.Email) || string.IsNullOrEmpty(encargado.Clave)) throw new EncargadoException("Datos incorrectos");
             this._repositorioEncargado.Login(encargado.Email, encargado.Clave);
             EncargadoDTO en = EncargadoDTOMapper.ToDTO(this._repositorioEncargado.FindByEmail(encargado.Email));
-            //En caso de que ya exista un token para ese usuario se debe eliminar y crear uno nuevo
-            this._repositorioToken.FindByEmailAndRemove(encargado.Email);
             string token = ManejadorJwt.GenerarToken(en);
             TokenDTO tokenNuevo = new TokenDTO
             {
                 TokenUsuario = token,
                 Encargado = en
             };           
-            this._repositorioToken.Add(TokenDTOMapper.FromDto(tokenNuevo));
             return token;
         }
     }
