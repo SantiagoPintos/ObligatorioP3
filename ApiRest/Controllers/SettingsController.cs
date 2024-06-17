@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Settings;
 using Tienda.LogicaNegocio.Excepciones.Setting;
@@ -9,6 +10,7 @@ namespace ApiRest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SettingsController : ControllerBase
     {
         private IActualizarSetting _actualizarSetting;

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
@@ -6,6 +7,7 @@ namespace ApiRest.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ArticuloController : ControllerBase
     {
         private IListarAlfabeticamente _listarAlfabeticamente;

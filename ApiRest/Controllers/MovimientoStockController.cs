@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
 using Tienda.LogicaNegocio.Excepciones.Movimiento;
@@ -9,6 +10,7 @@ namespace ApiRest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MovimientoStockController : ControllerBase
     {
         private ICreateMovimientoStock _createMovimientoStock;
