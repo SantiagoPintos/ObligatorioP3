@@ -53,17 +53,19 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
-                IEnumerable<Movimiento> movimientos = this._context.Movimientos
+                IEnumerable<Articulo> movimientos = this._context.Movimientos
                                                     .Include(m => m.Articulo)
                                                     .Where(m => m.Fecha >= fchInicial && m.Fecha <= fchFinal)
-                                                    .ToList()                    
+                                                    .ToList()
+                                                    .Select(m => m.Articulo)
+                                                     .Distinct()
                                                     //Paginado
                                                     .Skip((numPag - 1) * size)
-                                                    .Skip(size);
+
+                                                    .Take(size);
                 //Distinct ignora los duplicados, mismo funcionamiento que sql
-                return movimientos
-                    .Select(m => m.Articulo)
-                    .Distinct();
+                return movimientos;
+                    
             }
             catch (Exception e)
             {
