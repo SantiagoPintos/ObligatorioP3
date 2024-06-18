@@ -34,7 +34,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
         {
             if (this.repositorioArticulo.EncontrarPorId(movimiento.Articulo.Id) == null) throw new MovimientoNoValidoException("El articulo no existe");
             if (this.repositorioUsuario.EncontrarPorEmail(movimiento.Usuario) == null) throw new MovimientoNoValidoException("El usuario no existe");
-            if (this.repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") > movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
+            if (this.repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") < movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
             if (this.repositorioTipoMovimiento.FindByName(movimiento.TipoMovimiento.Nombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
             //si es una salida de stock 
             if (movimiento.TipoMovimiento.Signo == LogicaNegocio.Enums.SignoTipoMovimiento.Reduccion) movimiento.Cantidad *= -1;
