@@ -76,19 +76,22 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         //realizados sobre ese artículo, ordenados descendentemente por fecha y en
         //forma ascendente por la cantidad de unidades involucradas en el movimiento Se
         //muestran todos los datos del movimiento, incluyendo todos los datos de su tipo.
-        public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pagina, int size)
+        public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int numPag, int size)
         {
             try
             {
-                return this._context.Movimientos
+                IEnumerable<Movimiento> movimientos =  this._context.Movimientos
                     .Include(m => m.TipoMovimiento)
                     .Include(m => m.Articulo)
                     .Where(m => m.Articulo.Id == idArticulo && m.TipoMovimiento.Nombre == tipoMovimiento)
                     .OrderByDescending(m => m.Fecha)
                     .ThenBy(m => m.Cantidad)
                     //Paginado
-                    .Skip((pagina - 1 ) * size )
-                    .Take(size);
+                    .Skip((numPag - 1) * size)
+                    .Take(size)
+                    .ToList();
+
+                return movimientos;
             }
             catch (Exception e)
             {
