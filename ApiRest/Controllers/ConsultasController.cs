@@ -72,16 +72,18 @@ namespace ApiRest.Controllers
         /// <param name="fchFinal">Fecha final</param>
         /// <param name="pagina">Pagina</param>
         /// <returns>Retorna una lista de artículos que han estado involucrados en movimientos entre las dos fechas indicadas</returns>
-        [Route("MovimientosEntreFechas/{fchInicial}/{fchFinal}")]
+        [Route("MovimientosEntreFechas/{fechaInicial}/{fechaFinal}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal, int pagina)
+        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechas(string fechaInicial, string fechaFinal, int pagina)
         {
             try
             {
+                DateTime fchInicial = DateTime.Parse(fechaInicial);
+                DateTime fchFinal = DateTime.Parse(fechaFinal);
                 if (fchFinal == DateTime.MinValue || fchFinal == DateTime.MinValue ) throw new Exception("Las fechas no son válidas");
                 IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fchInicial, fchFinal, pagina);
                 if (listaDeDTO.Count() > 0)
