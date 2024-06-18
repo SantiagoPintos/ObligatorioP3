@@ -11,10 +11,12 @@ namespace ApiRest.Controllers
     public class ArticuloController : ControllerBase
     {
         private IListarAlfabeticamente _listarAlfabeticamente;
+        private IObtenerArticuloPorId _obtenerArticuloPorId;
 
-        public ArticuloController(IListarAlfabeticamente listarAlfabeticamente)
+        public ArticuloController(IListarAlfabeticamente listarAlfabeticamente, IObtenerArticuloPorId obtenerArticuloPorId)
         {
             this._listarAlfabeticamente = listarAlfabeticamente;
+            _obtenerArticuloPorId = obtenerArticuloPorId;
         }
 
         /// <summary>
@@ -45,5 +47,37 @@ namespace ApiRest.Controllers
             }
             
         }
+
+
+        /// <summary>
+        /// Retorna un articulo buscado por id
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet("ObtenerArticuloPorId/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<ArticuloDTO> ObtenerArticuloPorId(int id)
+        {
+            try
+            {
+                ArticuloDTO articuloDTO = _obtenerArticuloPorId.ObtenerArticuloPorId(id);
+                if (articuloDTO != null)
+                {
+                    return Ok(articuloDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
