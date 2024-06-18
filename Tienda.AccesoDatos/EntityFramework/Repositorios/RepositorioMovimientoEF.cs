@@ -61,7 +61,6 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
                                                      .Distinct()
                                                     //Paginado
                                                     .Skip((numPag - 1) * size)
-
                                                     .Take(size);
                 //Distinct ignora los duplicados, mismo funcionamiento que sql
                 return movimientos;
@@ -89,8 +88,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
                     .ThenBy(m => m.Cantidad)
                     //Paginado
                     .Skip((pagina - 1 ) * size )
-                    .Take(size)
-                    .ToList();
+                    .Take(size);
             }
             catch (Exception e)
             {

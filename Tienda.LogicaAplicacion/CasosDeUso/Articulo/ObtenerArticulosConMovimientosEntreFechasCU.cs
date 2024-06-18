@@ -27,8 +27,8 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
             //Invertimos fecha en caso de que la inicial sea mayor a la final
             if (fchInicial > fchFinal)
             {
-                DateTime aux = fchInicial; 
-                fchInicial = fchFinal; 
+                DateTime aux = fchInicial;
+                fchInicial = fchFinal;
                 fchFinal = aux; 
             }
             int size = (int)this._repositorioSettings.GetSettingValueByName("PAGINADO");
