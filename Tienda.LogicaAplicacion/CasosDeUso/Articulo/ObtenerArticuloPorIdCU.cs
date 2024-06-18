@@ -7,6 +7,8 @@ using Tienda.LogicaAplicacion.DTOs;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.Mappers;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
+using Tienda.LogicaNegocio.Entidades;
+using Tienda.LogicaNegocio.Excepciones.Articulo;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
 {
@@ -21,7 +23,12 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Articulo
 
         public ArticuloDTO ObtenerArticuloPorId(int id)
         {
-            return ArticuloDTOMapper.toDto(this._repositorioArticulo.EncontrarPorId(id));
+            Tienda.LogicaNegocio.Entidades.Articulo articulo = this._repositorioArticulo.EncontrarPorId(id);
+            if (articulo==null)
+            {
+                throw new ArticuloNuloException();
+            }
+            return ArticuloDTOMapper.toDto(articulo);
         }
     }
 }
