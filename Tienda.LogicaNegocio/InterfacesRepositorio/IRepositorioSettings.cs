@@ -12,5 +12,7 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         public Setting GetSettingByName(string nombre);
 
         public double GetSettingValueByName(string nombre);
+
+        public double ObtenerPaginado();
     }
 }
