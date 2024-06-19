@@ -50,6 +50,11 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             return this._context.Settings.Where(setting => setting.Nombre == nombre).FirstOrDefault().Valor;
         }
 
+        public double ObtenerPaginado()
+        {
+            return this._context.Settings.Where(setting => setting.Nombre == "PAGINADO").FirstOrDefault().Valor;
+        }
+
         public bool Remove(Setting aBorrar)
         {
             throw new NotImplementedException();
@@ -68,5 +73,9 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
                 throw ex;
             }
         }
+
+
+
+
     }
 }
