@@ -130,6 +130,8 @@ builder.Services.AddScoped<ILoginEncargado, LoginEncargadoCU>();
 builder.Services.AddScoped<IObtenerMovimientosSobreArticulo, ObtenerMovimientosStobreArticuloCU>();
 builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechas, ObtenerArticulosConMovimientosEntreFechasCU>();
 builder.Services.AddScoped<IObtenerResumenCantidadesMovidas, ObtenerResumenCandidadesMovidasCU>();
+builder.Services.AddScoped<IObtenerPaginado, ObtenerPaginadoCU>();
+builder.Services.AddScoped<IObtenerMovimientosDeArticuloCompleto, ObtenerMovimientosDeArticuloCompletoCU>();
 
 
 var app = builder.Build();
