@@ -21,7 +21,6 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Encargado;
-using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Token;
 using Tienda.LogicaAplicacion.CasosDeUso.Movimiento;
 
 var builder = WebApplication.CreateBuilder(args);

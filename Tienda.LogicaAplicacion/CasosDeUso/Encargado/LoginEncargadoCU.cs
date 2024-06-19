@@ -11,7 +11,6 @@ using Tienda.LogicaNegocio.Excepciones;
 using Tienda.LogicaNegocio.Entidades;
 using Tienda.LogicaNegocio.Excepciones.Encargado;
 using System.Security.Principal;
-using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Token;
 using Tienda.LogicaAplicacion.Mappers;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
@@ -29,12 +28,7 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.Encargado
             if(string.IsNullOrEmpty(encargado.Email) || string.IsNullOrEmpty(encargado.Clave)) throw new EncargadoException("Datos incorrectos");
             this._repositorioEncargado.Login(encargado.Email, encargado.Clave);
             EncargadoDTO en = EncargadoDTOMapper.ToDTO(this._repositorioEncargado.FindByEmail(encargado.Email));
-            string token = ManejadorJwt.GenerarToken(en);
-            TokenDTO tokenNuevo = new TokenDTO
-            {
-                TokenUsuario = token,
-                Encargado = en
-            };           
+            string token = ManejadorJwt.GenerarToken(en);                 
             return token;
         }
     }
