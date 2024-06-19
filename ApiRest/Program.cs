@@ -132,6 +132,8 @@ builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechas, ObtenerAr
 builder.Services.AddScoped<IObtenerResumenCantidadesMovidas, ObtenerResumenCandidadesMovidasCU>();
 builder.Services.AddScoped<IObtenerPaginado, ObtenerPaginadoCU>();
 builder.Services.AddScoped<IObtenerMovimientosDeArticuloCompleto, ObtenerMovimientosDeArticuloCompletoCU>();
+// Para trabajar con el paginado
+builder.Services.AddScoped<IObtenerArticulosConMovimientosEntreFechasCompleto, ObtenerArticulosConMovimientoEntreFechasCompletoCU>();
 
 
 var app = builder.Build();

@@ -18,15 +18,18 @@ namespace ApiRest.Controllers
         private IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas;
         private IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas;
         private IObtenerMovimientosDeArticuloCompleto obtenerMovimientosDeArticuloCompleto;
+        private IObtenerArticulosConMovimientosEntreFechasCompleto obtenerArticulosConMovimientosEntreFechasCompleto;   
         public ConsultasController(IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo,
                                     IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas,
                                     IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas,
-                                    IObtenerMovimientosDeArticuloCompleto obtenerMovimientosDeArticuloCompleto)
+                                    IObtenerMovimientosDeArticuloCompleto obtenerMovimientosDeArticuloCompleto,
+                                    IObtenerArticulosConMovimientosEntreFechasCompleto obtenerArticulosConMovimientosEntreFechasCompleto)
         {
             this.obtenerMovimientosSobreArticulo = obtenerMovimientosSobreArticulo;
             this.obtenerArticulosConMovimientosEntreFechas = obtenerArticulosConMovimientosEntreFechas;
             this.obtenerResumenCantidadesMovidas = obtenerResumenCantidadesMovidas;
             this.obtenerMovimientosDeArticuloCompleto = obtenerMovimientosDeArticuloCompleto;
+            this.obtenerArticulosConMovimientosEntreFechasCompleto = obtenerArticulosConMovimientosEntreFechasCompleto;
         }
 
 
@@ -73,6 +76,7 @@ namespace ApiRest.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        // Metodo para obtener todos los movimientos de un articulo y poder hacer el paginado en el front
         public ActionResult<IEnumerable<MovimientoDTO>> ObtenerTodosLosMovimientos(int idArticulo, string tipoMovimientoNombre)
         {
             try
@@ -108,7 +112,7 @@ namespace ApiRest.Controllers
         /// <param name="fchFinal">Fecha final</param>
         /// <param name="pagina">Pagina</param>
         /// <returns>Retorna una lista de artículos que han estado involucrados en movimientos entre las dos fechas indicadas</returns>
-        [Route("MovimientosEntreFechas/{fechaInicial}/{fechaFinal}")]
+        [Route("MovimientosEntreFechas/{fechaInicial}/{fechaFinal}/{pagina}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -122,6 +126,45 @@ namespace ApiRest.Controllers
                 DateTime fchFinal = DateTime.Parse(fechaFinal);
                 if (fchFinal == DateTime.MinValue || fchFinal == DateTime.MinValue ) throw new Exception("Las fechas no son válidas");
                 IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechas.ObtenerArticulosConMovimientosEntreFechas(fchInicial, fchFinal, pagina);
+                if (listaDeDTO.Count() > 0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (ArticuloNuloException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(500, "Algo salió mal");
+            }
+        }
+        // Metodo para obtener TODOS los articulos con movimiento entre fechas y poder hacer el paginado en el front
+        /// <summary>
+        /// RF-04 b - Obtiene los artículos que han tenido movimientos en un rango de fechas
+        /// </summary>
+        /// <param name="fchInicial">Fecha inicial</param>
+        /// <param name="fchFinal">Fecha final</param>
+        /// <param name="pagina">Pagina</param>
+        /// <returns>Retorna una lista de artículos que han estado involucrados en movimientos entre las dos fechas indicadas</returns>
+        [Route("MovimientosEntreFechasCompleto/{fechaInicial}/{fechaFinal}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IEnumerable<ArticuloDTO>> ObtenerMovimientosEntreFechasCompleto(string fechaInicial, string fechaFinal)
+        {
+            try
+            {
+                DateTime fchInicial = DateTime.Parse(fechaInicial);
+                DateTime fchFinal = DateTime.Parse(fechaFinal);
+                IEnumerable<ArticuloDTO> listaDeDTO = obtenerArticulosConMovimientosEntreFechasCompleto.ObtenerArticulosConMovimientosEntreFechasCompleto(fchInicial, fchFinal);
                 if (listaDeDTO.Count() > 0)
                 {
                     return Ok(listaDeDTO);

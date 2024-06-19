@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,25 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
                 //Distinct ignora los duplicados, mismo funcionamiento que sql
                 return movimientos;
                     
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechasCompleto(DateTime fchInicial, DateTime fchFinal)
+        {
+            try
+            {
+                IEnumerable<Articulo> movimientos = this._context.Movimientos
+                                                    .Include(m => m.Articulo)
+                                                    .Where(m => m.Fecha >= fchInicial && m.Fecha <= fchFinal)
+                                                    .ToList()
+                                                    .Select(m => m.Articulo)
+                                                     .Distinct();
+                return movimientos;
+
             }
             catch (Exception e)
             {

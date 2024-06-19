@@ -12,5 +12,6 @@ namespace Tienda.LogicaNegocio.InterfacesRepositorio
         public IEnumerable<Movimiento> ObtenerMovimientos(int idArticulo, string tipoMovimiento, int pagina, int size);
         public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechas(DateTime fchInicial, DateTime fchFinal, int pag, int size);
         public IEnumerable<Movimiento> ObtenerMovimientosDeArticuloCompleto(int idArticulo, string tipoMovimientoCompleto);
+        public IEnumerable<Articulo> ObtenerArticulosConMovimientosEntreFechasCompleto(DateTime fchInicial, DateTime fchFinal);
     }
 }
