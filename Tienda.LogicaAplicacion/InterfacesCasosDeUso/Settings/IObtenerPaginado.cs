@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tienda.LogicaAplicacion.InterfacesCasosDeUso.Settings
 {
-    public interface IActualizarSetting
+    public interface IObtenerPaginado
     {
-
-        public void ActualizarSetting(string nombre, double valor);
+        public double obtenerPaginado();
     }
 }
