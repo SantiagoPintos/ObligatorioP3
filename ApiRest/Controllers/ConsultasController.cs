@@ -17,13 +17,16 @@ namespace ApiRest.Controllers
         private IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo;
         private IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas;
         private IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas;
+        private IObtenerMovimientosDeArticuloCompleto obtenerMovimientosDeArticuloCompleto;
         public ConsultasController(IObtenerMovimientosSobreArticulo obtenerMovimientosSobreArticulo,
                                     IObtenerArticulosConMovimientosEntreFechas obtenerArticulosConMovimientosEntreFechas,
-                                    IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas)
+                                    IObtenerResumenCantidadesMovidas obtenerResumenCantidadesMovidas,
+                                    IObtenerMovimientosDeArticuloCompleto obtenerMovimientosDeArticuloCompleto)
         {
             this.obtenerMovimientosSobreArticulo = obtenerMovimientosSobreArticulo;
             this.obtenerArticulosConMovimientosEntreFechas = obtenerArticulosConMovimientosEntreFechas;
             this.obtenerResumenCantidadesMovidas = obtenerResumenCantidadesMovidas;
+            this.obtenerMovimientosDeArticuloCompleto = obtenerMovimientosDeArticuloCompleto;
         }
 
 
@@ -63,6 +66,39 @@ namespace ApiRest.Controllers
                 return StatusCode(500, "Algo salió mal");
             }
         }
+
+        [Route("MovimientosDeArticulo/{idArticulo}/{tipoMovimientoNombre}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IEnumerable<MovimientoDTO>> ObtenerTodosLosMovimientos(int idArticulo, string tipoMovimientoNombre)
+        {
+            try
+            {
+                IEnumerable<MovimientoDTO> listaDeDTO = obtenerMovimientosDeArticuloCompleto.ObtenerMovimientosDeArticuloCompleto(idArticulo, tipoMovimientoNombre);
+                if (listaDeDTO.Count() > 0)
+                {
+                    return Ok(listaDeDTO);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (MovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(500, "Algo salió mal");
+            }
+        }
+
+
+
 
 
         /// <summary>
