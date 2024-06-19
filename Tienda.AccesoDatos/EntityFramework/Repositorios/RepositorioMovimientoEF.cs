@@ -99,6 +99,27 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
             }   
         }
 
+
+        public IEnumerable<Movimiento> ObtenerMovimientosDeArticuloCompleto(int idArticulo, string tipoMovimientoNombre)
+        {
+            try
+            {
+                IEnumerable<Movimiento> movimientos = this._context.Movimientos
+                    .Include(m => m.TipoMovimiento)
+                    .Include(m => m.Articulo)
+                    .Where(m => m.Articulo.Id == idArticulo && m.TipoMovimiento.Nombre == tipoMovimientoNombre)
+                    .OrderByDescending(m => m.Fecha)
+                    .ThenBy(m => m.Cantidad)
+                    .ToList();
+
+                return movimientos;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public bool Remove(Movimiento aBorrar)
         {
             throw new NotImplementedException();
