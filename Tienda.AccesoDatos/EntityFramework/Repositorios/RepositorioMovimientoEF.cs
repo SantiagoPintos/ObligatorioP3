@@ -22,7 +22,7 @@ namespace Tienda.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
-                aAgregar.EsValido();
+                
                 aAgregar.TipoMovimiento.EsValido();
                 this._context.Entry(aAgregar.TipoMovimiento).State = EntityState.Unchanged;
                 this._context.Entry(aAgregar.Articulo).State = EntityState.Unchanged;

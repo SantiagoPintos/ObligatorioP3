@@ -8,6 +8,7 @@ using Tienda.LogicaAplicacion.InterfacesCasosDeUso.Movimiento;
 using Tienda.LogicaAplicacion.Mappers;
 using Tienda.LogicaNegocio.Excepciones.Movimiento;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
+using Tienda.LogicaNegocio.Entidades;
 
 namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
 {
@@ -36,12 +37,14 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
             if (this.repositorioUsuario.EncontrarPorEmail(movimiento.Usuario) == null) throw new MovimientoNoValidoException("El usuario no existe");
             if (this.repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") < movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
             if (this.repositorioTipoMovimiento.FindByName(movimiento.TipoMovimiento.Nombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
+            Tienda.LogicaNegocio.Entidades.Movimiento movimientoEntidad = MovimientoStockMapperDTO.FromDto(movimiento);
+            movimientoEntidad.EsValido();
             //si es una salida de stock 
-            if (movimiento.TipoMovimiento.Signo == LogicaNegocio.Enums.SignoTipoMovimiento.Reduccion) movimiento.Cantidad *= -1;
+            if (movimientoEntidad.TipoMovimiento.Signo == LogicaNegocio.Enums.SignoTipoMovimiento.Reduccion) movimientoEntidad.Cantidad *= -1;
             //Por letra se debe usar fecha del sistema aunque se reciba desde el front
             movimiento.Fecha = DateTime.Now;
 
-            this._repositorioMovimiento.Add(MovimientoStockMapperDTO.FromDto(movimiento));
+            this._repositorioMovimiento.Add(movimientoEntidad);
         }
     }
 }
