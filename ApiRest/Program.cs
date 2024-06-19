@@ -1,7 +1,6 @@
 using Tienda.AccesoDatos.EntityFramework.Repositorios;
 using Tienda.LogicaAplicacion.CasosDeUso.Articulo;
 using Tienda.LogicaAplicacion.CasosDeUso.Cliente;
-using Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock;
 using Tienda.LogicaAplicacion.CasosDeUso.Pedido;
 using Tienda.LogicaAplicacion.CasosDeUso.Settings;
 using Tienda.LogicaAplicacion.CasosDeUso.TipoMovimiento;

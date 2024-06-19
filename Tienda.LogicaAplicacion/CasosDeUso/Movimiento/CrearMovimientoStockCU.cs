@@ -10,7 +10,7 @@ using Tienda.LogicaNegocio.Excepciones.Movimiento;
 using Tienda.LogicaNegocio.InterfacesRepositorio;
 using Tienda.LogicaNegocio.Entidades;
 
-namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
+namespace Tienda.LogicaAplicacion.CasosDeUso.Movimiento
 {
     public class CrearMovimientoStockCU : ICreateMovimientoStock
     {
@@ -19,13 +19,13 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
         private IRepositorioUsuario repositorioUsuario;
         private IRepositorioSettings repositorioSettings;
         private IRepositorioTipoMovimiento repositorioTipoMovimiento;
-        public CrearMovimientoStockCU(IRepositorioMovimiento repositorioMovimiento, 
-                                      IRepositorioArticulo repositorioArticulo, 
-                                      IRepositorioUsuario repositorioUsuario, 
+        public CrearMovimientoStockCU(IRepositorioMovimiento repositorioMovimiento,
+                                      IRepositorioArticulo repositorioArticulo,
+                                      IRepositorioUsuario repositorioUsuario,
                                       IRepositorioSettings repositorioSettings,
                                       IRepositorioTipoMovimiento repositorioTipoMovimiento)
         {
-            this._repositorioMovimiento = repositorioMovimiento;
+            _repositorioMovimiento = repositorioMovimiento;
             this.repositorioArticulo = repositorioArticulo;
             this.repositorioUsuario = repositorioUsuario;
             this.repositorioSettings = repositorioSettings;
@@ -33,18 +33,18 @@ namespace Tienda.LogicaAplicacion.CasosDeUso.MovimientoStock
         }
         public void CreateMovimientoStock(MovimientoDTO movimiento)
         {
-            if (this.repositorioArticulo.EncontrarPorId(movimiento.Articulo.Id) == null) throw new MovimientoNoValidoException("El articulo no existe");
-            if (this.repositorioUsuario.EncontrarPorEmail(movimiento.Usuario) == null) throw new MovimientoNoValidoException("El usuario no existe");
-            if (this.repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") < movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
-            if (this.repositorioTipoMovimiento.FindByName(movimiento.TipoMovimiento.Nombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
-            Tienda.LogicaNegocio.Entidades.Movimiento movimientoEntidad = MovimientoStockMapperDTO.FromDto(movimiento);
+            if (repositorioArticulo.EncontrarPorId(movimiento.Articulo.Id) == null) throw new MovimientoNoValidoException("El articulo no existe");
+            if (repositorioUsuario.EncontrarPorEmail(movimiento.Usuario) == null) throw new MovimientoNoValidoException("El usuario no existe");
+            if (repositorioSettings.GetSettingValueByName("TOPEMOVIMIENTOS") < movimiento.Cantidad) throw new MovimientoNoValidoException("La cantidad supera el tope de movimientos");
+            if (repositorioTipoMovimiento.FindByName(movimiento.TipoMovimiento.Nombre) == null) throw new MovimientoNoValidoException("El tipo de movimiento no existe");
+            LogicaNegocio.Entidades.Movimiento movimientoEntidad = MovimientoStockMapperDTO.FromDto(movimiento);
             movimientoEntidad.EsValido();
             //si es una salida de stock 
             if (movimientoEntidad.TipoMovimiento.Signo == LogicaNegocio.Enums.SignoTipoMovimiento.Reduccion) movimientoEntidad.Cantidad *= -1;
             //Por letra se debe usar fecha del sistema aunque se reciba desde el front
             movimiento.Fecha = DateTime.Now;
 
-            this._repositorioMovimiento.Add(movimientoEntidad);
+            _repositorioMovimiento.Add(movimientoEntidad);
         }
     }
 }
