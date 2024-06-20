@@ -17,6 +17,11 @@ namespace ApiRest.Controllers
             _login = login;
         }
         // POST api/<UsuarioController>
+        /// <summary>
+        /// Login de usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
